@@ -4,13 +4,18 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css">    
-    <script src="./src/assets/js/game.js"></script>
+    <link rel="stylesheet" href="./assets/css/styles.css"> 
+    <script src="./assets/js/models/movable-objects.class.js"></script>  
+    <script src="./assets/js/models/character.class.js"></script>   
+    <script src="./assets/js/models/chicken.class.js"></script> 
+    <script src="./assets/js/models/world.class.js"></script>   
+    <script src="./assets/js/game.js"></script>
     <title>El Pollo Locco</title>
   </head>
-  <body>
-    <div class="wrapper">
-      <canvas width="720" height="480">
+  <body onload="init()">
+    <div class="wrapper w-full p4 flex flex-col items-center justify-center">
+      <h1 class="text-2xl text-blue-300">Hallo</h1>
+      <canvas id="canvas" width="720" height="480" class="bg-gray-900 flex"></canvas>
       </canvas>
     </div>
 
