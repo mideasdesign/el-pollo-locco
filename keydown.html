@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>El Pollo Loco</title>
+    <link rel="stylesheet" href="./assets/css/styles.css"> 
+    <script src="./assets/js/models/keydown.js"></script>
+    <title>El Pollo Locco</title>
+  </head>
+  <body class="mx-auto my-auto bg-gray-100">
+    <div class="max-w-md px-8 py-4 my-20 bg-white rounded-lg shadow-lg">
+      <div class="flex justify-center mt-16">
+        <div
+          class="flex items-center justify-center object-cover w-20 h-20 text-3xl bg-white border-2 border-indigo-500 rounded-full"
+          id="keyCodeLarge"
+        ></div>
+      </div>
+      <div>
+        <p class="text-gray-600" id="info">Press any key to see the magic 🪄</p>
+        <p class="hidden mt-4 text-gray-600">key: <span id="key"></span></p>
+        <p class="hidden mt-2 text-gray-600">code: <span id="code"></span></p>
+        <p class="hidden mt-2 text-gray-600">
+          keyCode: <span id="keyCode"></span>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
