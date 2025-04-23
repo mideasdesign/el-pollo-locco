@@ -1,16 +1,7 @@
-class keyboard {
-    left;
-    right;
-    up;
-    down;
-    spacebar;
-
-    constructor(){
-        this.left = left;
-        this.right = right;
-        this.spacebar = spacebar;
-    }
-    walkLeft(ml){
-
-    }
-}
+class Keyboard {
+    left = false;
+    right = false;
+    up = false;
+    down = false;
+    space = false;
+} 
