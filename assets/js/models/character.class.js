@@ -5,7 +5,16 @@ class Character extends MovableObject{
     height = 300;
 
     constructor(){
-        super().loadImage('assets/images/2_character_pepe/1_idle/idle/I-1.png');
+        super().loadImage('assets/images/2_character_pepe/2_walk/W-21.png');
+        this.loadImages([
+
+            'assets/images/2_character_pepe/2_walk/W-21.png',
+            'assets/images/2_character_pepe/2_walk/W-22.png',
+            'assets/images/2_character_pepe/2_walk/W-23.png',
+            'assets/images/2_character_pepe/2_walk/W-24.png',
+            'assets/images/2_character_pepe/2_walk/W-25.png',
+            'assets/images/2_character_pepe/2_walk/W-26.png'
+        ]);
     }
     jump(){
 
