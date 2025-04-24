@@ -13,12 +13,25 @@ class World {
         new BackgroundObject('assets/images/5_background/layers/3_third_layer/1.png', 0),
         new BackgroundObject('assets/images/5_background/layers/2_second_layer/1.png', 0),
         new BackgroundObject('assets/images/5_background/layers/1_first_layer/1.png', 0),
+        new BackgroundObject('assets/images/5_background/layers/air.png', 719),
+        new BackgroundObject('assets/images/5_background/layers/3_third_layer/2.png', 719),
+        new BackgroundObject('assets/images/5_background/layers/2_second_layer/2.png', 719),
+        new BackgroundObject('assets/images/5_background/layers/1_first_layer/2.png', 719),
+        new BackgroundObject('assets/images/5_background/layers/air.png', 719 * 2),
+        new BackgroundObject('assets/images/5_background/layers/3_third_layer/1.png', 719 * 2),
+        new BackgroundObject('assets/images/5_background/layers/2_second_layer/1.png', 719 *2),
+        new BackgroundObject('assets/images/5_background/layers/1_first_layer/1.png', 719 * 2),
+        new BackgroundObject('assets/images/5_background/layers/air.png', 719 * 3),
+        new BackgroundObject('assets/images/5_background/layers/3_third_layer/2.png', 719 * 3),
+        new BackgroundObject('assets/images/5_background/layers/2_second_layer/2.png', 719 * 3),
+        new BackgroundObject('assets/images/5_background/layers/1_first_layer/2.png', 719 *3),
+   
         
     ];
     canvas;
     ctx;
     keyboard;
-    cameraX = -100;
+    cameraX = 0;
 
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d');
@@ -40,7 +53,6 @@ class World {
         this.addObjectsToMap(this.enemies);
         this.addObjectsToMap(this.clouds);
         this.ctx.translate(-this.cameraX, 0);
-       
 
         //draw() wird immer wieder aufgerufen
         let self = this;
@@ -49,6 +61,7 @@ class World {
         });
 
     }
+
     addObjectsToMap(objects){
         objects.forEach(o => {
             this.addToMap(o);
@@ -60,6 +73,7 @@ class World {
             this.ctx.translate(mo.width, 0);
             this.ctx.scale(-1, 1);
             mo.x = mo.x * -1;
+
         }
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
         if (mo.otherDirection) {
