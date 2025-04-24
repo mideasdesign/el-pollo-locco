@@ -7,6 +7,18 @@ class MovableObject {
     imageCache = {};
     currentImage = 0;
     speed = 0.15;
+    speedY = 0;
+    acceleration = 1;
+
+    applyGravity(){
+        setInterval(() =>{
+            if (this.y < 172) {
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            };
+        }, 1000 / 25);
+    }
+
     playAnimation(images){
         let i = this.currentImage % this.images_walking.length;
         let path = images[i];
