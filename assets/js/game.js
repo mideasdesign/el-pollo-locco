@@ -7,7 +7,7 @@ function init(){
     world = new World(canvas, keyboard);
    
 }
-document.addEventListener('keydown', (e) => {
+window.addEventListener('keydown', (e) => {
     console.log(e);
   if (e.keyCode == 37) {
         keyboard.left = true;
@@ -25,7 +25,7 @@ document.addEventListener('keydown', (e) => {
         keyboard.space = true;
     }
 });
-document.addEventListener('keyup', (e) => {
+window.addEventListener('keyup', (e) => {
     console.log(e);
   if (e.keyCode == 37) {
         keyboard.left = false;
