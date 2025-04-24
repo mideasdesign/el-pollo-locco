@@ -1,8 +1,8 @@
 class Character extends MovableObject{
     x = 160;
-    y = 130;
-    width = 150;
-    height = 300;
+    y = 180;
+    width = 100;
+    height = 250;
     speed = 16;
     otherDirection = false;
     images_walking = [
@@ -24,7 +24,7 @@ class Character extends MovableObject{
     // i = 0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5,0
     animate(){
         setInterval(() => {
-            if (this.world.keyboard.right) {    
+            if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {    
                 this.x += this.speed;
   
                 this.otherDirection = false;
@@ -38,10 +38,7 @@ class Character extends MovableObject{
 
         setInterval(() => {
             if (this.world.keyboard.right || this.world.keyboard.left) {    
-            let i = this.currentImage % this.images_walking.length;
-            let path = this.images_walking[i];
-            this.img = this.imageCache[path];
-            this.currentImage++;
+                this.playAnimation(this.images_walking);
             } 
         }, 60);  
     }
