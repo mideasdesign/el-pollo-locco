@@ -8,15 +8,18 @@ class MovableObject {
     currentImage = 0;
     speed = 0.15;
     speedY = 0;
-    acceleration = 1;
+    acceleration = 2;
 
     applyGravity(){
         setInterval(() =>{
-            if (this.y < 172) {
+            if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             };
-        }, 1000 / 25);
+        }, 1000 / 24);
+    }
+    isAboveGround (){
+        return this.y < 180;
     }
 
     playAnimation(images){
@@ -42,10 +45,17 @@ class MovableObject {
             this.imageCache[path] = img;
         });
     }
+    moveRight(){
+        this.x += this.speed;
+        this.otherDirection = false;
+    };
+
     moveLeft(){
-        setInterval(() => {
-            this.x -= this.speed;
-        }, 1000 / 60);
+        this.x -= this.speed;
+    };
+
+    jump(){
+        this.speedY = 22;
     }
 
 }
