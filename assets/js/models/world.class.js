@@ -5,9 +5,11 @@ class World {
         new Chicken(),
         new Chicken(),
     ];
+    
     clouds = [
         new Clouds(),
     ];
+    
    backgroundObjects = [
         new BackgroundObject('assets/images/5_background/layers/air.png', 0),
         new BackgroundObject('assets/images/5_background/layers/3_third_layer/1.png', 0),
@@ -21,8 +23,7 @@ class World {
         new BackgroundObject('assets/images/5_background/layers/3_third_layer/1.png', 720 * 2),
         new BackgroundObject('assets/images/5_background/layers/2_second_layer/1.png', 720 *2),
         new BackgroundObject('assets/images/5_background/layers/1_first_layer/1.png', 720 * 2),
-   
-        
+
     ];
     canvas;
     ctx;
@@ -36,11 +37,24 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-    }
+        this.checkCollisions();
+    };
 
     setWorld(){
         this.character.world = this;
-    }
+    };
+
+    checkCollisions(){
+        setInterval(() => {
+            this.level.enemies.forEach((enemy) => {
+                if (this.character.isColliding(enemy)) {
+                    this.character.energyLevel -= 4;
+                    console.log('energy Level of Pepe', this.character.energyLevel);
+                    
+                }
+            });
+        }, 500);
+    };
 
     draw(){
         this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height);
@@ -50,31 +64,28 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
         this.ctx.translate(-this.cameraX, 0);
-
         //draw() wird immer wieder aufgerufen
         let self = this;
         requestAnimationFrame(function(){
             self.draw();
         });
-
     }
 
     addObjectsToMap(objects){
         objects.forEach(o => {
             this.addToMap(o);
         });
-    }
+    };
+
     addToMap(mo){
         if (mo.otherDirection) {
             mo.changeDirection(this.ctx);
         }
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
-
         if (mo.otherDirection) {
             mo.x = mo.x * -1;
             this.ctx.restore();
         }
-
     }
 }

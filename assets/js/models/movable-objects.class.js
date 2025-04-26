@@ -9,6 +9,9 @@ class MovableObject {
     speed = 0.15;
     speedY = 0;
     acceleration = 2;
+    offsetX = 0;
+    offsetY = 0;
+    energyLevel = 100
 
     applyGravity(){
         setInterval(() =>{
@@ -38,11 +41,13 @@ class MovableObject {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
     drawFrame(ctx){
-        ctx.beginPath();
-        ctx.lineWidth = "2";
-        ctx.strokeStyle = "blue";
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.stroke();
+        if (this instanceof Character || this instanceof Chicken){
+            ctx.beginPath();
+            ctx.lineWidth = "2";
+            ctx.strokeStyle = "blue";
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
     }
     changeDirection(ctx){
         ctx.save();
@@ -74,6 +79,9 @@ class MovableObject {
 
     jump(){
         this.speedY = 22;
+    }
+    isColliding(mo) {
+        return  (this.x + this.width) >= mo.x && this.x <= (mo.x + mo.width) && (this.y + this.offsetY + this.height) >= mo.y && (this.y + this.offsetY) <= (mo.y + mo.height)
     }
 
 }
