@@ -10,6 +10,7 @@ class World {
         new Clouds(),
     ];
     
+    
    backgroundObjects = [
         new BackgroundObject('assets/images/5_background/layers/air.png', 0),
         new BackgroundObject('assets/images/5_background/layers/3_third_layer/1.png', 0),

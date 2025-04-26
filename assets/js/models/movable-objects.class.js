@@ -22,6 +22,7 @@ class MovableObject extends DrawableObject {
             };
         }, 1000 / 24);
     }
+    
     isAboveGround (){
         return this.y < 180;
     }
@@ -32,15 +33,7 @@ class MovableObject extends DrawableObject {
         this.img = this.imageCache[path];
         this.currentImage++;
     }
-/*
-    loadImage(path){
-        this.img = new Image();
-        this.img.src = path;
-    };
 
-     draw(ctx){
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    } */
     drawFrame(ctx){
         if (this instanceof Character || this instanceof Chicken){
             ctx.beginPath();
@@ -50,6 +43,7 @@ class MovableObject extends DrawableObject {
             ctx.stroke();
         }
     }
+
     changeDirection(ctx){
         ctx.save();
         ctx.translate(this.width, 0);
@@ -57,18 +51,7 @@ class MovableObject extends DrawableObject {
         this.x = this.x * -1;
 
     }
-    /**
-     * 
-     * @param { Array
-     * } arr - ['assets/images/img1.png, assets/images/img1.png, ....']
- 
-    loadImages(arr){
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-    }    */
+
     moveRight(){
         this.x += this.speed;
         this.otherDirection = false;
@@ -81,9 +64,11 @@ class MovableObject extends DrawableObject {
     jump(){
         this.speedY = 22;
     }
+
     isColliding(mo) {
         return  (this.x + this.width) >= mo.x && this.x <= (mo.x + mo.width) && (this.y + this.offsetY + this.height) >= mo.y && (this.y + this.offsetY) <= (mo.y + mo.height)
     }
+
     hit(){
         this.energyLevel -= 4;
         if (this.energyLevel < 0) {
