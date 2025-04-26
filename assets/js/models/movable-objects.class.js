@@ -1,4 +1,4 @@
-class MovableObject {
+class MovableObject extends DrawableObject {
     x = 100;
     y = 100;
     img;
@@ -22,7 +22,6 @@ class MovableObject {
             };
         }, 1000 / 24);
     }
-    
     isAboveGround (){
         return this.y < 180;
     }
@@ -33,16 +32,15 @@ class MovableObject {
         this.img = this.imageCache[path];
         this.currentImage++;
     }
-
+/*
     loadImage(path){
         this.img = new Image();
         this.img.src = path;
     };
 
-    draw(ctx){
+     draw(ctx){
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
-
+    } */
     drawFrame(ctx){
         if (this instanceof Character || this instanceof Chicken){
             ctx.beginPath();
@@ -63,15 +61,14 @@ class MovableObject {
      * 
      * @param { Array
      * } arr - ['assets/images/img1.png, assets/images/img1.png, ....']
-     */
+ 
     loadImages(arr){
         arr.forEach((path) => {
             let img = new Image();
             img.src = path;
             this.imageCache[path] = img;
         });
-    }
-
+    }    */
     moveRight(){
         this.x += this.speed;
         this.otherDirection = false;
@@ -84,11 +81,9 @@ class MovableObject {
     jump(){
         this.speedY = 22;
     }
-
     isColliding(mo) {
         return  (this.x + this.width) >= mo.x && this.x <= (mo.x + mo.width) && (this.y + this.offsetY + this.height) >= mo.y && (this.y + this.offsetY) <= (mo.y + mo.height)
     }
-
     hit(){
         this.energyLevel -= 4;
         if (this.energyLevel < 0) {
@@ -97,7 +92,7 @@ class MovableObject {
             this.lastHit = new Date().getTime();
         }
     }
-
+    
     ishurt(){
         let timespassed = new Date().getTime() - this.lastHit;
         timespassed = timespassed / 1000;
