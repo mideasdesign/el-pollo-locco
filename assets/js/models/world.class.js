@@ -48,7 +48,7 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
-                    this.character.energyLevel -= 4;
+                    this.character.hit();
                     console.log('energy Level of Pepe', this.character.energyLevel);
                     
                 }

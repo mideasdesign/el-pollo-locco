@@ -83,5 +83,14 @@ class MovableObject {
     isColliding(mo) {
         return  (this.x + this.width) >= mo.x && this.x <= (mo.x + mo.width) && (this.y + this.offsetY + this.height) >= mo.y && (this.y + this.offsetY) <= (mo.y + mo.height)
     }
+    hit(){
+        this.energyLevel -= 4;
+        if (this.energyLevel > 0) {
+            this.energyLevel = 0;
+        }
+    }
+    isDead(){
+        return this.energyLevel == 0;
+    }
 
 }
