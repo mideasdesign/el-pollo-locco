@@ -10,14 +10,21 @@ class StatusBar extends DrawableObject{
         'assets/images/7_statusbars/1_statusbar/2_statusbar_health/orange/100.png',
     ]
     constructor(){
+        super();
         this.loadImages(this.bar_images);
-        let path = this.bar_images[this.resolveImageIndex()];
-        this.img = this.imageCache[path];
-   }
+        this.x = 15;
+        this.y = 15;
+        this.width = 200;
+        this.height = 50;
+        this.setPercentage(100);
+   };
 
    setPercentage(percentage){
     this.percentage = percentage;
-   }
+    let path = this.bar_images[this.resolveImageIndex()];
+    this.img = this.imageCache[path];
+
+   };
 
    resolveImageIndex(){
     if (this.percentage == 100) {
@@ -38,5 +45,5 @@ class StatusBar extends DrawableObject{
     else {
         return 0;
     }
-   }
+   };
 }

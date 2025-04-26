@@ -51,7 +51,7 @@ class Character extends MovableObject{
         this.loadImages(this.images_dead);
         this.applyGravity();
         this.animate();
-    }
+    };
 
     // let i = 0 % 6; => 0, Rest 0  -  let i = 1 % 6; 0 Rest 1  -  let i = 2 % 6; 0 Rest 2
     // i = 0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5,0
@@ -86,8 +86,9 @@ class Character extends MovableObject{
                 }
             }
         }, 60);  
-    }
+    };
+    
     jump(){
         this.speedY = 30;
-    }
+    };
 }

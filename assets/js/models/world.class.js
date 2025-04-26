@@ -9,7 +9,7 @@ class World {
     clouds = [
         new Clouds(),
     ];
-    
+    statusBar = new StatusBar();
     
    backgroundObjects = [
         new BackgroundObject('assets/images/5_background/layers/air.png', 0),
@@ -24,7 +24,10 @@ class World {
         new BackgroundObject('assets/images/5_background/layers/3_third_layer/1.png', 720 * 2),
         new BackgroundObject('assets/images/5_background/layers/2_second_layer/1.png', 720 *2),
         new BackgroundObject('assets/images/5_background/layers/1_first_layer/1.png', 720 * 2),
-
+        new BackgroundObject('assets/images/5_background/layers/air.png', 720 * 3),
+        new BackgroundObject('assets/images/5_background/layers/3_third_layer/1.png', 720 * 3),
+        new BackgroundObject('assets/images/5_background/layers/2_second_layer/1.png', 720 *3),
+        new BackgroundObject('assets/images/5_background/layers/1_first_layer/1.png', 720 * 3),
     ];
     canvas;
     ctx;
@@ -50,8 +53,7 @@ class World {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
                     this.character.hit();
-                    console.log('energy Level of Pepe', this.character.energyLevel);
-                    
+                    this.statusBar.setPercentage(this.character.energyLevel);
                 }
             });
         }, 500);
@@ -59,8 +61,12 @@ class World {
 
     draw(){
         this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height);
+        
         this.ctx.translate(this.cameraX, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
+        this.ctx.translate(-this.cameraX, 0);
+        this.addToMap(this.statusBar);
+        this.ctx.translate(this.cameraX, 0);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.clouds);
