@@ -11,7 +11,8 @@ class MovableObject {
     acceleration = 2;
     offsetX = 0;
     offsetY = 0;
-    energyLevel = 100
+    energyLevel = 100;
+    lastHit = 0;
 
     applyGravity(){
         setInterval(() =>{
@@ -21,12 +22,13 @@ class MovableObject {
             };
         }, 1000 / 24);
     }
+    
     isAboveGround (){
         return this.y < 180;
     }
 
     playAnimation(images){
-        let i = this.currentImage % this.images_walking.length;
+        let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
@@ -40,6 +42,7 @@ class MovableObject {
     draw(ctx){
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
+
     drawFrame(ctx){
         if (this instanceof Character || this instanceof Chicken){
             ctx.beginPath();
@@ -68,6 +71,7 @@ class MovableObject {
             this.imageCache[path] = img;
         });
     }
+
     moveRight(){
         this.x += this.speed;
         this.otherDirection = false;
@@ -80,15 +84,26 @@ class MovableObject {
     jump(){
         this.speedY = 22;
     }
+
     isColliding(mo) {
         return  (this.x + this.width) >= mo.x && this.x <= (mo.x + mo.width) && (this.y + this.offsetY + this.height) >= mo.y && (this.y + this.offsetY) <= (mo.y + mo.height)
     }
+
     hit(){
         this.energyLevel -= 4;
-        if (this.energyLevel > 0) {
+        if (this.energyLevel < 0) {
             this.energyLevel = 0;
+        }else{
+            this.lastHit = new Date().getTime();
         }
     }
+
+    ishurt(){
+        let timespassed = new Date().getTime() - this.lastHit;
+        timespassed = timespassed / 1000;
+        return timespassed < 0.5;
+    }
+
     isDead(){
         return this.energyLevel == 0;
     }
