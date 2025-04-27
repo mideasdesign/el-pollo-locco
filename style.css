@@ -1,1 +1,9 @@
 @import "tailwindcss";
+@theme{
+
+}
+.wrapper{
+    background-image: url('./assets/images/desert-background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+}

@@ -1,11 +1,13 @@
 class World {
   character = new Character();
   enemies = [new Chicken(), new Chicken(), new Chicken()];
-
+  statusbar = new StatusBar();
   clouds = [new Clouds()];
-  statusBar = new StatusBar();
+  healthBar = new HealthBar();
+  coinsBar = new CoinsBar();
+  bottleBar = new BottleBar();
+  bossBar = new BossBar();
   thowableObject = [];
-
   backgroundObjects = [
     new BackgroundObject("assets/images/5_background/layers/air.png", 0),
     new BackgroundObject("assets/images/5_background/layers/3_third_layer/1.png", 0),
@@ -38,7 +40,7 @@ class World {
     this.setWorld();
     this.checkCollisions();
     this.run();
-  }
+  };
 
   setWorld() {
     this.character.world = this;
@@ -47,7 +49,7 @@ class World {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
         this.character.hit();
-        this.statusBar.setPercentage(this.character.energyLevel);
+        this.healthBar.setPercentage(this.character.energyLevel);
       }
     });
   };
@@ -72,7 +74,10 @@ class World {
     this.ctx.translate(this.cameraX, 0);
     this.addObjectsToMap(this.level.backgroundObjects);
     this.ctx.translate(-this.cameraX, 0);
-    this.addToMap(this.statusBar);
+    this.addToMap(this.healthBar);
+    this.addToMap(this.bottleBar);
+    this.addToMap(this.coinsBar);
+    this.addToMap(this.bossBar);
     this.addObjectsToMap(this.thowableObject);
     this.ctx.translate(this.cameraX, 0);
     this.addToMap(this.character);  

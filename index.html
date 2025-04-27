@@ -6,11 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>El Pollo Loco</title>
     <link rel="stylesheet" href="./assets/css/styles.css"> 
-      <script src="./assets/js/models/drawable-objects.class.js"></script> 
+    <script src="./assets/js/models/drawable-objects.class.js"></script> 
     <script src="./assets/js/models/movable-objects.class.js"></script>     
+    <script src="./assets/js/models/throwable-objects.class.js"></script>    
     <script src="./assets/js/models/clouds.class.js"></script> 
     <script src="./assets/js/models/status-bar.class.js"></script> 
-    <script src="./assets/js/models/throwable-objects.class.js"></script>
+    <script src="./assets/js/models/health-bar.class.js"></script> 
+    <script src="./assets/js/models/coins-bar.class.js"></script> 
+    <script src="./assets/js/models/bottle-bar.class.js"></script> 
+    <script src="./assets/js/models/boss-bar.class.js"></script> 
     <script src="./assets/js/models/character.class.js"></script>   
     <script src="./assets/js/models/chicken.class.js"></script>
     <script src="./assets/js/models/keyboard.class.js"></script>   
@@ -25,8 +29,8 @@
     <title>El Pollo Locco</title>
   </head>
   <body onload="init()">
-    <div class="wrapper w-full p4 flex flex-col items-center justify-center">
-      <h1 class="text-2xl text-blue-300">El Pollo Loco</h1>
+    <div class="wrapper">
+      <h1 class="headline">El Pollo Loco</h1>
       <canvas id="canvas" width="720" height="480" class="bg-gray-900 flex"></canvas>
       </canvas>
     </div>
