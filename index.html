@@ -5,7 +5,7 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>El Pollo Loco</title>
-    <link rel="stylesheet" href="./assets/css/styles.css"> 
+    <link rel="stylesheet" href="./assets/css/styles.css">
     <script src="./assets/js/models/drawable-objects.class.js"></script> 
     <script src="./assets/js/models/movable-objects.class.js"></script>     
     <script src="./assets/js/models/throwable-objects.class.js"></script>    
@@ -23,25 +23,34 @@
     <script src="./assets/js/models/end-boss.class.js"></script>
     <script src="./assets/js/models/levels/level1.js"></script>
     <script src="./assets/js/models/world.class.js"></script>  
-
-   
-    <script src="./assets/js/game.js"></script>
-    <title>El Pollo Locco</title>
+    <script src="./assets/js/game.js" defer></script>
   </head>
+
   <body onload="init()">
-    <div class="wrapper">
+    <div id="start-screen" class="screen">
+<!--       <img src="./assets/images/9_intro_outro_screens/start/startscreen_1.png" id="start-image" class="start-image">  -->     
+
+ 
+    </div>
+
+    <div id="loading-screen" class="screen" style="display: none;">
+      <h2>Loading...</h2>
+    </div>
+
+    <div class="wrapper">      
       <h1 class="headline">El Pollo Loco</h1>
-      <canvas id="canvas" width="720" height="480" class="bg-gray-900 flex"></canvas>
-      </canvas>
-      <div>
-        <div class="touch-pan-left">
-          <button id="btn-left"> < </button> <button id="btn-right"> > </button>
-        </div>
+      <canvas id="canvas" width="720" height="480" style="display: none;"></canvas>     
+      <button id="start-button" onclick="startGame()">Start Game</button>
+      <div id="controls-box" style="display: none;">
         <div class="touch-pan-right">
           <button id="btn-jump"> < </button> <button id="btn-throw"> > </button>
         </div>
+          
+        <div class="touch-pan-right">
+          <button id="btn-jump"> < </button> <button id="btn-throw"> > </button>
+        </div>        
+      </div>
       </div>
     </div>
-
   </body>
 </html>

@@ -19,12 +19,20 @@
     background-image: url('../images/desert-background.jpg');
     background-position: center;
     background-repeat: no-repeat;
+    background-size: cover;
     height:100svh;
+    width: 100svw;
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+#start-button{
+  background-color:blue;
+  padding: 5px 8px;
+  font-size: 18px;
+}
+
 .headline{
 font-family:'Kablammo', sans-serif;
 font-size: 6rem;
@@ -34,8 +42,11 @@ text-shadow: 4px 3px 14px rgba(0,0,0,0.51);
 canvas {
   width: 100svb;
 }
+h1.headline{
+  display:none;
 }
-@media(width <= 480px){
+}
+@media(width < 480px){
   canvas {
     height: 100svh;
   }

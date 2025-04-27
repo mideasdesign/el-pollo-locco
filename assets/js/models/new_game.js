@@ -9,10 +9,6 @@ function init() {
 function startGame() {
     const startScreen = document.getElementById('start-screen');
     // Entferne das Startbild und den Button mit einer Ausblend-Animation
-    if (!startScreen) {
-        console.error('Start-Screen Element nicht gefunden!');
-        return;
-    }
     startScreen.style.animation = 'fadeOut 1s forwards';
 
     // Nach der Animation das Startscreen-Element ausblenden und das Laden starten
@@ -25,8 +21,6 @@ function startGame() {
             world = new World(canvas, keyboard);
             document.getElementById('loading-screen').style.display = 'none';
             document.getElementById('canvas').style.display = 'block';
-            document.getElementById('start-button').style.display = 'none';
-            document.getElementById('controls-box').style.display = 'block';
         }, 1000); // simuliertes kurzes Laden
     }, 1000);
 }
