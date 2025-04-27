@@ -14,7 +14,13 @@ class DrawableObject {
 
     draw(ctx){
         if (this.img && this.img.complete) {
-            ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+            try{
+                 ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+            }
+           catch(e){
+            console.log('ERror loading image', e);
+            console.log('Could not load image', this.img);
+           }
         }
     };
     drawFrame(ctx){
