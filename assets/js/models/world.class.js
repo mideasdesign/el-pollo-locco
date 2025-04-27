@@ -4,7 +4,7 @@ class World {
 
   clouds = [new Clouds()];
   statusBar = new StatusBar();
-  thowableObject = [new ThrowableObject()]
+  thowableObject = [];
 
   backgroundObjects = [
     new BackgroundObject("assets/images/5_background/layers/air.png", 0),
@@ -37,6 +37,7 @@ class World {
     this.draw();
     this.setWorld();
     this.checkCollisions();
+    this.run();
   }
 
   setWorld() {
@@ -49,12 +50,21 @@ class World {
         this.statusBar.setPercentage(this.character.energyLevel);
       }
     });
-  }
+  };
+
   run() {
     setInterval(() => {
       this.checkCollisions(); 
-    }, 200);
+      this.checkThrowableObject();
+    }, 150);
   };
+
+  checkThrowableObject(){
+    if (this.keyboard.d) {
+      let bottle = new ThrowableObject();
+      this.thowableObject.push(bottle);
+    }
+  }
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -63,11 +73,11 @@ class World {
     this.addObjectsToMap(this.level.backgroundObjects);
     this.ctx.translate(-this.cameraX, 0);
     this.addToMap(this.statusBar);
+    this.addObjectsToMap(this.thowableObject);
     this.ctx.translate(this.cameraX, 0);
     this.addToMap(this.character);  
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.clouds);    
-    this.addObjectsToMap(this.thowableObject);
     this.ctx.translate(-this.cameraX, 0);
   
     //draw() wird immer wieder aufgerufen
