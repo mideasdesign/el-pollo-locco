@@ -60,7 +60,7 @@ class World {
   };
 
   checkThrowableObject(){
-    if (this.keyboard.d) {
+    if (this.keyboard.t) {
       let bottle = new ThrowableObject();
       this.thowableObject.push(bottle);
     }
