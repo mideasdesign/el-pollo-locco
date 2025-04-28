@@ -8,28 +8,8 @@ class World {
   bottleBar = new BottleBar();
   bossBar = new BossBar();
   thowableObject = [];
-  backgroundObjects = [
-    new BackgroundObject("assets/images/5_background/layers/air.png", 0),
-    new BackgroundObject("assets/images/5_background/layers/3_third_layer/1.png", 0),
-    new BackgroundObject("assets/images/5_background/layers/2_second_layer/1.png", 0),
-    new BackgroundObject("assets/images/5_background/layers/1_first_layer/1.png", 0),
-    new BackgroundObject("assets/images/5_background/layers/air.png", 720),
-    new BackgroundObject("assets/images/5_background/layers/3_third_layer/2.png", 720),
-    new BackgroundObject("assets/images/5_background/layers/2_second_layer/2.png", 720),
-    new BackgroundObject("assets/images/5_background/layers/1_first_layer/2.png", 720),
-    new BackgroundObject("assets/images/5_background/layers/air.png", 720 * 2),
-    new BackgroundObject("assets/images/5_background/layers/3_third_layer/1.png", 720 * 2),
-    new BackgroundObject("assets/images/5_background/layers/2_second_layer/1.png", 720 * 2),
-    new BackgroundObject("assets/images/5_background/layers/1_first_layer/1.png", 720 * 2),
-    new BackgroundObject("assets/images/5_background/layers/air.png", 720 * 3),
-    new BackgroundObject("assets/images/5_background/layers/3_third_layer/1.png", 720 * 3),
-    new BackgroundObject("assets/images/5_background/layers/2_second_layer/1.png", 720 * 3),
-    new BackgroundObject("assets/images/5_background/layers/1_first_layer/1.png", 720 * 3),
-    new BackgroundObject("assets/images/5_background/layers/air.png", 720 * 4),
-    new BackgroundObject("assets/images/5_background/layers/3_third_layer/1.png", 720 * 4),
-    new BackgroundObject("assets/images/5_background/layers/2_second_layer/1.png", 720 * 4),
-    new BackgroundObject("assets/images/5_background/layers/1_first_layer/1.png", 720 * 4),
-  ];
+  backgroundObjects = [];
+  spawnedChickenPositions = [];
   canvas;
   ctx;
   keyboard;
@@ -53,7 +33,7 @@ class World {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
         this.character.hit();
-        this.healthBar.setPercentage(this.character.energyLevel);
+        this.statusBar.setPercentage(this.character.energyLevel);
       }
     });
   };
@@ -87,13 +67,15 @@ class World {
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.clouds);    
     this.ctx.translate(-this.cameraX, 0);
-  
+    this.spawnChickenIfNeeded();
+
+
     //draw() wird immer wieder aufgerufen
-    let self = this;
+    let self = this;    
     requestAnimationFrame(function () {
       self.draw();
     });
-  }
+  };
 
   addObjectsToMap(objects) {
     objects.forEach((o) => {
@@ -112,4 +94,24 @@ class World {
       this.ctx.restore();
     }
   }
+
+  
+  spawnChickenIfNeeded() {
+    const spawnEvery = 500;
+    const maxDistance = 3000;
+    const spawnPoints = [];
+
+    // Erzeuge einmal alle Spawn-Punkte
+    for (let i = spawnEvery; i <= maxDistance; i += spawnEvery) {
+        spawnPoints.push(i);
+    }
+
+    // Jetzt über alle Spawnpunkte drüber gehen
+    spawnPoints.forEach((point) => {
+        if (this.character.x >= point && !spawnedChickenPositions.includes(point)) {
+            this.level.enemies.push(new Chicken());
+            spawnedChickenPositions.push(point);
+        }
+    });
+}
 }
