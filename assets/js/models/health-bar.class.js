@@ -11,6 +11,10 @@ class HealthBar extends StatusBar {
     ];
     this.loadImages(this.images);
     this.img = this.imageCache[this.images[5]];
+    this.x = 20;  // ← HealthBar sitzt etwas weiter rechts
+    this.y = 10;
+    this.width = 150;
+    this.height = 40;
     this.setPercentage(100);
   }
 }

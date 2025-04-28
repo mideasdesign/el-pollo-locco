@@ -1,7 +1,6 @@
 class World {
   character = new Character();
   enemies = [new Chicken(), new Chicken(), new Chicken()];
-  statusbar = new StatusBar();
   clouds = [new Clouds()];
   healthBar = new HealthBar();
   coinsBar = new CoinsBar();
