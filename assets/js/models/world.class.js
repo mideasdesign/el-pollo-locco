@@ -4,6 +4,9 @@ class World {
 
   clouds = [new Clouds()];
   statusBar = new StatusBar();
+  coinsBar = new CoinsBar();
+  bottlesBar = new BottlesBar();
+  bossBar = new BossBar();
   thowableObject = [];
 
   backgroundObjects = [
@@ -73,6 +76,9 @@ class World {
     this.addObjectsToMap(this.level.backgroundObjects);
     this.ctx.translate(-this.cameraX, 0);
     this.addToMap(this.statusBar);
+    this.addToMap(this.coinsBar);
+    this.addToMap(this.bottlesBar);
+    this.addToMap(this.bossBar);
     this.addObjectsToMap(this.thowableObject);
     this.ctx.translate(this.cameraX, 0);
     this.addToMap(this.character);  

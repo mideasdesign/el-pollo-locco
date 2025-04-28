@@ -8,10 +8,14 @@
     <link rel="stylesheet" href="./assets/css/styles.css"> 
       <script src="./assets/js/models/drawable-objects.class.js"></script> 
     <script src="./assets/js/models/movable-objects.class.js"></script>     
-    <script src="./assets/js/models/clouds.class.js"></script> 
+
     <script src="./assets/js/models/status-bar.class.js"></script> 
+    <script src="./assets/js/models/coins-bar.class.js"></script> 
+    <script src="./assets/js/models/bottle-bar.class.js"></script> 
+    <script src="./assets/js/models/boss-bar.class.js"></script> 
     <script src="./assets/js/models/throwable-objects.class.js"></script>
-    <script src="./assets/js/models/character.class.js"></script>   
+    <script src="./assets/js/models/character.class.js"></script>     
+    <script src="./assets/js/models/clouds.class.js"></script>   
     <script src="./assets/js/models/chicken.class.js"></script>
     <script src="./assets/js/models/keyboard.class.js"></script>   
     <script src="./assets/js/models/background.class.js"></script>    
@@ -25,11 +29,26 @@
     <title>El Pollo Locco</title>
   </head>
   <body onload="init()">
-    <div class="wrapper w-full p4 flex flex-col items-center justify-center">
-      <h1 class="text-2xl text-blue-300">El Pollo Loco</h1>
-      <canvas id="canvas" width="720" height="480" class="bg-gray-900 flex"></canvas>
-      </canvas>
+    <div id="loading-screen" class="screen" style="display: none;">
+      <h2>Loading...</h2>
     </div>
-
+    <div class="wrapper">      
+      <h1 class="headline">El Pollo Loco</h1>
+      <button id="sound-button" onclick="toggleSound()" style="position:absolute; top:10px; right:10px; width:40px; height:40px;">
+        🔈
+        </button>
+      <canvas id="canvas" width="720" height="480" style="display: none;"></canvas>     
+      <button id="start-button" onclick="startGame()">Start Game</button>
+      <div id="controls-box" style="display: none;">
+        <div class="touch-pan-right">
+          <button id="btn-jump"> < </button> <button id="btn-throw"> > </button>
+        </div>
+          
+        <div class="touch-pan-right">
+          <button id="btn-jump"> < </button> <button id="btn-throw"> > </button>
+        </div>        
+      </div>
+      </div>
+    </div>
   </body>
 </html>
