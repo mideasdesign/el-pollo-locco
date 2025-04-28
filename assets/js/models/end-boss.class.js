@@ -1,7 +1,7 @@
 class Endboss extends MovableObject{ 
     width = 200;
     height = 450;
-    x = 1500;
+    x = 1800;
     y = 30;
     images_spawn = [
         'assets/images/4_enemie_boss_chicken/2_alert/G5.png',
@@ -34,7 +34,7 @@ class Endboss extends MovableObject{
                 this.playAnimation(this.images_walking);
             }
           i++; 
-          if (world.character.x > 2800 && !hadFirstContact)
+          if (world.character.x > 1800 && !hadFirstContact)
            {
             i = 0;
             hadFirstContact = true;

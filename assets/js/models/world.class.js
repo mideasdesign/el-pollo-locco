@@ -1,7 +1,8 @@
 class World {
   character = new Character();
-  enemies = [new Chicken(), new Chicken(), new Chicken()];
+  enemies = [new Chicken(),];
   clouds = [new Clouds()];
+  statusBar = new StatusBar();
   healthBar = new HealthBar();
   coinsBar = new CoinsBar();
   bottleBar = new BottleBar();
@@ -24,6 +25,10 @@ class World {
     new BackgroundObject("assets/images/5_background/layers/3_third_layer/1.png", 720 * 3),
     new BackgroundObject("assets/images/5_background/layers/2_second_layer/1.png", 720 * 3),
     new BackgroundObject("assets/images/5_background/layers/1_first_layer/1.png", 720 * 3),
+    new BackgroundObject("assets/images/5_background/layers/air.png", 720 * 4),
+    new BackgroundObject("assets/images/5_background/layers/3_third_layer/1.png", 720 * 4),
+    new BackgroundObject("assets/images/5_background/layers/2_second_layer/1.png", 720 * 4),
+    new BackgroundObject("assets/images/5_background/layers/1_first_layer/1.png", 720 * 4),
   ];
   canvas;
   ctx;
