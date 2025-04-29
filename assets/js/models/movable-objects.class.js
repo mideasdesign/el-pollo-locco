@@ -58,6 +58,25 @@ class MovableObject extends DrawableObject {
     this.speedY = 22;
   }
 
+  playAnimationOnce(images, frameRate = 100) {
+    if (this.isAnimating) return;
+
+    this.isAnimating = true;
+    let i = 0;
+
+    const step = () => {
+        if (i < images.length) {
+            this.img = this.imageCache[images[i]];
+            i++;
+            setTimeout(step, frameRate);
+        } else {
+            this.isAnimating = false;
+        }
+    };
+
+    step();
+}
+
   isColliding(mo) {
     return this.x + this.width >= mo.x && this.x <= mo.x + mo.width && this.y + this.offsetY + this.height >= mo.y && this.y + this.offsetY <= mo.y + mo.height;
   }
