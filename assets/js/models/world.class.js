@@ -32,7 +32,10 @@ class World {
 
   setWorld() {
     this.character.world = this;
-  };
+    this.level.enemies.forEach(e => e.world = this);
+    this.level.clouds.forEach(c => c.world = this);
+    this.level.backgroundObjects.forEach(b => b.world = this);
+  }
 
   checkCollisionsPepe(){
     this.level.enemies.forEach((enemy) => {
@@ -70,6 +73,7 @@ class World {
       }
     });
   };
+
   checkCollisionsCoins(){
     this.coins.forEach((coin) => {
       if (this.character.isColliding(coin)) {

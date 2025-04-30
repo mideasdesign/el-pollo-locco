@@ -37,7 +37,8 @@ class Endboss extends MovableObject{
         'assets/images/4_enemie_boss_chicken/3_attack/G20.png'
     ];
     constructor(){
-        super().loadImage(this.images_idle[0]);
+        super();
+        this.loadImage(this.images_idle[0]);
         this.loadImages(this.images_idle);
         this.animate();
     };
@@ -52,12 +53,16 @@ class Endboss extends MovableObject{
     
     animate(){
         setInterval(() => {
+            const player = this.world?.character;
+            const distanceToPlayer = player ? Math.abs(this.x - player.x) : Infinity;
+
             if (this.isDead()) {
-                this.playAnimation(this.images_dead);
-            }else if (this.ishurt()) {
-                this.playAnimation(this.images_hurt);
-            }
-            else{
+                this.playAnimation(this.images_boss_dead);
+            } else if (this.ishurt()) {
+                this.playAnimation(this.images_boss_hurt);
+            } else if (distanceToPlayer < 300) {
+                this.playAnimation(this.images_boss_attack);
+            } else {
                 this.playAnimation(this.images_idle);
             }
         }, 200);
