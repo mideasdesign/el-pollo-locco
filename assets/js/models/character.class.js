@@ -91,7 +91,7 @@ class Character extends MovableObject{
                 if (this.speedY > 0) {
                     if (!this.isAnimating) {
                         this.isAnimating = true;
-                        this.playAnimationOnce(this.images_jumping, 100);
+                        this.playAnimationOnce(this.images_jumping, 80);
                     }
                 } else {
                     if (!this.isAnimating) {

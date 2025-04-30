@@ -55,10 +55,10 @@ class MovableObject extends DrawableObject {
   }
 
   jump() {
-    this.speedY = 22;
+    this.speedY = 24;
   }
 
-  playAnimationOnce(images, frameRate = 100) {
+  playAnimationOnce(images, frameRate = 110) {
     if (this.isAnimating) return;
 
     this.isAnimating = true;
@@ -78,7 +78,10 @@ class MovableObject extends DrawableObject {
 }
 
   isColliding(mo) {
-    return this.x + this.width >= mo.x && this.x <= mo.x + mo.width && this.y + this.offsetY + this.height >= mo.y && this.y + this.offsetY <= mo.y + mo.height;
+    return this.x + this.width >= mo.x && 
+    this.x <= mo.x + mo.width && 
+    this.y + this.offsetY + this.height >= mo.y && 
+    this.y + this.offsetY <= mo.y + mo.height;
   }
 
   hit() {
@@ -98,5 +101,6 @@ class MovableObject extends DrawableObject {
 
   isDead() {
     return this.energyLevel == 0;
+
   }
 }
