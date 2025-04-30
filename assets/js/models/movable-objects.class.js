@@ -6,7 +6,7 @@ class MovableObject extends DrawableObject {
   height = 250;
   imageCache = {};
   currentImage = 0;
-  speed = 0.15;
+  speed = 0.25;
   speedY = 0;
   acceleration = 2;
   offsetX = 0;
@@ -82,6 +82,12 @@ class MovableObject extends DrawableObject {
     this.x <= mo.x + mo.width && 
     this.y + this.offsetY + this.height >= mo.y && 
     this.y + this.offsetY <= mo.y + mo.height;
+  }
+  isCollidingBoss(mo) {
+    return this.rX + this.rW >= mo.rX && 
+    this.rY + this.rH >= mo.rY && 
+    this.rX < mo.rX + mo.rW &&
+    this.rY < this.rY >= mo.rH 
   }
 
   hit() {

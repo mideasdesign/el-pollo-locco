@@ -15,7 +15,7 @@ function startGame() {
             document.getElementById('canvas').style.display = 'block';
             document.getElementById('start-button').style.display = 'none';
             document.getElementById('controls-box').style.display = 'block';
-        }, 500);
+        }, 100);
 }
 
 window.addEventListener('keydown', (e) => {

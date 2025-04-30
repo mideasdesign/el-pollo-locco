@@ -1,14 +1,13 @@
 class World {
   character = new Character();
   enemies = [new Chicken(), new Chicken(), new Chicken()];
-
+  endboss = new Endboss();
   clouds = [new Clouds()];
   statusBar = new StatusBar();
   coinsBar = new CoinsBar();
   bottlesBar = new BottlesBar();
   bossBar = new BossBar();
   thowableObject = [];
-
   backgroundObjects = [];
   canvas;
   ctx;
@@ -64,6 +63,7 @@ class World {
     this.addObjectsToMap(this.thowableObject);
     this.ctx.translate(this.cameraX, 0);
     this.addToMap(this.character);  
+    this.addToMap(this.endboss); 
     this.addObjectsToMap(this.level.enemies);  
     this.addObjectsToMap(this.level.clouds);  
     this.ctx.translate(-this.cameraX, 0);

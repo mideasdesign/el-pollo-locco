@@ -46,13 +46,16 @@ class Character extends MovableObject{
         'assets/images/2_character_pepe/5_dead/D-55.png',
         'assets/images/2_character_pepe/5_dead/D-56.png',
         'assets/images/2_character_pepe/5_dead/D-57.png',
-
     ];
 
-  world;
-
+    world;
     isJumping = false;
-
+    offset = {
+        top: 100,
+        right: 10,
+        bottom: 10,
+        left: 10
+    }
     constructor(){
         super().loadImage('assets/images/2_character_pepe/1_idle/idle/I-10.png');
         this.loadImages(this.images_walking);
@@ -60,12 +63,14 @@ class Character extends MovableObject{
         this.loadImages(this.images_falling);
         this.loadImages(this.images_hurt);
         this.loadImages(this.images_dead);
+        this.getRealFrame();
         this.applyGravity();
         this.animate();
     };
 
     // let i = 0 % 6; => 0, Rest 0  -  let i = 1 % 6; 0 Rest 1  -  let i = 2 % 6; 0 Rest 2
     // i = 0,1,2,3,4,5,0,1,2,3,4,5,0,1,2,3,4,5,0
+
     animate(){
         setInterval(() => {
             if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {    
@@ -91,12 +96,12 @@ class Character extends MovableObject{
                 if (this.speedY > 0) {
                     if (!this.isAnimating) {
                         this.isAnimating = true;
-                        this.playAnimationOnce(this.images_jumping, 80);
+                        this.playAnimationOnce(this.images_jumping, 120);
                     }
                 } else {
                     if (!this.isAnimating) {
                         this.isAnimating = true;
-                        this.playAnimationOnce(this.images_falling, 140);
+                        this.playAnimationOnce(this.images_falling, 120);
                     }
                 }
                 if (!this.isAboveGround()) {
@@ -108,7 +113,7 @@ class Character extends MovableObject{
             }
         }, 1000 / 10);  
     };
-    
+
     jump() {
         if (!this.isJumping) {
             this.speedY = 30;
