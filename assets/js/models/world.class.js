@@ -21,25 +21,28 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
-    this.checkCollisions();
+    this.checkCollisionsPepe();
+    this.checkCollisionsBoss();
     this.run();
   }
 
   setWorld() {
     this.character.world = this;
   }
-  checkCollisions(){
+  checkCollisionsPepe(){
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
-        this.character.hit();
+        this.character.hitPepe();
         this.statusBar.setPercentage(this.character.energyLevel);
       }
     });
   };
 
+
   run() {
     setInterval(() => {
-      this.checkCollisions(); 
+      this.checkCollisionsPepe(); 
+      this.checkCollisionsBoss();
       this.checkThrowableObject();
     }, 150);
   };
@@ -50,6 +53,15 @@ class World {
       this.thowableObject.push(bottle);
     }
   }
+
+  checkCollisionsBoss(){
+    this.thowableObject.forEach((bottle) => {
+      if (this.endboss.isColliding(bottle)) {
+        this.endboss.hitBoss();
+        this.bossBar.setPercentage(this.endboss.bossLevel);
+      }
+    });
+  };
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -73,13 +85,13 @@ class World {
     requestAnimationFrame(function () {
       self.draw();
     });
-  }
+  };
 
   addObjectsToMap(objects) {
     objects.forEach((o) => {
       this.addToMap(o);
     });
-  }
+  };
 
   addToMap(mo) {
     if (mo.otherDirection) {

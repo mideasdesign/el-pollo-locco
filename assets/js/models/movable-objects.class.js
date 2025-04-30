@@ -12,6 +12,7 @@ class MovableObject extends DrawableObject {
   offsetX = 0;
   offsetY = 0;
   energyLevel = 100;
+  bossLevel = 100;
   lastHit = 0;
 
   applyGravity() {
@@ -90,10 +91,18 @@ class MovableObject extends DrawableObject {
     this.rY < this.rY >= mo.rH 
   }
 
-  hit() {
+  hitPepe() {
     this.energyLevel -= 4;
     if (this.energyLevel < 0) {
       this.energyLevel = 0;
+    } else {
+      this.lastHit = new Date().getTime();
+    }
+  }
+  hitBoss() {
+    this.bossLevel -= 4;
+    if (this.bossLevel < 0) {
+      this.bossLevel = 0;
     } else {
       this.lastHit = new Date().getTime();
     }

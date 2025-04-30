@@ -41,6 +41,14 @@ class Endboss extends MovableObject{
         this.loadImages(this.images_idle);
         this.animate();
     };
+    checkCollisions(){
+        this.world.thowableObject.forEach((bottle) => {
+          if (this.endboss.isColliding(bottle)) {
+            this.endboss.hit();
+            this.bossBar.setPercentage(this.endboss.bossEnergy);
+          }
+        });
+      };
     
     animate(){
         setInterval(() => {
