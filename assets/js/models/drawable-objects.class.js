@@ -8,7 +8,7 @@ class DrawableObject {
     rY;
     rW;
     rH;
-    
+    coinsLevel = 0;
     imageCache = {};
     currentImage = 0;
     offset = {
@@ -43,7 +43,8 @@ class DrawableObject {
     };
 
     drawFrame(ctx){
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss){
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coins
+        ){
             ctx.beginPath();
             ctx.lineWidth = "1t";
             ctx.strokeStyle = "blue";

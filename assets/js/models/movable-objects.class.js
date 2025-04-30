@@ -13,6 +13,7 @@ class MovableObject extends DrawableObject {
   offsetY = 0;
   energyLevel = 100;
   bossLevel = 100;
+  bottlesLevel = 0;
   lastHit = 0;
 
   applyGravity() {
