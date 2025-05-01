@@ -21,7 +21,7 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
-    this.checkCollisions();
+    this.checkCollisionsPepe();
     this.checkCollisionsBoss();
     this.run();
   }
@@ -29,7 +29,7 @@ class World {
   setWorld() {
     this.character.world = this;
   }
-  checkCollisions(){
+  checkCollisionsPepe(){
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
         this.character.hitPepe();
@@ -40,7 +40,8 @@ class World {
 
   run() {
     setInterval(() => {
-      this.checkCollisions(); 
+      this.checkCollisionsPepe(); 
+      this.checkCollisionsBoss();
       this.checkThrowableObject();
     }, 150);
   };
