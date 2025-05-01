@@ -11,6 +11,8 @@ class World {
   bottles = [new Bottles()];
   endboss = new Endboss();
   thowableObject = [];
+  coinSound = new Audio('./assets/sound/sound-effects-coin.mp3');
+  bottleSound = new Audio('./assets/sound/bottles-clanging-82557.mp3');
   canvas;
   ctx;
   keyboard;
@@ -44,6 +46,7 @@ class World {
       this.checkCollisionsPepe(); 
       this.checkCollisionsBoss();
       this.checkThrowableObject();
+      this.checkCollectibles();
     }, 150);
   };
 
@@ -61,6 +64,23 @@ class World {
       if (this.endboss.isColliding(bottle)) {
         this.endboss.hitBoss();
         this.bossBar.setPercentage(this.endboss.healthBoss);
+      }
+    });
+  };
+  checkCollectibles() {
+    this.level.coins.forEach((coin, index) => {
+      if (this.character.isColliding(coin)) {
+        this.coinsBar.setPercentage(this.coinsBar.percentage + 10);
+        this.coinSound.play();
+        this.level.coins.splice(index, 1);
+      }
+    });
+  
+    this.level.bottles.forEach((bottle, index) => {
+      if (this.character.isColliding(bottle)) {
+        this.bottlesBar.setPercentage(this.bottlesBar.percentage + 10);
+        this.bottleSound.play();
+        this.level.bottles.splice(index, 1);
       }
     });
   };
@@ -104,6 +124,8 @@ class World {
     }
     mo.draw(this.ctx);
     mo.drawFrame(this.ctx);
+    mo.drawRealFrame(this.ctx);
+
     if (mo.otherDirection) {
       mo.x = mo.x * -1;
       this.ctx.restore();

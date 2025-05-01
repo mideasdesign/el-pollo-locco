@@ -4,13 +4,30 @@ class DrawableObject {
     img;
     width = 100;
     height = 50;
+    rX;
+    rY;
+    rW;
+    rH;
     imageCache = {};
     currentImage = 0;
-
+    offset = {
+        top: 100,
+        right: 20,
+        bottom: 30,
+        left: 20
+    };
+  
     loadImage(path){
         this.img = new Image();
         this.img.src = path;
     };
+
+    getRealFrame(){
+        this.rX = this.x + this.offset.left;
+        this.rY = this.y + this.offset.top;
+        this.rW = this.width + this.offset.left - this.offset.right;
+        this.rH = this.height + this.offset.top - this.offset.bottom;
+        };
 
     draw(ctx){
         try{
@@ -23,14 +40,24 @@ class DrawableObject {
     };
 
     drawFrame(ctx){
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coins){
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coins || this instanceof Bottles){
             ctx.beginPath();
-            ctx.lineWidth = "2";
+            ctx.lineWidth = "1";
             ctx.strokeStyle = "blue";
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
         }
-    }
+    };
+
+    drawRealFrame(ctx){
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coins || this instanceof Bottles){
+            ctx.beginPath();
+            ctx.lineWidth = "1";
+            ctx.strokeStyle = "red";
+            ctx.rect(this.rX, this.rY, this.rW, this.rH);
+            ctx.stroke();
+        }
+    };
     /**
      * 
      * @param { Array

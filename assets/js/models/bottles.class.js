@@ -10,6 +10,5 @@ class Bottles extends MovableObject {
       this.width = 70;
       this.height = 90;
       this.loadImages(this.images_bottles);
-
     }
   }

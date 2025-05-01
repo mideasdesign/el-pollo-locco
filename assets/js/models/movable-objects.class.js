@@ -13,6 +13,8 @@ class MovableObject extends DrawableObject {
   offsetY = 0;
   healthPepe = 100;
   healthBoss = 100;
+  coinsLevel = 0;
+  bottlesLevel = 0;
 
   lastHit = 0;
 
