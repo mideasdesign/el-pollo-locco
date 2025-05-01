@@ -8,6 +8,7 @@ class World {
   bottlesBar = new BottlesBar();
   bossBar = new BossBar();
   coins = [new Coins()];
+  bottles = [new Bottles()];
   endboss = new Endboss();
   thowableObject = [];
   canvas;
@@ -79,6 +80,7 @@ class World {
     this.addToMap(this.character); 
     this.addToMap(this.endboss);
     this.addObjectsToMap(this.level.coins);
+    this.addObjectsToMap(this.level.bottles);
     this.addObjectsToMap(this.level.enemies);
    
     this.ctx.translate(-this.cameraX, 0);
