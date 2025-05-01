@@ -13,8 +13,17 @@ class DrawableObject {
     };
 
     draw(ctx){
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
+        try{
+            ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        }
+        catch(e){
+        console.warn('Error loading Image', e);
+        console.log('Could not not load Image', this.img);
+        
+        
+        }
+    };
+
     drawFrame(ctx){
         if (this instanceof Character || this instanceof Chicken){
             ctx.beginPath();
@@ -35,5 +44,22 @@ class DrawableObject {
             img.src = path;
             this.imageCache[path] = img;
         });
+    }
+    playAnimationOnce(images, frameRate = 100) {
+        if (this.isAnimating) return;
+        this.isAnimating = true;
+        let i = 0;
+
+        const step = () => {
+            if (i < images.length) {
+                this.img = this.imageCache[images[i]];
+                i++;
+                setTimeout(step, frameRate);
+            } else {
+                this.isAnimating = false;
+            }
+        };
+
+        step();
     }
 }
