@@ -6,14 +6,12 @@ class MovableObject extends DrawableObject {
   height = 250;
   imageCache = {};
   currentImage = 0;
-  speed = 0.25;
+  speed = 0.15;
   speedY = 0;
   acceleration = 2;
   offsetX = 0;
   offsetY = 0;
   energyLevel = 100;
-  bossLevel = 100;
-  bottlesLevel = 0;
   lastHit = 0;
 
   applyGravity() {
@@ -57,53 +55,17 @@ class MovableObject extends DrawableObject {
   }
 
   jump() {
-    this.speedY = 24;
+    this.speedY = 22;
   }
-
-  playAnimationOnce(images, frameRate = 110) {
-    if (this.isAnimating) return;
-
-    this.isAnimating = true;
-    let i = 0;
-
-    const step = () => {
-        if (i < images.length) {
-            this.img = this.imageCache[images[i]];
-            i++;
-            setTimeout(step, frameRate);
-        } else {
-            this.isAnimating = false;
-        }
-    };
-
-    step();
-}
 
   isColliding(mo) {
-    return this.x + this.width >= mo.x && 
-    this.x <= mo.x + mo.width && 
-    this.y + this.offsetY + this.height >= mo.y && 
-    this.y + this.offsetY <= mo.y + mo.height;
-  }
-  isCollidingBoss(mo) {
-    return this.rX + this.rW >= mo.rX && 
-    this.rY + this.rH >= mo.rY && 
-    this.rX < mo.rX + mo.rW &&
-    this.rY < this.rY >= mo.rH 
+    return this.x + this.width >= mo.x && this.x <= mo.x + mo.width && this.y + this.offsetY + this.height >= mo.y && this.y + this.offsetY <= mo.y + mo.height;
   }
 
-  hitPepe() {
+  hit() {
     this.energyLevel -= 4;
     if (this.energyLevel < 0) {
       this.energyLevel = 0;
-    } else {
-      this.lastHit = new Date().getTime();
-    }
-  }
-  hitBoss() {
-    this.bossLevel -= 4;
-    if (this.bossLevel < 0) {
-      this.bossLevel = 0;
     } else {
       this.lastHit = new Date().getTime();
     }
@@ -117,6 +79,5 @@ class MovableObject extends DrawableObject {
 
   isDead() {
     return this.energyLevel == 0;
-
   }
 }

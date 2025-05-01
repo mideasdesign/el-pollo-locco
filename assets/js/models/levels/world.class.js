@@ -1,14 +1,13 @@
 class World {
   character = new Character();
-  enemies = [new Chicken(), new Chicken(), new Chicken()];
-
+  enemies = [new Chicken(),];
   clouds = [new Clouds()];
   statusBar = new StatusBar();
+  healthBar = new HealthBar();
   coinsBar = new CoinsBar();
-  bottlesBar = new BottlesBar();
+  bottleBar = new BottleBar();
   bossBar = new BossBar();
   thowableObject = [];
-
   backgroundObjects = [
     new BackgroundObject("assets/images/5_background/layers/air.png", 0),
     new BackgroundObject("assets/images/5_background/layers/3_third_layer/1.png", 0),
@@ -26,6 +25,10 @@ class World {
     new BackgroundObject("assets/images/5_background/layers/3_third_layer/1.png", 720 * 3),
     new BackgroundObject("assets/images/5_background/layers/2_second_layer/1.png", 720 * 3),
     new BackgroundObject("assets/images/5_background/layers/1_first_layer/1.png", 720 * 3),
+    new BackgroundObject("assets/images/5_background/layers/air.png", 720 * 4),
+    new BackgroundObject("assets/images/5_background/layers/3_third_layer/1.png", 720 * 4),
+    new BackgroundObject("assets/images/5_background/layers/2_second_layer/1.png", 720 * 4),
+    new BackgroundObject("assets/images/5_background/layers/1_first_layer/1.png", 720 * 4),
   ];
   canvas;
   ctx;
@@ -41,7 +44,7 @@ class World {
     this.setWorld();
     this.checkCollisions();
     this.run();
-  }
+  };
 
   setWorld() {
     this.character.world = this;
@@ -50,7 +53,7 @@ class World {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
         this.character.hit();
-        this.statusBar.setPercentage(this.character.energyLevel);
+        this.healthBar.setPercentage(this.character.energyLevel);
       }
     });
   };
@@ -71,13 +74,12 @@ class World {
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
     this.ctx.translate(this.cameraX, 0);
     this.addObjectsToMap(this.level.backgroundObjects);
     this.ctx.translate(-this.cameraX, 0);
-    this.addToMap(this.statusBar);
+    this.addToMap(this.healthBar);
+    this.addToMap(this.bottleBar);
     this.addToMap(this.coinsBar);
-    this.addToMap(this.bottlesBar);
     this.addToMap(this.bossBar);
     this.addObjectsToMap(this.thowableObject);
     this.ctx.translate(this.cameraX, 0);

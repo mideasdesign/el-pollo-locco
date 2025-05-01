@@ -15,6 +15,6 @@ class BossBar extends StatusBar {
     this.y = 13;
     this.width = 140;
     this.height = 40;
-    this.setPercentage(100);
+    this.setPercentage(0);
   }
 }
