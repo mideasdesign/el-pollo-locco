@@ -36,8 +36,9 @@ class Endboss extends MovableObject{
         'assets/images/4_enemie_boss_chicken/3_attack/G19.png',
         'assets/images/4_enemie_boss_chicken/3_attack/G20.png'
     ];
+    currentImage = 0;
     constructor(){
-        super().loadImage(this.images_idle[0]);
+        super().loadImage('assets/images/4_enemie_boss_chicken/2_alert/G5.png');
         this.loadImages(this.images_idle);
         this.animate();
     };
@@ -51,7 +52,7 @@ class Endboss extends MovableObject{
       }; */
     animate(){
         setInterval(() => {
-            this.playAnimation(this.images_walking);
+            this.playAnimation(this.images_idle);
         }, 200);
     }
 }
