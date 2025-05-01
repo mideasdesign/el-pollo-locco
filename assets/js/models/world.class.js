@@ -9,7 +9,24 @@ class World {
   bottlesBar = new BottlesBar();
   bossBar = new BossBar();
   thowableObject = [];
-  backgroundObjects = [];
+  backgroundObjects = [
+    new BackgroundObject("assets/images/5_background/layers/air.png", 0),
+    new BackgroundObject("assets/images/5_background/layers/3_third_layer/1.png", 0),
+    new BackgroundObject("assets/images/5_background/layers/2_second_layer/1.png", 0),
+    new BackgroundObject("assets/images/5_background/layers/1_first_layer/1.png", 0),
+    new BackgroundObject("assets/images/5_background/layers/air.png", 720),
+    new BackgroundObject("assets/images/5_background/layers/3_third_layer/2.png", 720),
+    new BackgroundObject("assets/images/5_background/layers/2_second_layer/2.png", 720),
+    new BackgroundObject("assets/images/5_background/layers/1_first_layer/2.png", 720),
+    new BackgroundObject("assets/images/5_background/layers/air.png", 720 * 2),
+    new BackgroundObject("assets/images/5_background/layers/3_third_layer/1.png", 720 * 2),
+    new BackgroundObject("assets/images/5_background/layers/2_second_layer/1.png", 720 * 2),
+    new BackgroundObject("assets/images/5_background/layers/1_first_layer/1.png", 720 * 2),
+    new BackgroundObject("assets/images/5_background/layers/air.png", 720 * 3),
+    new BackgroundObject("assets/images/5_background/layers/3_third_layer/1.png", 720 * 3),
+    new BackgroundObject("assets/images/5_background/layers/2_second_layer/1.png", 720 * 3),
+    new BackgroundObject("assets/images/5_background/layers/1_first_layer/1.png", 720 * 3),
+  ];
   canvas;
   ctx;
   keyboard;
@@ -32,9 +49,9 @@ class World {
 
   setWorld() {
     this.character.world = this;
-    this.level.enemies.forEach(e => e.world = this);
+/*     this.level.enemies.forEach(e => e.world = this);
     this.level.clouds.forEach(c => c.world = this);
-    this.level.backgroundObjects.forEach(b => b.world = this);
+    this.level.backgroundObjects.forEach(b => b.world = this); */
   }
 
   checkCollisionsPepe(){
@@ -88,7 +105,7 @@ class World {
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.cameraX, 0);
-    this.addObjectsToMap(this.level.backgroundObjects);
+
     this.ctx.translate(-this.cameraX, 0);
     this.addToMap(this.statusBar);
     this.addToMap(this.coinsBar);
@@ -97,7 +114,8 @@ class World {
     this.addObjectsToMap(this.thowableObject);
     this.ctx.translate(this.cameraX, 0);
     this.addObjectsToMap(this.coins);
-    this.addToMap(this.character);  
+    this.addToMap(this.character);    
+    this.addObjectsToMap(this.level.backgroundObjects);  
     this.addToMap(this.endboss); 
     this.addObjectsToMap(this.level.enemies);  
     this.addObjectsToMap(this.level.clouds);  
@@ -110,11 +128,11 @@ class World {
     });
   };
 
-  addObjectsToMap(objects) {
+ addObjectsToMap(objects) {
     objects.forEach((o) => {
       this.addToMap(o);
     });
-  };
+  }; 
 
   addToMap(mo) {
     if (typeof mo.draw !== 'function') {

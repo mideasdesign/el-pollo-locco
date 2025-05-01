@@ -53,8 +53,8 @@ class Endboss extends MovableObject{
     
     animate(){
         setInterval(() => {
-            const player = this.world?.character;
-            const distanceToPlayer = player ? Math.abs(this.x - player.x) : Infinity;
+/*             const player = this.world?.character;
+            const distanceToPlayer = player ? Math.abs(this.x - player.x) : Infinity; */
 
             if (this.isDead()) {
                 this.playAnimation(this.images_boss_dead);
