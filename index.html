@@ -39,7 +39,9 @@
       <button id="sound-button" onclick="toggleSound()" style="position:absolute; top:10px; right:10px; width:40px; height:40px; display:none">
         🔈
         </button>
-      <canvas id="canvas" width="720" height="480" style="display: none;"></canvas>     
+        
+      <canvas id="canvas" width="720" height="480" style="display: none;"></canvas>    
+      <div class="game-over">GAME OVER</div> 
       <button id="start-button" onclick="startGame()">Start Game</button>
       <div id="controls-box" style="display: none;">
         <div class="touch-pan-right">
@@ -49,6 +51,9 @@
         <div class="touch-pan-right">
           <button id="btn-jump"> < </button> <button id="btn-throw"> > </button>
         </div>        
+      </div>
+      <div class="instruction">
+        <p>LEFT: Arrow left, RIGHT: Arrow right, JUMP: Space, THROW: t key</p>
       </div>
       </div>
     </div>
