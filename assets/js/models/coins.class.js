@@ -5,6 +5,7 @@ class Coins extends MovableObject {
     bottom: 30,
     left: 20
 };
+coinsLevel = 0;
 
   images_coins = [
         'assets/images/8_coin/coin_1.png',

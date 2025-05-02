@@ -6,7 +6,6 @@ class World {
   bottlesBar = new BottlesBar();
   bossBar = new BossBar();
   coins = [new Coins()];
-  endboss = new Endboss();
   thowableObject = [];
   coinSound = new Audio('./assets/sound/sound-effects-coin.mp3');
   bottleSound = new Audio('./assets/sound/bottles-clanging-82557.mp3');
@@ -57,10 +56,12 @@ class World {
   }
 
   checkCollisionsBoss(){
+    const boss = this.level.enemies.find(e => e instanceof Endboss);
+    if (!boss) return;
     this.thowableObject.forEach((bottle) => {
-      if (this.endboss.isColliding(bottle)) {
-        this.endboss.hitBoss();
-        this.bossBar.setPercentage(this.endboss.healthBoss);
+      if (boss.isColliding(bottle)) {
+        boss.hitBoss();
+        this.bossBar.setPercentage(boss.healthBoss);
       }
     });
   };
@@ -95,7 +96,6 @@ class World {
     this.addObjectsToMap(this.thowableObject);
     this.ctx.translate(this.cameraX, 0);
     this.addToMap(this.character); 
-    this.addToMap(this.endboss);
     this.addObjectsToMap(this.level.coins);
     this.addObjectsToMap(this.level.bottles);
     this.addObjectsToMap(this.level.enemies);

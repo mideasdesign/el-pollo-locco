@@ -3,7 +3,6 @@ class World {
   enemies = [new Chicken(),];
   clouds = [new Clouds()];
   statusBar = new StatusBar();
-  healthBar = new HealthBar();
   coinsBar = new CoinsBar();
   bottleBar = new BottleBar();
   bossBar = new BossBar();
@@ -53,7 +52,7 @@ class World {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
         this.character.hit();
-        this.healthBar.setPercentage(this.character.energyLevel);
+        this.healthPepe.setPercentage(this.character.energyLevel);
       }
     });
   };
@@ -77,7 +76,7 @@ class World {
     this.ctx.translate(this.cameraX, 0);
     this.addObjectsToMap(this.level.backgroundObjects);
     this.ctx.translate(-this.cameraX, 0);
-    this.addToMap(this.healthBar);
+    this.addToMap(this.statusBar);
     this.addToMap(this.bottleBar);
     this.addToMap(this.coinsBar);
     this.addToMap(this.bossBar);

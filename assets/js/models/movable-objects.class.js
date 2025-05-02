@@ -11,11 +11,6 @@ class MovableObject extends DrawableObject {
   acceleration = 2;
   offsetX = 0;
   offsetY = 0;
-  healthPepe = 100;
-  healthBoss = 100;
-  coinsLevel = 0;
-  bottlesLevel = 0;
-
   lastHit = 0;
 
   applyGravity() {
@@ -83,14 +78,6 @@ class MovableObject extends DrawableObject {
       this.lastHit = new Date().getTime();
     }
   }
-  hitBoss() {
-    this.healthBoss -= 6;
-    if (this.healthBoss < 0) {
-      this.healthBoss = 0;
-    } else {
-      this.lastHit = new Date().getTime();
-    }
-  }
 
   ishurt() {
     let timespassed = new Date().getTime() - this.lastHit;
@@ -99,6 +86,6 @@ class MovableObject extends DrawableObject {
   }
 
   isDead() {
-    return this.healthPepe == 0;
+    return this.healthPepe == 0 || this.healthBoss == 0;
   }
 }
