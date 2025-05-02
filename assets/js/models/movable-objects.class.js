@@ -84,7 +84,7 @@ class MovableObject extends DrawableObject {
     }
   }
   hitBoss() {
-    this.healthBoss -= 4;
+    this.healthBoss -= 6;
     if (this.healthBoss < 0) {
       this.healthBoss = 0;
     } else {

@@ -25,7 +25,7 @@ images_splash = [
     this.width = 50;
     this.loadImages(this.images_rotating_bottle);
     this.animate();
-    this.throw(100, 300);
+    this.throw(100, 320);
     
 
   };
