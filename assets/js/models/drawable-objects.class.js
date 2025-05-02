@@ -37,8 +37,8 @@ class DrawableObject {
     drawFrame(ctx){
         if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coins || this instanceof Bottles){
             ctx.beginPath();
-            ctx.lineWidth = "1";
-            ctx.strokeStyle = "blue";
+            ctx.lineWidth = '1';
+            ctx.strokeStyle = 'blue';
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
         }
@@ -47,8 +47,8 @@ class DrawableObject {
     drawRealFrame(ctx){
         if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coins || this instanceof Bottles){
             ctx.beginPath();
-            ctx.lineWidth = "1";
-            ctx.strokeStyle = "red";
+            ctx.lineWidth = '1';
+            ctx.strokeStyle = 'red';
             ctx.rect(this.rX, this.rY, this.rW, this.rH);
             ctx.stroke();
         }
