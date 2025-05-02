@@ -1,7 +1,16 @@
 function initLevel() {
   level1 = new Level(
     [new Chicken(), new Chicken(), new Chicken(), new Endboss()],
-    [new Clouds()],
+    [
+      new Clouds('assets/images/5_background/layers/4_clouds/1.png', 0),
+      new Clouds('assets/images/5_background/layers/4_clouds/2.png', 500),
+      new Clouds('assets/images/5_background/layers/4_clouds/1.png', 1000),
+      new Clouds('assets/images/5_background/layers/4_clouds/2.png', 1600),
+      new Clouds('assets/images/5_background/layers/4_clouds/1.png', 2000),
+      new Clouds('assets/images/5_background/layers/4_clouds/2.png',2400),
+      new Clouds('assets/images/5_background/layers/4_clouds/1.png',2600),
+      new Clouds('assets/images/5_background/layers/4_clouds/2.png', 2800),
+    ],
     [
       new BackgroundObject("assets/images/5_background/layers/air.png", 0),
       new BackgroundObject("assets/images/5_background/layers/3_third_layer/1.png", 0),
@@ -16,13 +25,17 @@ function initLevel() {
       new BackgroundObject("assets/images/5_background/layers/2_second_layer/1.png", 719 * 2),
       new BackgroundObject("assets/images/5_background/layers/1_first_layer/1.png", 719 * 2),
       new BackgroundObject("assets/images/5_background/layers/air.png", 719 * 3),
-      new BackgroundObject("assets/images/5_background/layers/3_third_layer/1.png", 719 * 3),
-      new BackgroundObject("assets/images/5_background/layers/2_second_layer/1.png", 719 * 3),
-      new BackgroundObject("assets/images/5_background/layers/1_first_layer/1.png", 719 * 3),
+      new BackgroundObject("assets/images/5_background/layers/3_third_layer/2.png", 719 * 3),
+      new BackgroundObject("assets/images/5_background/layers/2_second_layer/2.png", 719 * 3),
+      new BackgroundObject("assets/images/5_background/layers/1_first_layer/2.png", 719 * 3),
       new BackgroundObject("assets/images/5_background/layers/air.png", 719 * 4),
       new BackgroundObject("assets/images/5_background/layers/3_third_layer/1.png", 719 * 4),
       new BackgroundObject("assets/images/5_background/layers/2_second_layer/1.png", 719 * 4),
-      new BackgroundObject("assets/images/5_background/layers/1_first_layer/1.png", 719 * 4)
+      new BackgroundObject("assets/images/5_background/layers/1_first_layer/1.png", 719 * 4),
+      new BackgroundObject("assets/images/5_background/layers/air.png", 719 * 5),
+      new BackgroundObject("assets/images/5_background/layers/3_third_layer/2.png", 719 * 5),
+      new BackgroundObject("assets/images/5_background/layers/2_second_layer/2.png", 719 * 5),
+      new BackgroundObject("assets/images/5_background/layers/1_first_layer/2.png", 719 * 5),
     ],
     [
       new Coins(450, 230),
@@ -36,14 +49,15 @@ function initLevel() {
     ],
 
     [
-      new Bottles(580, 330),
-      new Bottles(730, 350),
-      new Bottles(950, 330),
-      new Bottles(1020, 360),
-      new Bottles(1100, 350),
-      new Bottles(1220, 330),
-      new Bottles(1430, 360),
-      new Bottles(1550, 350)
+      new Bottles(680, 330),
+      new Bottles(830, 350),
+      new Bottles(1050, 330),
+      new Bottles(1120, 360),
+      new Bottles(1200, 350),
+      new Bottles(1420, 330),
+      new Bottles(1450, 360),
+      new Bottles(1650, 350),
+      new Bottles(1650, 350)
     ]
   );
 }

@@ -1,7 +1,7 @@
 class Endboss extends MovableObject{ 
     width = 200;
     height = 450;
-    x = 2100;
+    x = 3090;
     y = 30;
     images_idle = [
         'assets/images/4_enemie_boss_chicken/2_alert/G5.png',
