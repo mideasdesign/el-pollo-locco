@@ -1,14 +1,11 @@
 class World {
   character = new Character();
   enemies = [new Chicken(), new Chicken(), new Chicken()];
-  backgroundObjects = [new BackgroundObject(),];
-  clouds = [new Clouds()];
   statusBar = new StatusBar();
   coinsBar = new CoinsBar();
   bottlesBar = new BottlesBar();
   bossBar = new BossBar();
   coins = [new Coins()];
-  bottles = [new Bottles()];
   endboss = new Endboss();
   thowableObject = [];
   coinSound = new Audio('./assets/sound/sound-effects-coin.mp3');

@@ -10,12 +10,7 @@ class DrawableObject {
     rH;
     imageCache = {};
     currentImage = 0;
-    offset = {
-        top: 100,
-        right: 20,
-        bottom: 30,
-        left: 20
-    };
+    offset = {};
   
     loadImage(path){
         this.img = new Image();
