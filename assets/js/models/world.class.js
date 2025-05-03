@@ -1,11 +1,12 @@
 class World {
   character = new Character();
-  enemies = [new Chicken(), new Chicken(), new Chicken()];
+  enemies = [];
   statusBar = new StatusBar();
   coinsBar = new CoinsBar();
   bottlesBar = new BottlesBar();
   bossBar = new BossBar();
   coins = [new Coins()];
+  endboss = new Endboss();
   thowableObject = [];
   coinSound = new Audio('./assets/sound/sound-effects-coin.mp3');
   bottleSound = new Audio('./assets/sound/bottles-clanging-82557.mp3');
@@ -56,15 +57,17 @@ class World {
   }
 
   checkCollisionsBoss(){
-    const boss = this.level.enemies.find(e => e instanceof Endboss);
-    if (!boss) return;
     this.thowableObject.forEach((bottle) => {
-      if (boss.isColliding(bottle)) {
-        boss.hitBoss();
-        this.bossBar.setPercentage(boss.healthBoss);
+      if (this.level.endboss.isColliding(bottle)) {
+        this.level.endboss.hitBoss();
+        this.bossBar.setPercentage(this.level.endboss.healthBoss);
       }
     });
   };
+
+
+
+
   checkCollectibles() {
     this.level.coins.forEach((coin, index) => {
       if (this.character.isColliding(coin)) {
@@ -96,6 +99,7 @@ class World {
     this.addObjectsToMap(this.thowableObject);
     this.ctx.translate(this.cameraX, 0);
     this.addToMap(this.character); 
+    this.addToMap(this.level.endboss); 
     this.addObjectsToMap(this.level.coins);
     this.addObjectsToMap(this.level.bottles);
     this.addObjectsToMap(this.level.enemies);

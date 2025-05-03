@@ -11,6 +11,9 @@ class MovableObject extends DrawableObject {
   acceleration = 2;
   offsetX = 0;
   offsetY = 0;
+  healthPepe = 100;
+  healthBoss = 100;
+
   lastHit = 0;
 
   applyGravity() {
@@ -63,17 +66,19 @@ class MovableObject extends DrawableObject {
     this.y + this.offsetY + this.height >= mo.y && 
     this.y + this.offsetY <= mo.y + mo.height;
   }
-/*   isColliding(mo) {
-    return this.rX + this.rW >= mo.rX && 
-    this.rX <= mo.rX + mo.rW && 
-    this.rY + this.rY + this.rH >= mo.rY && 
-    this.rY + this.rY <= mo.rY + mo.rH;
-  } */
 
   hitPepe() {
     this.healthPepe -= 4;
     if (this.healthPepe < 0) {
       this.healthPepe = 0;
+    } else {
+      this.lastHit = new Date().getTime();
+    }
+  }
+  hitBoss() {
+    this.healthBoss -= 4;
+    if (this.healthBoss < 0) {
+      this.healthBoss = 0;
     } else {
       this.lastHit = new Date().getTime();
     }
@@ -86,6 +91,6 @@ class MovableObject extends DrawableObject {
   }
 
   isDead() {
-    return this.healthPepe == 0 || this.healthBoss == 0;
+    return this.healthPepe == 0;
   }
 }
