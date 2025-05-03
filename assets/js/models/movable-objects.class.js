@@ -11,9 +11,6 @@ class MovableObject extends DrawableObject {
   acceleration = 2;
   offsetX = 0;
   offsetY = 0;
-  healthPepe = 100;
-  healthBoss = 100;
-
   lastHit = 0;
 
   applyGravity() {
@@ -71,14 +68,6 @@ class MovableObject extends DrawableObject {
     this.healthPepe -= 4;
     if (this.healthPepe < 0) {
       this.healthPepe = 0;
-    } else {
-      this.lastHit = new Date().getTime();
-    }
-  }
-  hitBoss() {
-    this.healthBoss -= 4;
-    if (this.healthBoss < 0) {
-      this.healthBoss = 0;
     } else {
       this.lastHit = new Date().getTime();
     }

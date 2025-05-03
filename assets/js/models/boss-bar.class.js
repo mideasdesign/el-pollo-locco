@@ -16,5 +16,6 @@ class BossBar extends StatusBar {
     this.width = 140;
     this.height = 40;
     this.setPercentage(100);
+    console.log('BossBar initialized with 100%');
   }
 }

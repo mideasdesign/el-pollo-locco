@@ -24,11 +24,12 @@ class World {
     this.checkCollisionsPepe();
     this.checkCollisionsBoss();
     this.run();
-  }
+  };
 
   setWorld() {
     this.character.world = this;
-  }
+  };
+
   checkCollisionsPepe(){
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
@@ -54,18 +55,23 @@ class World {
       let bottle = new ThrowableObject(x, y);
       this.thowableObject.push(bottle);
     }
-  }
-
+  };
+/* 
   checkCollisionsBoss(){
     this.thowableObject.forEach((bottle) => {
-      if (this.level.endboss.isColliding(bottle)) {
-        this.level.endboss.hitBoss();
-        this.bossBar.setPercentage(this.level.endboss.healthBoss);
+      if (this.endboss.isColliding(bottle)) {
+        this.endboss.hitBoss();
+        this.bossBar.setPercentage(this.endboss.healthBoss);
       }
     });
-  };
+  }; */
 
-
+  checkCollisionsBoss() {
+    if (this.character.isColliding(this.endboss)) {
+      this.endboss.hitBoss();
+      this.bossBar.setPercentage(this.endboss.healthBoss);
+    }
+  }
 
 
   checkCollectibles() {
@@ -99,7 +105,7 @@ class World {
     this.addObjectsToMap(this.thowableObject);
     this.ctx.translate(this.cameraX, 0);
     this.addToMap(this.character); 
-    this.addToMap(this.level.endboss); 
+    this.addToMap(this.endboss); 
     this.addObjectsToMap(this.level.coins);
     this.addObjectsToMap(this.level.bottles);
     this.addObjectsToMap(this.level.enemies);
@@ -111,13 +117,13 @@ class World {
     requestAnimationFrame(function () {
       self.draw();
     });
-  }
+  };
 
   addObjectsToMap(objects) {
     objects.forEach((o) => {
       this.addToMap(o);
     });
-  }
+  };
 
   addToMap(mo) {
     if (mo.otherDirection) {
