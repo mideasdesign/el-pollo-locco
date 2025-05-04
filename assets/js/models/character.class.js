@@ -102,7 +102,7 @@ class Character extends MovableObject{
             } else if (this.world.keyboard.right || this.world.keyboard.left) {
                 this.playAnimation(this.images_walking);
             }
-        }, 1000 / 10);  
+        }, 1000 / 12);  
     };
     
     jump() {

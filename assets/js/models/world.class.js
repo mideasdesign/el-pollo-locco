@@ -57,7 +57,6 @@ class World {
       console.log('Flasche erstellt:', bottle);
       console.log('Array Länge:', this.throwableObject.length);
     }
-      
   };
 
   checkCollisionsBoss(){
@@ -130,7 +129,7 @@ class World {
 
   addToMap(mo) {
     if (mo.otherDirection) {
-      mo.changeDirection(this.ctx);
+      mo.changeDirection(this.ctx) ;
     }
     mo.draw(this.ctx);
     mo.drawFrame(this.ctx);
@@ -139,6 +138,6 @@ class World {
     if (mo.otherDirection) {
       mo.x = mo.x * -1;
       this.ctx.restore();
-    }
-  }
+    };
+  };
 }

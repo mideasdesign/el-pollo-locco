@@ -54,7 +54,7 @@ class Endboss extends MovableObject{
     animate(){
         setInterval(() => {
             if (this.isDead()) {
-                this.playAnimation(this.images_boss_dead);
+                this.playAnimationOnce(this.images_boss_dead);
             } else if (this.ishurt()) {
                 this.playAnimation(this.images_boss_hurt);
             } else {
@@ -65,9 +65,10 @@ class Endboss extends MovableObject{
 
     hitBoss() {
         console.log("Boss hit!");
-        this.healthBoss -= 6;
+        this.healthBoss -= 5;
         if (this.healthBoss < 0) {
-          this.healthBoss = 0;
+            endGame();
+            this.healthBoss = 0;
         } else {
           this.lastHit = new Date().getTime();
           console.log(this.healthBoss);
