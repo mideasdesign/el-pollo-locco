@@ -25,16 +25,16 @@ images_splash = [
     this.width = 50;
     this.loadImages(this.images_rotating_bottle);
     this.animate();
-    this.throw(100, 320);
+    this.throw(100, 330);
     
 
   };
 
   animate(){
     setInterval(() => {
-      this.x += 20; 
+      this.x += 24; 
         this.playAnimation(this.images_rotating_bottle);
-    }, 1000 / 24);
+    }, 1000 / 18);
 }
 
   throw(x, y){
@@ -42,8 +42,8 @@ images_splash = [
     this.y = y;
     this.height = 70;
     this.width= 90;
-    this.speedY = 22;
-    this.speed = 20;
+    this.speedY = 20;
+    this.speed = 15;
     this.applyGravity();
     this.animate();
   };

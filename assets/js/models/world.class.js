@@ -56,22 +56,22 @@ class World {
       this.thowableObject.push(bottle);
     }
   };
-/* 
+
   checkCollisionsBoss(){
-    this.thowableObject.forEach((bottle) => {
-      if (this.endboss.isColliding(bottle)) {
+    this.thowableObject.forEach((tO) => {
+      if (tO.isColliding(this.endboss)) {
         this.endboss.hitBoss();
         this.bossBar.setPercentage(this.endboss.healthBoss);
       }
     });
-  }; */
+  };
 
-  checkCollisionsBoss() {
+/*    checkCollisionsBoss() {
     if (this.character.isColliding(this.endboss)) {
       this.endboss.hitBoss();
       this.bossBar.setPercentage(this.endboss.healthBoss);
     }
-  }
+  } */
 
 
   checkCollectibles() {
