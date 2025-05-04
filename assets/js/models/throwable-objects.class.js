@@ -19,13 +19,13 @@ images_splash = [
 
   constructor(x, y) {
     super().loadImage('assets/images/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
-    this.x = 100;
-    this.y = 100;
+/*     this.x = 100;
+    this.y = 100; */
     this.height = 70;
     this.width = 50;
     this.loadImages(this.images_rotating_bottle);
     this.animate();
-    this.throw(100, 330);
+    this.throw(x, y);
     
 
   };
@@ -34,7 +34,7 @@ images_splash = [
     setInterval(() => {
       this.x += 24; 
         this.playAnimation(this.images_rotating_bottle);
-    }, 1000 / 18);
+    }, 1000 / 20);
 }
 
   throw(x, y){
@@ -42,8 +42,8 @@ images_splash = [
     this.y = y;
     this.height = 70;
     this.width= 90;
-    this.speedY = 20;
-    this.speed = 15;
+    this.speedY = 21;
+    this.speed = 17;
     this.applyGravity();
     this.animate();
   };

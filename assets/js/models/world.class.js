@@ -7,7 +7,7 @@ class World {
   bossBar = new BossBar();
   coins = [new Coins()];
   endboss = new Endboss();
-  thowableObject = [];
+  throwableObject = [];
   coinSound = new Audio('./assets/sound/sound-effects-coin.mp3');
   bottleSound = new Audio('./assets/sound/bottles-clanging-82557.mp3');
   canvas;
@@ -42,9 +42,9 @@ class World {
   run() {
     setInterval(() => {
       this.checkCollisionsPepe(); 
-      this.checkCollisionsBoss();
       this.checkThrowableObject();
-      this.checkCollectibles();
+      this.checkCollectibles();      
+      this.checkCollisionsBoss();
     }, 150);
   };
 
@@ -53,13 +53,17 @@ class World {
       let x = this.character.x + this.character.width / 2;
       let y = this.character.y + this.character.height / 2;
       let bottle = new ThrowableObject(x, y);
-      this.thowableObject.push(bottle);
+      this.throwableObject.push(bottle);
+      console.log('Flasche erstellt:', bottle);
+      console.log('Array Länge:', this.throwableObject.length);
     }
+      
   };
 
   checkCollisionsBoss(){
-    this.thowableObject.forEach((tO) => {
-      if (tO.isColliding(this.endboss)) {
+    this.throwableObject.forEach((tO) => {
+      console.log('Flasche bei:', tO.x, tO.y, 'Boss bei:', this.endboss.x, this.endboss.y);
+      if (this.endboss.isColliding(tO)) {
         this.endboss.hitBoss();
         this.bossBar.setPercentage(this.endboss.healthBoss);
       }
@@ -102,7 +106,7 @@ class World {
     this.addToMap(this.coinsBar);
     this.addToMap(this.bottlesBar);
     this.addToMap(this.bossBar);
-    this.addObjectsToMap(this.thowableObject);
+    this.addObjectsToMap(this.throwableObject);
     this.ctx.translate(this.cameraX, 0);
     this.addToMap(this.character); 
     this.addToMap(this.endboss); 
@@ -111,7 +115,6 @@ class World {
     this.addObjectsToMap(this.level.enemies);
    
     this.ctx.translate(-this.cameraX, 0);
-  
     //draw() wird immer wieder aufgerufen
     let self = this;
     requestAnimationFrame(function () {
