@@ -35,13 +35,14 @@
       <h2>Loading...</h2>
     </div>
     <div class="wrapper">      
-      <h1 class="headline">El Pollo Loco</h1>
+      <h1 id="el-pollo-loco" class="headline">El Pollo Loco</h1>
       <audio loop="true" autostart="true" id="audio"> 
         <source src="./assets/sound/tex-mex-delight-mexican-mariachi-113044.mp3" type="audio/mp3">
       </audio>
       <canvas id="canvas" width="720" height="480" style="display: none;"></canvas>    
-      <div class="game-over">GAME OVER</div> 
+      <h1 id="game-over" class="headline">GAME OVER</h1> 
       <button id="start-button" onclick="startGame()">Start Game</button>
+      <button id="restart-button" onclick="restartGame()">Restart Game</button>
       <div id="controls-box" style="display: none;">
         <div class="touch-pan-right">
           <button id="btn-jump"> < </button> <button id="btn-throw"> > </button>

@@ -10,6 +10,7 @@ class World {
   throwableObject = [];
   coinSound = new Audio('./assets/sound/sound-effects-coin.mp3');
   bottleSound = new Audio('./assets/sound/bottles-clanging-82557.mp3');
+  bgSound = new Audio('assets/sound/tex-mex-delight-mexican-mariachi-113044.mp3');
   canvas;
   ctx;
   keyboard;
@@ -24,6 +25,7 @@ class World {
     this.checkCollisionsPepe();
     this.checkCollisionsBoss();
     this.run();
+    this.bgSound.play();
   };
 
   setWorld() {
@@ -68,15 +70,6 @@ class World {
       }
     });
   };
-
-/*    checkCollisionsBoss() {
-    if (this.character.isColliding(this.endboss)) {
-      this.endboss.hitBoss();
-      this.bossBar.setPercentage(this.endboss.healthBoss);
-    }
-  } */
-
-
   checkCollectibles() {
     this.level.coins.forEach((coin, index) => {
       if (this.character.isColliding(coin)) {
@@ -133,7 +126,6 @@ class World {
     }
     mo.draw(this.ctx);
     mo.drawFrame(this.ctx);
-    mo.drawRealFrame(this.ctx);
 
     if (mo.otherDirection) {
       mo.x = mo.x * -1;

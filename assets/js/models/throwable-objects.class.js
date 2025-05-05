@@ -1,5 +1,6 @@
 class ThrowableObject extends MovableObject {
-
+  height = 70;
+  width = 50;
   images_rotating_bottle = [
     'assets/images/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
     'assets/images/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
@@ -17,10 +18,9 @@ images_splash = [
 ];
 
   constructor(x, y) {
-    super().loadImage('assets/images/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
-    this.height = 70;
-    this.width = 50;
-    this.loadImages(this.images_rotating_bottle);
+    super()
+    this.loadImage('assets/images/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
+    this.loadImages(this.images_rotating_bottle); 
     this.animate();
     this.throw(x, y);
   };
@@ -35,8 +35,6 @@ images_splash = [
   throw(x, y){
     this.x = x;
     this.y = y;
-    this.height = 70;
-    this.width= 90;
     this.speedY = 21;
     this.speed = 17;
     this.applyGravity();
