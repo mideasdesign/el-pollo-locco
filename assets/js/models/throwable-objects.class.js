@@ -21,8 +21,10 @@ images_splash = [
     super()
     this.loadImage('assets/images/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
     this.loadImages(this.images_rotating_bottle); 
+    this.x = 100;
+    this.y = 100;
     this.animate();
-    this.throw(x, y);
+
   };
 
   animate(){
@@ -35,8 +37,7 @@ images_splash = [
   throw(x, y){
     this.x = x;
     this.y = y;
-    this.speedY = 21;
-    this.speed = 17;
+    this.speedY = 30;
     this.applyGravity();
     this.animate();
   };

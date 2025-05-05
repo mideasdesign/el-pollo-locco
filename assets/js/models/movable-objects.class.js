@@ -1,6 +1,6 @@
 class MovableObject extends DrawableObject {
-  x = 100;
-  y = 100;
+  x;
+  y;
   img;
   width = 100;
   height = 250;
@@ -23,7 +23,7 @@ class MovableObject extends DrawableObject {
   }
 
   isAboveGround() {
-    if (this instanceof ThrowableObject){ //ThowableOblject always fall!
+    if (this instanceof ThrowableObject){ 
       return true;
     }else{
       return this.y < 180;

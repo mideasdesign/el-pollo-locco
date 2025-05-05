@@ -7,10 +7,10 @@ class World {
   bossBar = new BossBar();
   coins = [new Coins()];
   endboss = new Endboss();
-  throwableObject = [];
+  throwableObject = [new ThrowableObject()];
   coinSound = new Audio('./assets/sound/sound-effects-coin.mp3');
   bottleSound = new Audio('./assets/sound/bottles-clanging-82557.mp3');
-  bgSound = new Audio('assets/sound/tex-mex-delight-mexican-mariachi-113044.mp3');
+/*   bgSound = new Audio('assets/sound/tex-mex-delight-mexican-mariachi-113044.mp3'); */
   canvas;
   ctx;
   keyboard;
@@ -25,7 +25,7 @@ class World {
     this.checkCollisionsPepe();
     this.checkCollisionsBoss();
     this.run();
-    this.bgSound.play();
+/*     this.bgSound.play(); */
   };
 
   setWorld() {
