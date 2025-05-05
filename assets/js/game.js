@@ -7,21 +7,28 @@ function init() {
 }
 
 function startGame() {
-
-        setTimeout(() => {
             initLevel();
             world = new World(canvas, keyboard);
             document.getElementById('loading-screen').style.display = 'none';
             document.getElementById('canvas').style.display = 'block';
             document.getElementById('start-button').style.display = 'none';
             document.getElementById('controls-box').style.display = 'block';
-        }, 50);
+
 }
 function endGame(){
     document.getElementById('canvas').style.display = 'none';
-    document.getElementById('start-button').style.display = 'block';
+    document.getElementById('start-button').style.display = 'none';
+    document.getElementById('restart-button').style.display = 'block';
     document.getElementById('controls-box').style.display = 'none';
     document.getElementById('instruction').style.display = 'block';
+    document.getElementById('game-over').style.display = 'block';
+    document.getElementById('el-pollo').style.display = 'none';
+
+
+}
+function restartGame(){
+    location.reload();
+    init();
 }
 
 window.addEventListener('keydown', (e) => {

@@ -1,7 +1,7 @@
 class World {
   character = new Character();
   enemies = [new Chicken(), new Chicken(), new Chicken()];
-  backgroundObjects = [new BackgroundObject(),];
+  backgroundObjects = [new BackgroundObject()];
   clouds = [new Clouds()];
   statusBar = new StatusBar();
   coinsBar = new CoinsBar();
@@ -26,6 +26,7 @@ class World {
     this.setWorld();
     this.checkCollisionsPepe();
     this.checkCollisionsBoss();
+    this.killChicken();
     this.run();
   }
 
@@ -84,6 +85,15 @@ class World {
       }
     });
   };
+
+  killChicken(){
+    this.level.enemies.forEach((enemy) => {
+      if (this.character.isColliding(enemy)) {
+        this.coinSound.play();
+        this.level.enemies.splice(index, 1);
+      }
+    });
+  }
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);

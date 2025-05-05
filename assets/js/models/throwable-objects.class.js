@@ -14,27 +14,24 @@ images_splash = [
   'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png',
   'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
   'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
-
 ];
 
   constructor(x, y) {
     super().loadImage('assets/images/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
-    this.x = 100;
-    this.y = 100;
+/*     this.x = 100;
+    this.y = 100; */
     this.height = 70;
     this.width = 50;
     this.loadImages(this.images_rotating_bottle);
     this.animate();
-    this.throw(100, 300);
-    
-
+    this.throw(100, 330);
   };
 
   animate(){
     setInterval(() => {
-      this.x += 20; 
+      this.x += 24; 
         this.playAnimation(this.images_rotating_bottle);
-    }, 1000 / 24);
+    }, 1000 / 20);
 }
 
   throw(x, y){
@@ -42,10 +39,9 @@ images_splash = [
     this.y = y;
     this.height = 70;
     this.width= 90;
-    this.speedY = 22;
-    this.speed = 20;
+    this.speedY = 21;
+    this.speed = 17;
     this.applyGravity();
     this.animate();
   };
-
 }
