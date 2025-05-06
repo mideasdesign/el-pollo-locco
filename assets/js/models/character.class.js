@@ -6,7 +6,7 @@ class Character extends MovableObject{
     speed = 16;
     speedY = 0;
     offset = {
-        top: 160,
+        top: 10,
         right: 40,
         bottom: 30,
         left: 40
@@ -57,6 +57,7 @@ class Character extends MovableObject{
         this.loadImages(this.images_jumping);
         this.loadImages(this.images_hurt);
         this.loadImages(this.images_dead);
+        this.getRealFrame();
         this.applyGravity();
         this.animate();
     };

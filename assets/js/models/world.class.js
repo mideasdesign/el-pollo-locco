@@ -54,7 +54,7 @@ class World {
       this.throwableObject.push(bottle);
       
     }
-  }
+  };
 
   checkCollisionsBoss(){
     this.throwableObject.forEach((bottle) => {
@@ -64,6 +64,7 @@ class World {
       }
     });
   };
+
   checkCollectibles() {
     this.level.coins.forEach((coin, index) => {
       if (this.character.isColliding(coin)) {
@@ -92,7 +93,6 @@ class World {
     this.addToMap(this.coinsBar);
     this.addToMap(this.bottlesBar);
     this.addToMap(this.bossBar);
-
     this.ctx.translate(this.cameraX, 0);    
     this.addObjectsToMap(this.throwableObject);
     this.addToMap(this.character); 
@@ -100,9 +100,7 @@ class World {
     this.addObjectsToMap(this.level.coins);
     this.addObjectsToMap(this.level.bottles);
     this.addObjectsToMap(this.level.enemies);
-   
     this.ctx.translate(-this.cameraX, 0);
-  
     //draw() wird immer wieder aufgerufen
     let self = this;
     requestAnimationFrame(function () {
@@ -122,6 +120,7 @@ class World {
     }
     mo.draw(this.ctx);
     mo.drawFrame(this.ctx);
+    mo.drawRealFrame(this.ctx);
     if (mo.otherDirection) {
       mo.x = mo.x * -1;
       this.ctx.restore();
