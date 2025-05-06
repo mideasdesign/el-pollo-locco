@@ -7,11 +7,9 @@ class MovableObject extends DrawableObject {
   imageCache = {};
   currentImage = 0;
   speed = 0.15;
-  speedY = 0;
   acceleration = 2;
   offsetX = 0;
   offsetY = 0;
-  energyLevel = 100;
   lastHit = 0;
 
   applyGravity() {
@@ -59,14 +57,16 @@ class MovableObject extends DrawableObject {
   }
 
   isColliding(mo) {
-    return this.x + this.width >= mo.x && this.x <= mo.x + mo.width 
-    && this.y + this.offsetY + this.height >= mo.y && this.y + this.offsetY <= mo.y + mo.height;
+    return this.x + this.width >= mo.x && 
+    this.x <= mo.x + mo.width && 
+    this.y + this.offsetY + this.height >= mo.y && 
+    this.y + this.offsetY <= mo.y + mo.height;
   }
 
-  hit() {
-    this.energyLevel -= 4;
-    if (this.energyLevel < 0) {
-      this.energyLevel = 0;
+  hitPepe() {
+    this.healthPepe -= 4;
+    if (this.healthPepe < 0) {
+      this.healthPepe = 0;
     } else {
       this.lastHit = new Date().getTime();
     }
@@ -79,6 +79,6 @@ class MovableObject extends DrawableObject {
   }
 
   isDead() {
-    return this.energyLevel == 0;
+    return this.healthPepe == 0 || this.healthBoss == 0;
   }
 }

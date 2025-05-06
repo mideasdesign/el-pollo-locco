@@ -11,9 +11,9 @@ class CoinsBar extends StatusBar {
       ];
       this.loadImages(this.images);
       this.img = this.imageCache[this.images[0]];
-      this.x = 360;
+      this.x = 170;
       this.y = 10;
-      this.width = 150;
+      this.width = 140;
       this.height = 40;
       this.setPercentage(0);
     }
