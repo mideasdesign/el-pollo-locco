@@ -1,4 +1,4 @@
-class BottleBar extends StatusBar {
+class BottlesBar extends StatusBar {
   constructor() {
     super();
     this.images = [
@@ -11,7 +11,7 @@ class BottleBar extends StatusBar {
     ];
     this.loadImages(this.images);
     this.img = this.imageCache[this.images[0]];
-    this.x = 530;
+    this.x = 330;
     this.y = 10;
     this.width = 150;
     this.height = 40;

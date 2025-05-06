@@ -1,15 +1,12 @@
 class World {
   character = new Character();
-  enemies = [new Chicken(),];
+  enemies = [new Chicken()];
   clouds = [new Clouds()];
   statusBar = new StatusBar();
-  healthBar = new HealthBar();
   coinsBar = new CoinsBar();
-  bottleBar = new BottleBar();
+  bottlesBar = new BottlesBar();
   bossBar = new BossBar();
-  thowableObject = [];
-  backgroundObjects = [];
-  spawnedChickenPositions = [];
+  throwableObject = [];
   canvas;
   ctx;
   keyboard;
@@ -48,7 +45,7 @@ class World {
   checkThrowableObject(){
     if (this.keyboard.t) {
       let bottle = new ThrowableObject();
-      this.thowableObject.push(bottle);
+      this.throwableObject.push(bottle);
     }
   }
 
@@ -61,13 +58,12 @@ class World {
     this.addToMap(this.bottleBar);
     this.addToMap(this.coinsBar);
     this.addToMap(this.bossBar);
-    this.addObjectsToMap(this.thowableObject);
+    this.addObjectsToMap(this.throwableObject);
     this.ctx.translate(this.cameraX, 0);
     this.addToMap(this.character);  
     this.addObjectsToMap(this.level.enemies);
     this.addObjectsToMap(this.level.clouds);    
     this.ctx.translate(-this.cameraX, 0);
-    this.spawnChickenIfNeeded();
 
 
     //draw() wird immer wieder aufgerufen
@@ -95,23 +91,4 @@ class World {
     }
   }
 
-  
-  spawnChickenIfNeeded() {
-    const spawnEvery = 500;
-    const maxDistance = 3000;
-    const spawnPoints = [];
-
-    // Erzeuge einmal alle Spawn-Punkte
-    for (let i = spawnEvery; i <= maxDistance; i += spawnEvery) {
-        spawnPoints.push(i);
-    }
-
-    // Jetzt über alle Spawnpunkte drüber gehen
-    spawnPoints.forEach((point) => {
-        if (this.character.x >= point && !spawnedChickenPositions.includes(point)) {
-            this.level.enemies.push(new Chicken());
-            spawnedChickenPositions.push(point);
-        }
-    });
-}
 }
