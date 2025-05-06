@@ -1,13 +1,12 @@
 class MovableObject extends DrawableObject {
-  x;
-  y;
+  x = 100;
+  y = 100;
   img;
   width = 100;
   height = 250;
   imageCache = {};
   currentImage = 0;
   speed = 0.15;
-  speedY = 0;
   acceleration = 2;
   offsetX = 0;
   offsetY = 0;
@@ -23,7 +22,7 @@ class MovableObject extends DrawableObject {
   }
 
   isAboveGround() {
-    if (this instanceof ThrowableObject){ 
+    if (this instanceof ThrowableObject){ //ThowableOblject always fall!
       return true;
     }else{
       return this.y < 180;
@@ -80,6 +79,6 @@ class MovableObject extends DrawableObject {
   }
 
   isDead() {
-    return this.healthPepe == 0;
+    return this.healthPepe == 0 || this.healthBoss == 0;
   }
 }

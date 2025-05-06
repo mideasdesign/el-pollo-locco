@@ -1,35 +1,28 @@
 let world;
 let keyboard = new Keyboard();
 let canvas;
-
+let audio;
 function init() {
     canvas = document.getElementById('canvas');
-};
+}
 
 function startGame() {
 
-    initLevel();
-    world = new World(canvas, keyboard);
-    document.getElementById('loading-screen').style.display = 'none';
-    document.getElementById('canvas').style.display = 'block';
-    document.getElementById('start-button').style.display = 'none';
-    document.getElementById('controls-box').style.display = 'block';
-};
-
+        setTimeout(() => {
+            initLevel();
+            world = new World(canvas, keyboard);
+            document.getElementById('loading-screen').style.display = 'none';
+            document.getElementById('canvas').style.display = 'block';
+            document.getElementById('start-button').style.display = 'none';
+            document.getElementById('controls-box').style.display = 'block';
+        }, 50);
+}
 function endGame(){
     document.getElementById('canvas').style.display = 'none';
-    document.getElementById('game-over').style.display = 'block';
-    document.getElementById('restart-button').style.display = 'block';
-    document.getElementById('el-pollo-loco').style.display = 'none';
-    document.getElementById('start-button').style.display = 'none';
+    document.getElementById('start-button').style.display = 'block';
     document.getElementById('controls-box').style.display = 'none';
     document.getElementById('instruction').style.display = 'block';
-};
-
-function restartGame (){
-    location.reload();
-    init();
-};
+}
 
 window.addEventListener('keydown', (e) => {
     if (e.keyCode == 37) keyboard.left = true;

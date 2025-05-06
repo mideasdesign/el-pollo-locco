@@ -3,6 +3,12 @@ class Endboss extends MovableObject{
     height = 450;
     x = 3090;
     y = 30;
+/*     offset = {
+        top: 150,
+        right: 20,
+        bottom: 30,
+        left: 0
+    }; */
     healthBoss = 100;
     images_idle = [
         'assets/images/4_enemie_boss_chicken/2_alert/G5.png',
@@ -37,24 +43,20 @@ class Endboss extends MovableObject{
         'assets/images/4_enemie_boss_chicken/3_attack/G19.png',
         'assets/images/4_enemie_boss_chicken/3_attack/G20.png'
     ];
-
     currentImage = 0;
     constructor(){
-        super();
-        this.loadImage('assets/images/4_enemie_boss_chicken/2_alert/G5.png');
+        super().loadImage('assets/images/4_enemie_boss_chicken/2_alert/G5.png');
         this.loadImages(this.images_idle);
         this.loadImages(this.images_boss_hurt);
         this.loadImages(this.images_boss_attack);
         this.loadImages(this.images_boss_dead);
         this.animate();
-        this.healthBoss = 100;
-        console.log('Initial boss health:', this.healthBoss);
-    }
+    };
 
     animate(){
         setInterval(() => {
             if (this.isDead()) {
-                this.playAnimationOnce(this.images_boss_dead);
+                this.playAnimation(this.images_boss_dead);
             } else if (this.ishurt()) {
                 this.playAnimation(this.images_boss_hurt);
             } else {
@@ -63,19 +65,13 @@ class Endboss extends MovableObject{
         }, 300);  
     };
 
-    hitBoss() {
-        console.log("Boss hit!");
-        this.healthBoss -= 5;
-        if (this.healthBoss < 0) {
-            endGame();
-            this.healthBoss = 0;
-        } else {
-          this.lastHit = new Date().getTime();
-          console.log(this.healthBoss);
-        }
-      
-        // Aktualisiere die BossBar
-        world.bossBar.setPercentage(this.healthBoss);
-      }
+hitBoss() {
+    this.healthBoss -= 5;
+    if (this.healthBoss < 0) {
+      this.healthBoss = 0;
+    } else {
+      this.lastHit = new Date().getTime();
+    }
+  }
 
 }

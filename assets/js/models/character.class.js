@@ -4,6 +4,7 @@ class Character extends MovableObject{
     width = 120;
     height = 250;
     speed = 16;
+    speedY = 0;
     offset = {
         top: 160,
         right: 40,
@@ -80,8 +81,7 @@ class Character extends MovableObject{
         
         setInterval(() => {
             if (this.isDead()) {
-                this.playAnimationOnce(this.images_dead);
-                endGame();
+                this.playAnimation(this.images_dead);
             } else if (this.ishurt()) {
                 this.playAnimation(this.images_hurt);
             } else if (this.isJumping) {
@@ -103,7 +103,7 @@ class Character extends MovableObject{
             } else if (this.world.keyboard.right || this.world.keyboard.left) {
                 this.playAnimation(this.images_walking);
             }
-        }, 1000 / 12);  
+        }, 1000 / 10);  
     };
     
     jump() {

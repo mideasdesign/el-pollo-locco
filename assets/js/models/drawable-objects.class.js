@@ -4,10 +4,6 @@ class DrawableObject {
     img;
     width = 100;
     height = 50;
-    rX;
-    rY;
-    rW;
-    rH;
     imageCache = {};
     currentImage = 0;
     offset = {};
@@ -16,13 +12,6 @@ class DrawableObject {
         this.img = new Image();
         this.img.src = path;
     };
-
-    getRealFrame(){
-        this.rX = this.x + this.offset.left;
-        this.rY = this.y + this.offset.top;
-        this.rW = this.width + this.offset.left - this.offset.right;
-        this.rH = this.height + this.offset.top - this.offset.bottom;
-        };
 
     draw(ctx){
         try{
@@ -44,15 +33,6 @@ class DrawableObject {
         }
     };
 
-    drawRealFrame(ctx){
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coins || this instanceof Bottles){
-            ctx.beginPath();
-            ctx.lineWidth = '1';
-            ctx.strokeStyle = 'red';
-            ctx.rect(this.rX, this.rY, this.rW, this.rH);
-            ctx.stroke();
-        }
-    };
     /**
      * 
      * @param { Array
