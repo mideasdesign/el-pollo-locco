@@ -1,11 +1,9 @@
 class World {
   character = new Character();
-  enemies = [new Chicken()];
   statusBar = new StatusBar();
   coinsBar = new CoinsBar();
   bottlesBar = new BottlesBar();
   bossBar = new BossBar();
-  coins = [new Coins()];
   throwableObject = [];
   coinSound = new Audio('./assets/sound/sound-effects-coin.mp3');
   bottleSound = new Audio('./assets/sound/bottles-clanging-82557.mp3');
@@ -45,7 +43,7 @@ class World {
       this.checkCollisionsBoss();
       this.checkThrowableObject();
       this.checkCollectibles();
-    }, 150);
+    }, 100);
   };
 
   checkThrowableObject(){
