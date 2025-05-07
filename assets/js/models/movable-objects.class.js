@@ -52,7 +52,7 @@ class MovableObject extends DrawableObject {
   };
 
   jump() {
-    this.speedY = 22;
+    this.speedY = 18;
   };
 
    isColliding(mo) {
@@ -63,7 +63,7 @@ class MovableObject extends DrawableObject {
   }; 
 
   isCollidingFromTop(mo) {
-    return this.rY + this.rH <= mo.rY + mo.rH / 2 &&
+    return this.rY + this.rH <= mo.rY + (mo.rH * 20) &&
       this.rX + this.rW > mo.rX &&
       this.rX < mo.rX + mo.rW;
   }
@@ -79,7 +79,7 @@ class MovableObject extends DrawableObject {
 
   ishurt() {
     let timespassed = new Date().getTime() - this.lastHit;
-    timespassed = timespassed / 1000;
+    timespassed = timespassed / 500;
     return timespassed < 0.5;
   };
 

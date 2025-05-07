@@ -34,6 +34,8 @@ class World {
     setInterval(() => {
       this.level.enemies.forEach((enemy) => {
         if (this.character.isColliding(enemy) && this.character.isCollidingFromTop(enemy) && this.character.speedY < 0){
+          enemy.isDead = true;
+          enemy.speed = 0;
           enemy.loadImage('assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.webp');
           this.character.speedY = 15;
           setTimeout(() => {

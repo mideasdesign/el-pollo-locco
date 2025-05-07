@@ -19,7 +19,7 @@ class Bottles extends MovableObject {
       this.y = y;
       this.width = 70;
       this.height = 90;
+      this.loadImages(this.images_bottles);      
       this.getRealFrame();
-      this.loadImages(this.images_bottles);
     }
   }
