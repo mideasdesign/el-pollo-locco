@@ -6,12 +6,7 @@ class Character extends MovableObject{
     speed = 16;
     speedY = 0;
     offset = {
-        top: 110,
-        right: 70,
-        bottom: 15,
-        left: 20
     };
-
     healthPepe = 100;
     otherDirection = false;
     images_walking = [
@@ -86,8 +81,6 @@ class Character extends MovableObject{
         
         setInterval(() => {
             if (this.isDead()) {
-                this.playAnimationOnce(this.images_dead);
-                endGame();
             } else if (this.ishurt()) {
                 this.playAnimation(this.images_hurt);
             } else if (this.isJumping) {
@@ -121,4 +114,5 @@ class Character extends MovableObject{
         }
     }    
 
+    }
 }
