@@ -15,6 +15,10 @@ class Chicken extends MovableObject{
         'assets/images/3_enemies_chicken/chicken_normal/1_walk/3_w.png'
     ];
 
+    images_dead = [
+        'assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.webp',
+    ];
+
     currentImage = 0;
     constructor(){
         super().loadImage('assets/images/3_enemies_chicken/chicken_normal/1_walk/1_w.png');

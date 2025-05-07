@@ -21,12 +21,30 @@ class World {
     this.setWorld();
     this.checkCollisionsPepe();
     this.checkCollisionsBoss();
+    this.checkCollisionsFromTop();
     this.checkThrowableObject();
     this.run();
   };
 
   setWorld() {
     this.character.world = this;
+  };
+
+  checkCollisionsFromTop(){
+    setInterval(() => {
+      this.level.enemies.forEach((enemy) => {
+        if (this.character.isColliding(enemy) && this.character.isCollidingFromTop(enemy) && this.character.speedY < 0){
+          enemy.loadImage('assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.webp');
+          this.character.speedY = 15;
+          setTimeout(() => {
+            const index = this.level.enemies.indexOf(enemy);
+            if (index > -1) {
+                this.level.enemies.splice(index, 1);
+            }
+        }, 10);
+        }
+      });
+    }, 100);
   };
 
   checkCollisionsPepe(){
@@ -66,6 +84,7 @@ class World {
     });
   };
 
+
   checkCollectibles() {
     this.level.coins.forEach((coin, index) => {
       if (this.character.isColliding(coin)) {
@@ -74,16 +93,7 @@ class World {
         this.level.coins.splice(index, 1);
       }
     });
-  
-    this.level.bottles.forEach((bottle, index) => {
-      if (this.character.isColliding(bottle)) {
-        this.bottlesBar.setPercentage(this.bottlesBar.percentage + 10);
-        this.bottleSound.play();
-        this.level.bottles.splice(index, 1);
-      }
-    });
-  };
-
+  }
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.cameraX, 0);
@@ -129,4 +139,5 @@ class World {
       this.ctx.restore();
     }
   }
+
 }

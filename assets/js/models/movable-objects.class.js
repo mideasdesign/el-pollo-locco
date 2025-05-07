@@ -56,11 +56,17 @@ class MovableObject extends DrawableObject {
   };
 
    isColliding(mo) {
-    return this.rX + this.rW > mo.rX && 
-      this.rY + this.rH > mo.rY && 
-      this.rX < mo.rX + mo.rW && 
-      this.rY < mo.rY + mo.rH;
+    return this.rX + this.rW >= mo.rX && 
+      this.rY + this.rH >= mo.rY && 
+      this.rX <= mo.rX + mo.rW && 
+      this.rY <= mo.rY + mo.rH;
   }; 
+
+  isCollidingFromTop(mo) {
+    return this.rY + this.rH <= mo.rY + mo.rH / 2 &&
+      this.rX + this.rW > mo.rX &&
+      this.rX < mo.rX + mo.rW;
+  }
 
   hitPepe() {
     this.healthPepe -= 4;
