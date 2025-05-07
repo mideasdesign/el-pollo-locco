@@ -107,14 +107,15 @@ class Character extends MovableObject{
                     this.isAnimating = false;
                 }
             } else if (this.world.keyboard.right || this.world.keyboard.left) {
-                this.playAnimation(this.images_walking);
+                this.playAnimation(this.images_walking, 120);
             }
-        }, 1000 / 10);  
+        }, 1000 / 20);  
     };
     
     jump() {
         if (!this.isJumping) {
             this.speedY = 24;
+            this.speedY = 23;
             this.isJumping = true;
             this.playAnimationOnce(this.images_jumping, 130);
         }
