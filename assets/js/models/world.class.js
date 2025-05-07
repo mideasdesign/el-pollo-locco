@@ -21,7 +21,7 @@ class World {
     this.setWorld();
     this.checkCollisionsPepe();
     this.checkCollisionsBoss();
-    this.checkCollisionsFromTop();
+/*     this.checkCollisionsFromTop(); */
     this.checkThrowableObject();
     this.run();
   };
@@ -30,7 +30,7 @@ class World {
     this.character.world = this;
   };
 
-  checkCollisionsFromTop(){
+/*   checkCollisionsFromTop(){
     setInterval(() => {
       this.level.enemies.forEach((enemy) => {
         if (this.character.isColliding(enemy) && this.character.speedY < 0){
@@ -46,7 +46,7 @@ class World {
         }
       });
     }, 200);
-  };
+  }; */
 
   checkCollisionsPepe(){
     this.level.enemies.forEach((enemy) => {

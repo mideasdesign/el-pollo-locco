@@ -52,10 +52,10 @@ class MovableObject extends DrawableObject {
   };
 
    isColliding(mo) {
-    return this.rX + this.rW >= mo.rX && 
-      this.rY + this.rH >= mo.rY && 
-      this.rX <= mo.rX + mo.rW && 
-      this.rY <= mo.rY + mo.rH;
+    return this.rX + this.rW > mo.rX && 
+      this.rY + this.rH > mo.rY && 
+      this.rX < mo.rX + mo.rW && 
+      this.rY < mo.rY + mo.rH;
   }; 
 
   hitPepe() {
@@ -66,10 +66,9 @@ class MovableObject extends DrawableObject {
       this.lastHit = new Date().getTime();
     }
   };
-
   ishurt() {
     let timespassed = new Date().getTime() - this.lastHit;
-    timespassed = timespassed / 500;
+    timespassed = timespassed / 1000;
     return timespassed < 0.5;
   };
 
