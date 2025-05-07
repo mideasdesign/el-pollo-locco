@@ -6,12 +6,12 @@ class Character extends MovableObject{
     speed = 16;
     speedY = 0;
     offset = {
-        top: 10,
-        right: 40,
-        bottom: 30,
-        left: 40
+        top: 110,
+        right: 70,
+        bottom: 15,
+        left: 20
     };
-    
+
     healthPepe = 100;
     otherDirection = false;
     images_walking = [
@@ -52,6 +52,8 @@ class Character extends MovableObject{
         'assets/images/2_character_pepe/5_dead/D-57.png',
     ];
 
+
+
   world;
     constructor(){
         super().loadImage('assets/images/2_character_pepe/1_idle/idle/I-10.png');
@@ -84,7 +86,8 @@ class Character extends MovableObject{
         
         setInterval(() => {
             if (this.isDead()) {
-                this.playAnimation(this.images_dead);
+                this.playAnimationOnce(this.images_dead);
+                endGame();
             } else if (this.ishurt()) {
                 this.playAnimation(this.images_hurt);
             } else if (this.isJumping) {
@@ -115,5 +118,6 @@ class Character extends MovableObject{
             this.isJumping = true;
             this.playAnimationOnce(this.images_jumping, 120);
         }
-    }
+    }    
+
 }

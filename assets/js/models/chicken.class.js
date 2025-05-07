@@ -3,10 +3,10 @@ class Chicken extends MovableObject{
     height = 60;
     otherDirection = false;
     offset = {
-        top: 40,
-        right: 20,
-        bottom: 30,
-        left: 20
+        top: 7,
+        right: 10,
+        bottom: 6,
+        left: 5
     };
 
     images_walking = [
@@ -20,6 +20,7 @@ class Chicken extends MovableObject{
         super().loadImage('assets/images/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.x = 1500 + Math.random() * 1700;
         this.y = 430 - this.height;
+        this.getRealFrame();
         this.loadImages(this.images_walking);
         this.speed = 0.15 + Math.random() * 0.40;
         this.animate();

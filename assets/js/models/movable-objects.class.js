@@ -5,15 +5,11 @@ class MovableObject extends DrawableObject {
   width = 100;
   height = 250;
   imageCache = {};
+  offset = {};
   currentImage = 0;
-  speed = 0.25;
+  speed = 0.15;
   acceleration = 2;
   lastHit = 0;
-  offset = {};
-  rX;
-  rY;
-  rW;
-  rH;
 
   applyGravity() {
     setInterval(() => {
@@ -59,19 +55,12 @@ class MovableObject extends DrawableObject {
     this.speedY = 22;
   };
 
-/*   isColliding(mo) {
-    return this.x + this.width >= mo.x && 
-    this.x <= mo.x + mo.width && 
-    this.y + this.offsetY + this.height >= mo.y && 
-    this.y + this.offsetY <= mo.y + mo.height;
-  } */
-
-  isColliding(mo) {
+   isColliding(mo) {
     return this.rX + this.rW > mo.rX && 
-    this.rX < mo.rX + mo.rW && 
-    this.rY + this.rH > mo.rY && 
-    this.rY < mo.rY + mo.rH;
-  };
+      this.rY + this.rH > mo.rY && 
+      this.rX < mo.rX + mo.rW && 
+      this.rY < mo.rY + mo.rH;
+  }; 
 
   hitPepe() {
     this.healthPepe -= 4;
