@@ -24,10 +24,11 @@ class World {
 /*     this.checkCollisionsFromTop(); */
     this.checkThrowableObject();
     this.run();
-  };
+  }
 
   setWorld() {
     this.character.world = this;
+<<<<<<< HEAD
   };
 
 /*   checkCollisionsFromTop(){
@@ -48,6 +49,9 @@ class World {
     }, 200);
   }; */
 
+=======
+  }
+>>>>>>> parent of 00f49b4 (finish the new colision method with rX, rY, rW and rH)
   checkCollisionsPepe(){
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
@@ -98,7 +102,6 @@ class World {
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.cameraX, 0);
-
     this.addObjectsToMap(this.level.backgroundObjects);   
     this.addObjectsToMap(this.level.clouds);
     this.ctx.translate(-this.cameraX, 0);
@@ -106,7 +109,7 @@ class World {
     this.addToMap(this.coinsBar);
     this.addToMap(this.bottlesBar);
     this.addToMap(this.bossBar);
-    this.ctx.translate(this.cameraX, 0);   
+    this.ctx.translate(this.cameraX, 0);    
     this.addObjectsToMap(this.throwableObject);
     this.addToMap(this.character); 
     this.addToMap(this.endboss); 
@@ -131,7 +134,6 @@ class World {
     if (mo.otherDirection) {
       mo.changeDirection(this.ctx);
     }
-    mo.getRealFrame();
     mo.draw(this.ctx);
     mo.drawFrame(this.ctx);
     mo.drawRealFrame(this.ctx);

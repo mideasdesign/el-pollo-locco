@@ -4,6 +4,8 @@ class Endboss extends MovableObject{
     x = 3090;
     y = 30;
      offset = {
+        top: 130,
+        right: 10,
         bottom: 40,
         left: 0
     };
@@ -18,6 +20,7 @@ class Endboss extends MovableObject{
         'assets/images/4_enemie_boss_chicken/2_alert/G11.png',
         'assets/images/4_enemie_boss_chicken/2_alert/G12.png',
         
+    ];
     images_boss_hurt = [
         'assets/images/4_enemie_boss_chicken/4_hurt/G21.png',
         'assets/images/4_enemie_boss_chicken/4_hurt/G22.png',
