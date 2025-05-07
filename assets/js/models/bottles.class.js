@@ -2,10 +2,10 @@ class Bottles extends MovableObject {
   width = 70;
   height = 90;
   offset = {
-    top: 10,
-    right: 56,
+    top: 17,
+    right: 57,
     bottom: 10,
-    left: 24
+    left: 28
   };
   bottlesLevel = 0;
   images_bottles = [

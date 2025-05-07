@@ -43,6 +43,7 @@ class DrawableObject {
             ctx.stroke();
         }
     };
+
     drawRealFrame(ctx){
         if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coins || this instanceof Bottles || this instanceof ThrowableObject){
             ctx.beginPath();
@@ -52,6 +53,7 @@ class DrawableObject {
             ctx.stroke();
         }
     };
+    
 
 
     /**
@@ -65,7 +67,8 @@ class DrawableObject {
             img.src = path;
             this.imageCache[path] = img;
         });
-    }
+    };
+
     playAnimationOnce(images, frameRate = 100) {
         if (this.isAnimating) return;
         this.isAnimating = true;

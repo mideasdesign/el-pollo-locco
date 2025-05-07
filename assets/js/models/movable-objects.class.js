@@ -9,6 +9,11 @@ class MovableObject extends DrawableObject {
   speed = 0.25;
   acceleration = 2;
   lastHit = 0;
+  offset = {};
+  rX;
+  rY;
+  rW;
+  rH;
 
   applyGravity() {
     setInterval(() => {
@@ -66,7 +71,7 @@ class MovableObject extends DrawableObject {
     this.rX < mo.rX + mo.rW && 
     this.rY + this.rH > mo.rY && 
     this.rY < mo.rY + mo.rH;
-  },
+  };
 
   hitPepe() {
     this.healthPepe -= 4;
