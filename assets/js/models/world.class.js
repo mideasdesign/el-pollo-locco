@@ -33,20 +33,19 @@ class World {
   checkCollisionsFromTop(){
     setInterval(() => {
       this.level.enemies.forEach((enemy) => {
-        if (this.character.isColliding(enemy) && this.character.isCollidingFromTop(enemy) && this.character.speedY < 0){
+        if (this.character.isColliding(enemy) && this.character.speedY < 0){
           enemy.isDead = true;
           enemy.speed = 0;
-          enemy.loadImage('assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.webp');
-          this.character.speedY = 15;
           setTimeout(() => {
+            enemy.loadImage('assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.webp');
             const index = this.level.enemies.indexOf(enemy);
             if (index > -1) {
                 this.level.enemies.splice(index, 1);
             }
-        }, 10);
+        }, 7000);
         }
       });
-    }, 100);
+    }, 200);
   };
 
   checkCollisionsPepe(){

@@ -51,22 +51,12 @@ class MovableObject extends DrawableObject {
     this.x -= this.speed;
   };
 
-  jump() {
-    this.speedY = 18;
-  };
-
    isColliding(mo) {
     return this.rX + this.rW >= mo.rX && 
       this.rY + this.rH >= mo.rY && 
       this.rX <= mo.rX + mo.rW && 
       this.rY <= mo.rY + mo.rH;
   }; 
-
-  isCollidingFromTop(mo) {
-    return this.rY + this.rH <= mo.rY + (mo.rH * 20) &&
-      this.rX + this.rW > mo.rX &&
-      this.rX < mo.rX + mo.rW;
-  }
 
   hitPepe() {
     this.healthPepe -= 4;
