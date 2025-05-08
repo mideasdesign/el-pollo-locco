@@ -20,10 +20,11 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
-    this.checkCollisionsFromTop();
+
     this.checkCollisionsPepe();
     this.checkCollisionsBoss();
-    this.checkThrowableObject();
+    this.checkThrowableObject();    
+    this.checkCollisionsFromTop();
     this.run();
   };
 
@@ -102,7 +103,6 @@ class World {
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.cameraX, 0);
-
     this.addObjectsToMap(this.level.backgroundObjects);   
     this.addObjectsToMap(this.level.clouds);
     this.ctx.translate(-this.cameraX, 0);
