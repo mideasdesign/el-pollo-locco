@@ -3,12 +3,12 @@ class Endboss extends MovableObject{
     height = 450;
     x = 3090;
     y = 30;
-/*     offset = {
+    offset = {
         top: 150,
         right: 20,
         bottom: 30,
-        left: 0
-    }; */
+        left: 3
+    };
     healthBoss = 100;
     images_idle = [
         'assets/images/4_enemie_boss_chicken/2_alert/G5.png',
@@ -50,6 +50,7 @@ class Endboss extends MovableObject{
         this.loadImages(this.images_boss_hurt);
         this.loadImages(this.images_boss_attack);
         this.loadImages(this.images_boss_dead);
+        this.getRealFrame();
         this.animate();
     };
 

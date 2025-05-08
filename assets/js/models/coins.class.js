@@ -17,6 +17,7 @@ coinsLevel = 0;
       this.y = y;
       this.width = 70;
       this.height = 70;
+      this.getRealFrame();
       this.loadImages(this.images_coins);
       this.animate();
     }

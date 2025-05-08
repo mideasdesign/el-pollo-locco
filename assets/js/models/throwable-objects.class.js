@@ -1,4 +1,10 @@
 class ThrowableObject extends MovableObject {
+ offset ={
+  top: 5,
+  right: 5,
+  bottom: 7,
+  left: 10
+ }
   images_rotating_bottle = [
     'assets/images/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
     'assets/images/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
@@ -37,6 +43,7 @@ images_splash = [
     this.height = 70;
     this.width = 50;
     this.speedY = 30;
+    this.getRealFrame();
     this.applyGravity();
     this.animate();
   };

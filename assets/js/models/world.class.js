@@ -94,7 +94,6 @@ class World {
     this.addToMap(this.coinsBar);
     this.addToMap(this.bottlesBar);
     this.addToMap(this.bossBar);
-
     this.ctx.translate(this.cameraX, 0);    
     this.addObjectsToMap(this.throwableObject);
     this.addToMap(this.character); 
@@ -122,8 +121,10 @@ class World {
     if (mo.otherDirection) {
       mo.changeDirection(this.ctx);
     }
+    mo.getRealFrame();
     mo.draw(this.ctx);
     mo.drawFrame(this.ctx);
+    mo.drawRealFrame(this.ctx);
     if (mo.otherDirection) {
       mo.x = mo.x * -1;
       this.ctx.restore();

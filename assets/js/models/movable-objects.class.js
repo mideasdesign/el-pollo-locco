@@ -8,8 +8,6 @@ class MovableObject extends DrawableObject {
   currentImage = 0;
   speed = 0.15;
   acceleration = 2;
-  offsetX = 0;
-  offsetY = 0;
   lastHit = 0;
 
   applyGravity() {
@@ -57,10 +55,10 @@ class MovableObject extends DrawableObject {
   }
 
   isColliding(mo) {
-    return this.x + this.width >= mo.x && 
-    this.x <= mo.x + mo.width && 
-    this.y + this.offsetY + this.height >= mo.y && 
-    this.y + this.offsetY <= mo.y + mo.height;
+    return this.rX + this.rW >= mo.rX && 
+    this.rX  <= mo.rX  + mo.rW  && 
+    this.rY + this.height >= mo.y && 
+    this.rY <= mo.rY + mo.rH;
   }
 
   hitPepe() {
