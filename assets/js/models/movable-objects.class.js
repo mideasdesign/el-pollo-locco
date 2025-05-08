@@ -5,10 +5,11 @@ class MovableObject extends DrawableObject {
   width = 100;
   height = 250;
   imageCache = {};
-  offset = {};
   currentImage = 0;
   speed = 0.15;
   acceleration = 2;
+  offsetX = 0;
+  offsetY = 0;
   lastHit = 0;
 
   applyGravity() {
@@ -18,7 +19,7 @@ class MovableObject extends DrawableObject {
         this.speedY -= this.acceleration;
       }
     }, 1000 / 25);
-  };
+  }
 
   isAboveGround() {
     if (this instanceof ThrowableObject){ //ThowableOblject always fall!
@@ -33,33 +34,40 @@ class MovableObject extends DrawableObject {
     let path = images[i];
     this.img = this.imageCache[path];
     this.currentImage++;
-  };
+  }
 
   changeDirection(ctx) {
     ctx.save();
     ctx.translate(this.width, 0);
     ctx.scale(-1, 1);
     this.x = this.x * -1;
-  };
+  }
 
   moveRight() {
     this.x += this.speed;
     this.otherDirection = false;
-  };
+  }
 
   moveLeft() {
     this.x -= this.speed;
-  };
+  }
 
   jump() {
     this.speedY = 22;
-  };
+  }
 
-   isColliding(mo) {
+/*   isColliding(mo) {
+    return this.x + this.width >= mo.x && 
+    this.x <= mo.x + mo.width && 
+    this.y + this.offsetY + this.height >= mo.y && 
+    this.y + this.offsetY <= mo.y + mo.height;
+  } */
+
+  isColliding(mo) {
     return this.rX + this.rW > mo.rX && 
-      this.rY + this.rH > mo.rY && 
-      this.rX < mo.rX + mo.rW && 
-      this.rY < mo.rY + mo.rH;
+    this.rY + this.rH > mo.rY && 
+    this.rX < mo.rX + mo.rW && 
+    this.rY < mo.rY + mo.rH;
   }; 
 
   hitPepe() {
@@ -69,15 +77,15 @@ class MovableObject extends DrawableObject {
     } else {
       this.lastHit = new Date().getTime();
     }
-  };
+  }
 
   ishurt() {
     let timespassed = new Date().getTime() - this.lastHit;
     timespassed = timespassed / 1000;
     return timespassed < 0.5;
-  };
+  }
 
   isDead() {
-    return this.healthPepe == 0 || this.enemy == 0;
+    return this.healthPepe == 0 || this.healthBoss == 0;
   }
 }

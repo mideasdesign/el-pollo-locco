@@ -65,11 +65,10 @@ class World {
 
   checkThrowableObject(){
     if (this.keyboard.t) {
-      let x = this.character.x + this.character.width / 2;
-      let y = this.character.y + this.character.height / 2;
+      let x = this.character.rX + this.character.rW / 2;
+      let y = this.character.rY + this.character.rH / 2;
       let bottle = new ThrowableObject(x, y);
       this.throwableObject.push(bottle);
-      
     }
   };
 
