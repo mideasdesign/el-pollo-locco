@@ -7,6 +7,7 @@ class World {
   throwableObject = [];
   coinSound = new Audio('./assets/sound/sound-effects-coin.mp3');
   bottleSound = new Audio('./assets/sound/bottles-clanging-82557.mp3');
+  chickenSound = new Audio('assets/sound/668804__mbpl__chicken-clucking-2.wav');
   endboss = new Endboss();
   canvas;
   ctx;
@@ -36,7 +37,7 @@ class World {
         if (this.character.isColliding(enemy) && this.character.speedY < 0){
           enemy.isDead();
           enemy.speed = 0;
-          enemy.loadImage('assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png');
+          this.chickenSound.play();
           this.level.enemies.splice(index, 1);
         }
       });
@@ -110,9 +111,9 @@ class World {
     this.addToMap(this.bottlesBar);
     this.addToMap(this.bossBar);
     this.ctx.translate(this.cameraX, 0);   
-    this.addObjectsToMap(this.throwableObject);
     this.addToMap(this.character); 
-    this.addToMap(this.endboss); 
+    this.addToMap(this.endboss);     
+    this.addObjectsToMap(this.throwableObject);
     this.addObjectsToMap(this.level.coins);
     this.addObjectsToMap(this.level.bottles);
     this.addObjectsToMap(this.level.enemies);

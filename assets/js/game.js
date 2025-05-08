@@ -13,13 +13,11 @@ function startGame() {
             document.getElementById('loading-screen').style.display = 'none';
             document.getElementById('canvas').style.display = 'block';
             document.getElementById('start-button').style.display = 'none';
-            document.getElementById('controls-box').style.display = 'block';
 }
 
 function endGame(){
     document.getElementById('canvas').style.display = 'none';
     document.getElementById('start-button').style.display = 'block';
-    document.getElementById('controls-box').style.display = 'none';
     document.getElementById('instruction').style.display = 'block';
 }
 
