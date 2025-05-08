@@ -2,9 +2,6 @@ let world;
 let keyboard = new Keyboard();
 let canvas;
 let audio;
-function init() {
-    canvas = document.getElementById('canvas');
-}
 
 function startGame() {
             canvas = document.getElementById('canvas');
