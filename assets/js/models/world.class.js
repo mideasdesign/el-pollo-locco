@@ -19,6 +19,7 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();
+    this.checkCollisionsFromTop();
     this.checkCollisionsPepe();
     this.checkCollisionsBoss();
     this.checkThrowableObject();
@@ -28,6 +29,19 @@ class World {
   setWorld() {
     this.character.world = this;
   };
+
+  checkCollisionsFromTop(){
+    setInterval(() => {
+      this.level.enemies.forEach((enemy, index) => {
+        if (this.character.isColliding(enemy) && this.character.speedY < 0){
+          enemy.isDead();
+          enemy.speed = 0;
+          enemy.loadImage('assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png');
+          this.level.enemies.splice(index, 1);
+        }
+      });
+    }, 100);
+  }
 
   checkCollisionsPepe(){
     this.level.enemies.forEach((enemy) => {

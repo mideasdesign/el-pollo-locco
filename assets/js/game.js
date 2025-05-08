@@ -7,16 +7,15 @@ function init() {
 }
 
 function startGame() {
-
-        setTimeout(() => {
+            canvas = document.getElementById('canvas');
             initLevel();
             world = new World(canvas, keyboard);
             document.getElementById('loading-screen').style.display = 'none';
             document.getElementById('canvas').style.display = 'block';
             document.getElementById('start-button').style.display = 'none';
             document.getElementById('controls-box').style.display = 'block';
-        }, 50);
 }
+
 function endGame(){
     document.getElementById('canvas').style.display = 'none';
     document.getElementById('start-button').style.display = 'block';
