@@ -5,11 +5,13 @@ class Bottles extends MovableObject {
     bottom: 30,
     left: 40
   };
+
   bottlesLevel = 0;
   images_bottles = [
         'assets/images/6_salsa_bottle/1_salsa_bottle_on_ground.png',
         'assets/images/6_salsa_bottle/2_salsa_bottle_on_ground.png'
-      ];  
+      ]; 
+       
   constructor(x, y) {
       super().loadImage('assets/images/6_salsa_bottle/1_salsa_bottle_on_ground.png');
       this.x = x;
