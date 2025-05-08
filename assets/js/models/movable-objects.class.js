@@ -34,34 +34,27 @@ class MovableObject extends DrawableObject {
     let path = images[i];
     this.img = this.imageCache[path];
     this.currentImage++;
-  }
+  };
 
   changeDirection(ctx) {
     ctx.save();
     ctx.translate(this.width, 0);
     ctx.scale(-1, 1);
     this.x = this.x * -1;
-  }
+  };
 
   moveRight() {
     this.x += this.speed;
     this.otherDirection = false;
-  }
+  };
 
   moveLeft() {
     this.x -= this.speed;
-  }
+  };
 
   jump() {
     this.speedY = 22;
-  }
-
-/*   isColliding(mo) {
-    return this.x + this.width >= mo.x && 
-    this.x <= mo.x + mo.width && 
-    this.y + this.offsetY + this.height >= mo.y && 
-    this.y + this.offsetY <= mo.y + mo.height;
-  } */
+  };
 
   isColliding(mo) {
     return this.rX + this.rW > mo.rX && 

@@ -104,6 +104,7 @@ class Character extends MovableObject{
                 this.moveLeft();
                 this.otherDirection = true;
             }  
+
             if (this.world.keyboard.space && !this.isAboveGround()) {
                 this.jump();
             }
@@ -112,50 +113,36 @@ class Character extends MovableObject{
         
         setInterval(() => {
             if (this.isDead()) {
-                this.playAnimationOnce(this.images_dead);
-                endGame();
-            };}, 1000);
-
-        setInterval(() => {
-            if (this.ishurt()) {
+                this.playAnimation(this.images_dead);
+            } else if (this.ishurt()) {
                 this.playAnimation(this.images_hurt);
-            } 
-        }, 500); 
-
-        setInterval(() => {
-            if (this.isJumping) {
+            } else if (this.isJumping) {
                 if (this.speedY > 0) {
                     if (!this.isAnimating) {
                         this.isAnimating = true;
-                        this.playAnimationOnce(this.images_jumping,);
+                        this.playAnimationOnce(this.images_jumping, 120);
                     }
                 } else {
                     if (!this.isAnimating) {
                         this.isAnimating = true;
-                        this.playAnimationOnce(this.images_falling);
+                        this.playAnimationOnce(this.images_falling, 120);
                     }
                 }
                 if (!this.isAboveGround()) {
                     this.isJumping = false; // Sprung beendet
                     this.isAnimating = false;
                 }
-            } 
-        }, 1000);
-        setInterval(() => {
-            if (this.world.keyboard.right || this.world.keyboard.left) {
-                this.playAnimation(this.images_walking)
-                ;
-            }else{
-                this.playAnimation(this.images_idle);
+            } else if (this.world.keyboard.right || this.world.keyboard.left) {
+                this.playAnimation(this.images_walking);
             }
-        }, 100);
+        }, 1000 / 10);  
     };
     
     jump() {
         if (!this.isJumping) {
             this.speedY = 30;
             this.isJumping = true;
-            this.playAnimationOnce(this.images_jumping);
+            this.playAnimationOnce(this.images_jumping, 120);
         }
     }    
 
