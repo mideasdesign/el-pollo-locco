@@ -21,7 +21,7 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld();    
-    this.checkCollisionsFromTop();  
+    this.checkCollisionsFromTop();
     this.checkCollisionsPepe();
     this.checkCollisionsBoss();
     this.checkThrowableObject(); 
@@ -32,19 +32,19 @@ class World {
     this.character.world = this;
   };
 
- checkCollisionsFromTop(){
+  checkCollisionsFromTop(){
     setInterval(() => {
       this.level.enemies.forEach((enemy, index) => {
-        if (this.character.isColliding(enemy) && this.character.speedY < 0){
+        if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(enemy) ){
           enemy.isDead();
           enemy.speed = 0;
           this.chickenSound.play();
           this.level.enemies.splice(index, 1);
         }
       });
-    }, 50);
+    }, 30);
   };
-
+ 
   checkCollisionsPepe(){
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
@@ -57,18 +57,17 @@ class World {
 
   run() {
     setInterval(() => {
-      this.checkCollisionsFromTop();  
       this.checkCollisionsPepe(); 
       this.checkCollisionsBoss();
       this.checkThrowableObject();
       this.checkCollectibles();
-    }, 50);
+    }, 80);
   };
 
   checkThrowableObject(){
     if (this.keyboard.t && this.bottlesBar.percentage > 0) {
       let x = this.character.rX + this.character.rW / 2;
-      let y = this.character.rY + this.character.rH / 2;
+      let y = this.character.rY + this.character.rH /2;
       let bottle = new ThrowableObject(x, y);
       this.throwableObject.push(bottle); 
       this.bottlesBar.setPercentage(this.bottlesBar.percentage - 10);

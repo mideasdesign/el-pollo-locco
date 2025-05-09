@@ -34,7 +34,7 @@ images_splash = [
     setInterval(() => {
       this.x += 20; 
         this.playAnimation(this.images_rotating_bottle);
-    }, 1000 / 30);
+    }, 1000 / 20);
 }
 
   throw(x, y){
