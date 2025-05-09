@@ -7,7 +7,8 @@ class World {
   throwableObject = [];
   coinSound = new Audio('./assets/sound/sound-effects-coin.mp3');
   bottleSound = new Audio('./assets/sound/bottles-clanging-82557.mp3');
-  chickenSound = new Audio('assets/sound/668804__mbpl__chicken-clucking-2.wav');
+  chickenSound = new Audio('./assets/sound/668804__mbpl__chicken-clucking-2.wav');
+  pepeSound = new Audio('./assets/sound/804622__qubodup__young-man-hurt-voice.wav');
   endboss = new Endboss();
   canvas;
   ctx;
@@ -19,11 +20,12 @@ class World {
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.draw();
-    this.setWorld();
-
+    this.setWorld();    
+    this.checkCollisionsFromTop();  
     this.checkCollisionsPepe();
     this.checkCollisionsBoss();
-    this.checkThrowableObject();    
+    this.checkThrowableObject(); 
+ 
     this.run();
   };
 
@@ -31,7 +33,7 @@ class World {
     this.character.world = this;
   };
 
-/*   checkCollisionsFromTop(){
+ checkCollisionsFromTop(){
     setInterval(() => {
       this.level.enemies.forEach((enemy, index) => {
         if (this.character.isColliding(enemy) && this.character.speedY < 0){
@@ -41,13 +43,14 @@ class World {
           this.level.enemies.splice(index, 1);
         }
       });
-    }, 100);
-  }
- */
+    }, 50);
+  };
+
   checkCollisionsPepe(){
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
         this.character.hitPepe();
+        this.pepeSound.play();
         this.statusBar.setPercentage(this.character.healthPepe);
       }
     });
@@ -55,11 +58,12 @@ class World {
 
   run() {
     setInterval(() => {
+      this.checkCollisionsFromTop();  
       this.checkCollisionsPepe(); 
       this.checkCollisionsBoss();
       this.checkThrowableObject();
       this.checkCollectibles();
-    }, 100);
+    }, 50);
   };
 
   checkThrowableObject(){
