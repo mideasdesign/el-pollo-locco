@@ -67,12 +67,14 @@ class World {
   };
 
   checkThrowableObject(){
-    if (this.keyboard.t) {
+    if (this.keyboard.t && this.bottlesBar.percentage > 0) {
       let x = this.character.rX + this.character.rW / 2;
       let y = this.character.rY + this.character.rH / 2;
       let bottle = new ThrowableObject(x, y);
-      this.throwableObject.push(bottle);
+      this.throwableObject.push(bottle); 
+      this.bottlesBar.setPercentage(this.bottlesBar.percentage - 10);
     }
+   
   };
 
   checkCollisionsBoss(){
