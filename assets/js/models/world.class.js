@@ -25,7 +25,6 @@ class World {
     this.checkCollisionsPepe();
     this.checkCollisionsBoss();
     this.checkThrowableObject(); 
- 
     this.run();
   };
 
@@ -120,6 +119,7 @@ class World {
     this.addObjectsToMap(this.throwableObject);
     this.addObjectsToMap(this.level.coins);
     this.addObjectsToMap(this.level.bottles);
+    this.addObjectsToMap(this.level.chicks);
     this.addObjectsToMap(this.level.enemies);
     this.ctx.translate(-this.cameraX, 0);
     //draw() wird immer wieder aufgerufen

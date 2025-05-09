@@ -29,13 +29,13 @@ class DrawableObject {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
         }
         catch(e){
-        console.warn('Error loading Image', e);
-        console.log('Could not not load Image', this.img);
+            console.warn('Error loading Image', e);
+            console.log('Could not not load Image', this.img);
         }
     };
 
     drawFrame(ctx){
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coins || this instanceof Bottles || this instanceof ThrowableObject){
+        if (this instanceof Character || this instanceof Chicken || this instanceof Chicks || this instanceof Endboss || this instanceof Coins || this instanceof Bottles || this instanceof ThrowableObject){
             ctx.beginPath();
             ctx.lineWidth = '1';
             ctx.strokeStyle = 'transparent';
@@ -45,7 +45,7 @@ class DrawableObject {
     };
 
     drawRealFrame(ctx){
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coins || this instanceof Bottles || this instanceof ThrowableObject){
+        if (this instanceof Character || this instanceof Chicken || this instanceof Chicks || this instanceof Endboss || this instanceof Coins || this instanceof Bottles || this instanceof ThrowableObject){
             ctx.beginPath();
             ctx.lineWidth = '1';
             ctx.strokeStyle = 'red';
@@ -53,9 +53,6 @@ class DrawableObject {
             ctx.stroke();
         }
     };
-    
-
-
     /**
      * 
      * @param { Array
@@ -73,7 +70,6 @@ class DrawableObject {
         if (this.isAnimating) return;
         this.isAnimating = true;
         let i = 0;
-
         const step = () => {
             if (i < images.length) {
                 this.img = this.imageCache[images[i]];
