@@ -4,11 +4,7 @@ class World {
   coinsBar = new CoinsBar();
   bottlesBar = new BottlesBar();
   bossBar = new BossBar();
-  throwableObject = [];
-  coinSound = new Audio('./assets/sound/sound-effects-coin.mp3');
-  bottleSound = new Audio('./assets/sound/bottles-clanging-82557.mp3');
-  chickenSound = new Audio('./assets/sound/668804__mbpl__chicken-clucking-2.wav');
-  pepeSound = new Audio('./assets/sound/804622__qubodup__young-man-hurt-voice.wav');
+  throwableObject = []; 
   endboss = new Endboss();
   canvas;
   ctx;
@@ -20,7 +16,7 @@ class World {
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.draw();
-    this.setWorld();    
+    this.setWorld();  
     this.checkCollisionsFromTop();
     this.checkCollisionsPepe();
     this.checkCollisionsBoss();
@@ -38,18 +34,30 @@ class World {
         if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(enemy) ){
           enemy.isDead();
           enemy.speed = 0;
-          this.chickenSound.play();
+         AudioHub.playOne(AudioHub.chickenSound);
           this.level.enemies.splice(index, 1);
         }
       });
     }, 30);
+
+    setInterval(() => {
+      this.level.chicks.forEach((chick, index) => {
+        if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(chick) ){
+          chick.isDead();
+          chick.speed = 0;
+         AudioHub.playOne(AudioHub.chicksSound);
+          this.level.chick.splice(index, 1);
+        }
+      });
+    }, 30);
+
   };
  
   checkCollisionsPepe(){
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
         this.character.hitPepe();
-        this.pepeSound.play();
+        AudioHub.playOne(AudioHub.pepeSound);
         this.statusBar.setPercentage(this.character.healthPepe);
       }
     });
@@ -66,8 +74,8 @@ class World {
 
   checkThrowableObject(){
     if (this.keyboard.t && this.bottlesBar.percentage > 0) {
-      let x = this.character.rX + this.character.rW / 2;
-      let y = this.character.rY + this.character.rH /2;
+      let x = this.character.rX + this.character.rW / 2.60;
+      let y = this.character.rY + this.character.rH / 2.60;
       let bottle = new ThrowableObject(x, y);
       this.throwableObject.push(bottle); 
       this.bottlesBar.setPercentage(this.bottlesBar.percentage - 10);
@@ -88,7 +96,7 @@ class World {
     this.level.coins.forEach((coin, index) => {
       if (this.character.isColliding(coin)) {
         this.coinsBar.setPercentage(this.coinsBar.percentage + 10);
-        this.coinSound.play();
+         AudioHub.playOne(AudioHub.coinSound);
         this.level.coins.splice(index, 1);
       }
     });
@@ -96,7 +104,7 @@ class World {
     this.level.bottles.forEach((bottle, index) => {
       if (this.character.isColliding(bottle)) {
         this.bottlesBar.setPercentage(this.bottlesBar.percentage + 10);
-        this.bottleSound.play();
+          AudioHub.playOne(AudioHub.bottleSound);
         this.level.bottles.splice(index, 1);
       }
     });

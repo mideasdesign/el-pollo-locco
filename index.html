@@ -27,6 +27,7 @@
     <script src="./assets/js/models/keyboard.class.js"></script>   
     <script src="./assets/js/models/background.class.js"></script>    
     <script src="./assets/js/models/end-boss.class.js"></script>
+    <script src="./assets/js/models/audioHub.class.js"></script>
     <script src="./assets/js/models/world.class.js"></script>  
     <script src="./assets/js/game.js"></script>
     <title>El Pollo Locco</title>
@@ -35,15 +36,16 @@
     <div id="loading-screen" class="screen" style="display: none;">
       <h2>Loading...</h2>
     </div>
+    <div id="game-overlay" class="overlay hidden">
+      <div class="overlay-content">
+        <h1 id="game-result-text" class="headline"></h1>
+        <button onclick="restartGame()">Restart</button>
+      </div>
+    </div>
     <div class="wrapper">      
       <h1 id="el-pollo-loco" class="headline">El Pollo Loco</h1>
-      <audio loop="true" autostart="true" id="audio"> 
-        <source src="./assets/sound/tex-mex-delight-mexican-mariachi-113044.mp3" type="audio/mp3">
-      </audio>
-      <canvas id="canvas" width="720" height="480" style="display: none;"></canvas>    
-      <h1 id="game-over" class="headline">GAME OVER</h1> 
+      <canvas id="canvas" width="720" height="480" style="display: none;"></canvas> 
       <button id="start-button" onclick="startGame()">Start Game</button>
-      <button id="restart-button" onclick="restartGame()">Restart Game</button>
       <div id="instruction">
         <p>LEFT: Arrow left, RIGHT: Arrow right, JUMP: Space, THROW: t key</p>
       </div>

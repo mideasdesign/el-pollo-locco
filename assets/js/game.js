@@ -11,11 +11,21 @@ function startGame() {
             document.getElementById('canvas').style.display = 'block';
             document.getElementById('start-button').style.display = 'none';
 }
+function endGame(didWin) {
+  // Stoppe alle Intervalls
+  clearInterval(this.run);
+  clearInterval(this.bossMovementLoop);
 
-function endGame(){
-    document.getElementById('canvas').style.display = 'none';
-    document.getElementById('start-button').style.display = 'block';
-    document.getElementById('instruction').style.display = 'block';
+  // ggf. mehr stoppen
+
+  // Zeige Overlay
+  document.getElementById('game-overlay').classList.remove('hidden');
+  document.getElementById('game-result-text').textContent = didWin ? 'You won!' : 'Game over!';
+}
+
+function restartGame() {
+  document.getElementById('game-overlay').classList.add('hidden');
+  initLevel(); // oder startGame(), wie du es bei Spielstart verwendest
 }
 
 window.addEventListener('keydown', (e) => {

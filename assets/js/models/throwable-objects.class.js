@@ -32,9 +32,9 @@ images_splash = [
 
   animate(){
     setInterval(() => {
-      this.x += 20; 
+      this.x += 30; 
         this.playAnimation(this.images_rotating_bottle);
-    }, 1000 / 20);
+    }, 1000 / 30);
 }
 
   throw(x, y){
@@ -42,7 +42,7 @@ images_splash = [
     this.y = y;
     this.height = 70;
     this.width = 50;
-    this.speedY = 20;
+    this.speedY = 25;
     this.getRealFrame();
     this.applyGravity();
     this.animate();
