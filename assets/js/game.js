@@ -2,6 +2,12 @@ let world;
 let keyboard = new Keyboard();
 let canvas;
 let audio;
+let intervalIds = [];
+
+screen.orientation.addEventListener("change", () => {
+  console.log(`The orientation of the screen is: ${screen.orientation}`);
+});
+
 
 function startGame() {
             canvas = document.getElementById('canvas');
@@ -11,12 +17,15 @@ function startGame() {
             document.getElementById('canvas').style.display = 'block';
             document.getElementById('start-button').style.display = 'none';
 }
+function gameIntervals(fn, time) {
+    let id = setInterval (fn, time);
+    intervalIds.push(id);
+    
+}
+
 function endGame(didWin) {
   // Stoppe alle Intervalls
-  clearInterval(this.run);
-  clearInterval(this.bossMovementLoop);
-
-  // ggf. mehr stoppen
+  intervalIds.forEach(clearInterval);
 
   // Zeige Overlay
   document.getElementById('game-overlay').classList.remove('hidden');

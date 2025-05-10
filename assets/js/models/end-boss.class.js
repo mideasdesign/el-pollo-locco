@@ -61,7 +61,7 @@ class Endboss extends MovableObject{
 
     animate(){
         let i = 0
-        setInterval(() => {
+        gameIntervals(() => {
             if(i < 10 ){
                 this.playAnimation(this.images_idle);
             } else{
@@ -91,8 +91,5 @@ class Endboss extends MovableObject{
         this.lastHit = new Date().getTime();
         }
     };
-    startAnimation() {
-        this.animate();
-    }
 
 }

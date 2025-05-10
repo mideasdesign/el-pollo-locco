@@ -25,7 +25,7 @@ coinsLevel = 0;
     }
   
     animate() {
-      setInterval(() => {
+      gameIntervals(() => {
         this.playAnimation(this.images_coins);
       }, 200);
     }

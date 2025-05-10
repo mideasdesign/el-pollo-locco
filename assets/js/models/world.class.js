@@ -29,8 +29,9 @@ class World {
     this.character.startAnimation();
   };
 
+
   checkCollisionsFromTop(){
-    setInterval(() => {
+    gameIntervals(() => {
       this.level.enemies.forEach((enemy, index) => {
         if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(enemy) ){
           enemy.isDead();
@@ -41,7 +42,7 @@ class World {
       });
     }, 30);
 
-    setInterval(() => {
+    gameIntervals(() => {
       this.level.chicks.forEach((chick, index) => {
         if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(chick) ){
           chick.isDead();
@@ -65,7 +66,7 @@ class World {
   };
 
   run() {
-    setInterval(() => {
+    gameIntervals(() => {
       this.checkCollisionsPepe(); 
       this.checkCollisionsBoss();
       this.checkThrowableObject();

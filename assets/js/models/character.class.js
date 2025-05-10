@@ -95,7 +95,7 @@ class Character extends MovableObject{
     };
 
     animate(){
-        setInterval(() => {
+        gameIntervals(() => {
             if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {    
                 this.moveRight();
             } 
@@ -110,7 +110,7 @@ class Character extends MovableObject{
             this.world.cameraX = -this.x + 60;
         }, 1000 / 30);
         
-        setInterval(() => {
+        gameIntervals(() => {
             if (this.isDead()) {
                 this.playAnimationOnce(this.images_dead);
                 AudioHub.stopOne(pepeSound);

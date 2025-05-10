@@ -31,7 +31,7 @@ images_splash = [
   };
 
   animate(){
-    setInterval(() => {
+    gameIntervals(() => {
       this.x += 30; 
         this.playAnimation(this.images_rotating_bottle);
     }, 1000 / 30);
