@@ -47,6 +47,7 @@ class Endboss extends MovableObject{
         'assets/images/4_enemie_boss_chicken/3_attack/G19.png',
         'assets/images/4_enemie_boss_chicken/3_attack/G20.png'
     ];
+
     hadFirstContact = false;
     currentImage = 0;
     constructor(){
@@ -56,7 +57,6 @@ class Endboss extends MovableObject{
         this.loadImages(this.images_boss_attack);
         this.loadImages(this.images_boss_dead);
         this.getRealFrame();
-        this.animate();
     };
 
     animate(){
@@ -70,7 +70,7 @@ class Endboss extends MovableObject{
             i++;
             if (world.character.x > 2300 && !hadFirstContact) {
                 i = 0;
-                !hadFirstContact = true;
+                hadFirstContact = true;
             }
             if (this.isDead()) {
                 this.playAnimationOnce(this.images_boss_dead);
@@ -91,5 +91,8 @@ class Endboss extends MovableObject{
         this.lastHit = new Date().getTime();
         }
     };
+    startAnimation() {
+        this.animate();
+    }
 
 }

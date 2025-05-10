@@ -92,7 +92,6 @@ class Character extends MovableObject{
         this.loadImages(this.images_dead);
         this.getRealFrame();
         this.applyGravity();
-        this.animate();
     };
 
     animate(){
@@ -146,6 +145,10 @@ class Character extends MovableObject{
             this.isJumping = true;
             this.playAnimationOnce(this.images_jumping, 120);
         }
-    }    
+    }
+
+    startAnimation() {
+        this.animate();
+    }
 
 }
