@@ -4,24 +4,24 @@ let canvas;
 let audio;
 let intervalIds = [];
 
-screen.orientation.addEventListener("change", () => {
-  console.log(`The orientation of the screen is: ${screen.orientation}`);
-});
 
-
-function startGame() {
-            canvas = document.getElementById('canvas');
-            initLevel();
-            world = new World(canvas, keyboard);
-            document.getElementById('loading-screen').style.display = 'none';
-            document.getElementById('canvas').style.display = 'block';
-            document.getElementById('start-button').style.display = 'none';
-}
+    screen.orientation.addEventListener('change', () => {
+    console.log(`The orientation of the screen is: ${screen.orientation}`);
+    });
 function gameIntervals(fn, time) {
     let id = setInterval (fn, time);
     intervalIds.push(id);
     
 }
+function startGame() {
+    canvas = document.getElementById('canvas');
+    initLevel();
+    world = new World(canvas, keyboard);
+    document.getElementById('loading-screen').style.display = 'none';
+    document.getElementById('canvas').style.display = 'block';
+    document.getElementById('start-button').style.display = 'none';
+}
+
 
 function endGame(didWin) {
   // Stoppe alle Intervalls
@@ -33,8 +33,12 @@ function endGame(didWin) {
 }
 
 function restartGame() {
-  document.getElementById('game-overlay').classList.add('hidden');
-  initLevel(); // oder startGame(), wie du es bei Spielstart verwendest
+    canvas = document.getElementById('canvas');
+    ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    document.getElementById('game-overlay').classList.add('hidden');    
+    world = null;
+    startGame(); // oder startGame(), wie du es bei Spielstart verwendest
 }
 
 window.addEventListener('keydown', (e) => {
