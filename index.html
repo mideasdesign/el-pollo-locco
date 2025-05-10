@@ -45,6 +45,15 @@
     <div class="wrapper">      
       <h1 id="el-pollo-loco" class="headline">El Pollo Loco</h1>
       <canvas id="canvas" width="720" height="480" style="display: none;"></canvas> 
+      <div id="controls-box" style="display: none;">
+        <div class="touch-pan-left">
+          <button id="btn-left"> < </button> <button id="btn-right"> > </button>
+        </div>
+          
+        <div class="touch-pan-right">
+          <button id="btn-jump"> < </button> <button id="btn-throw"> > </button>
+        </div>        
+      </div>
       <button id="start-button" onclick="startGame()">Start Game</button>
       <div id="instruction">
         <p>LEFT: Arrow left, RIGHT: Arrow right, JUMP: Space, THROW: t key</p>

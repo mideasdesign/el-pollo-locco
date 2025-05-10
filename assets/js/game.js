@@ -45,3 +45,37 @@ window.addEventListener('keyup', (e) => {
     if (e.keyCode == 32) keyboard.space = false;
     if (e.keyCode == 84) keyboard.t = false;
 });
+function touchBtn(){
+    document.getElementById('btn-left').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.left = true;
+    });
+    document.getElementById('btn-left').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.left = false;
+    });
+    document.getElementById('btn-right').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.right = true;
+    });
+    document.getElementById('btn-right').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.right = false;
+    });
+    document.getElementById('btn-jump').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.space = true;
+    });
+    document.getElementById('btn-jump').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.space = false;
+    });
+    document.getElementById('btn-jump').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.space = true;
+    });
+    document.getElementById('btn-jump').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.space = false;
+    });
+}
