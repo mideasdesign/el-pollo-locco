@@ -13,7 +13,11 @@
 
   canvas{
     background-color: black;
-    display:block;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 720px;
+    height:480px;
   }
 
   .wrapper{
@@ -28,7 +32,7 @@
     justify-content: center;
     align-items: center;
 }
-#start-button, #restart-button{
+#start-button{
   background-color:#59695b;
   padding: 20px 16px;
   font-size: 20px;
@@ -41,6 +45,7 @@
     border: 1px solid #59695b;
   }
 }
+
 #restart-button{
   display:none;
 }
@@ -69,16 +74,17 @@ h1.headline{
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999;
+    z-index: 9000;
   }
   .overlay.hidden {
     display: none;
   }
   .overlay-content {
-    background: white;
+    background: transparent;
     padding: 40px;
     text-align: center;
     border-radius: 8px;
+    height: 300px;
   }
   #controls-box{
     display: none;
@@ -90,21 +96,59 @@ h1.headline{
   }
 
   button img{
-    height:64px;
-    width:64px;
+    height:32px;
+    width:32px;
     background-color: transparent;
   }
-@media( max-width: 720px){
+@media( max-width:936px){
 canvas {
-  width: 100%;
+aspect-ratio: 1.5 /1;
+  height: 100svh;
+}
+.touch-pan-left{
+  margin-left: 10px;
+}
+.touch-pan-right{
+  margin-right: 10px;
+}
+#instruction{
+  display: none;
 }
 h1.headline{
-  display:none;
-  font-size: 6rem;
+font-size: 6rem;
 }
+#restart-button, #quit-button{
+  background-color:#f5f5f5;
+  padding: 20px 16px;
+  font-size: 20px;
+  color:#59695b;
+  border-radius: 15px;
+  border: 1px solid #59695b;
+  &:hover{
+    background-color: transparent;
+    color:#f5f5f5;
+    border: 1px solid #59695b;
+  }
+}
+.endscreen{
+  display:flex;
+  justify-content:space-between;
+}
+#game-result-text{
+  color:#f5f5f5;
+}
+  #controls-box{
+    display: flex;
+    position:absolute;
+    width: 100svw;
+    left:0px;
+    bottom: 30px;
+    z-index: 8000;
+    justify-content: space-between;
+  }
 }
 @media(width < 480px){
   canvas {
-    height: 100svh;
+    height: 100vh;
   }
 }

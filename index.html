@@ -39,11 +39,16 @@
     <div id="game-overlay" class="overlay hidden">
       <div class="overlay-content">
         <h1 id="game-result-text" class="headline"></h1>
-        <button onclick="restartGame()">Restart</button>
+        <div class="endscreen">
+          <button onclick="restartGame()" id="restart-button">Restart Game</button>
+          <button onclick="quitGame()" id="quit-button">Quit Game</button>
+        </div>
+
       </div>
     </div>
     <div class="wrapper">      
-      <h1 id="el-pollo-loco" class="headline">El Pollo Loco</h1>
+      <h1 id="el-pollo-loco" class="headline">El Pollo Loco</h1>      
+      <button id="start-button" onclick="startGame()">Start Game</button>
       <canvas id="canvas" width="720" height="480" style="display: none;"></canvas> 
       <div id="controls-box">
         <div class="touch-pan-left">
@@ -54,7 +59,7 @@
           <button id="btn-jump"> <img src="./assets/images/btn_jump.svg" alt=""> </button> <button id="btn-throw"> <img src="./assets/images/btn_throw.svg" alt=""> </button>
         </div>        
       </div>
-      <button id="start-button" onclick="startGame()">Start Game</button>
+
       <div id="instruction">
         <p>LEFT: Arrow left, RIGHT: Arrow right, JUMP: Space, THROW: t key</p>
       </div>

@@ -18,10 +18,17 @@ function startGame() {
     initLevel();
     world = new World(canvas, keyboard);
     document.getElementById('loading-screen').style.display = 'none';
-    document.getElementById('canvas').style.display = 'block';
+    document.getElementById('canvas').style.display = 'flex';
     document.getElementById('start-button').style.display = 'none';
+    document.getElementById('restart-button').style.display = 'block';
+    document.getElementById('el-pollo-loco').style.display = 'none';
+    document.getElementById('controls-box').style.display = 'flex';
+    resizeAndScaleCanvas();
 }
 
+function qutiGame() {
+    location.reload();
+}
 
 function endGame(didWin) {
 
@@ -30,6 +37,21 @@ function endGame(didWin) {
   document.getElementById('game-result-text').textContent = didWin ? 'You won!' : 'Game over!';
   intervalIds.forEach(clearInterval);
 }
+
+
+function resizeAndScaleCanvas() {
+  const canvas = document.getElementById('canvas');
+  const scaleX = window.innerWidth / 720;
+  const scaleY = window.innerHeight / 480;
+  const scale = Math.min(scaleX, scaleY);
+
+  canvas.style.transform = `scale(${scale})`;
+  canvas.style.transformOrigin = 'center center';
+  canvas.style.width = `720px`;
+  canvas.style.height = `480px`;
+}
+
+window.addEventListener('resize', resizeAndScaleCanvas);
 
 function restartGame() {
     canvas = document.getElementById('canvas');
