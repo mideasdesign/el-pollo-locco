@@ -48,7 +48,7 @@ class World {
           chick.isDead();
           chick.speed = 0;
          AudioHub.playOne(AudioHub.chicksSound);
-          this.level.chick.splice(index, 1);
+          this.level.chicks.splice(index, 1);
         }
       });
     }, 30);

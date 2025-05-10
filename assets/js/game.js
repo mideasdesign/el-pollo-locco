@@ -24,12 +24,11 @@ function startGame() {
 
 
 function endGame(didWin) {
-  // Stoppe alle Intervalls
-  intervalIds.forEach(clearInterval);
 
   // Zeige Overlay
   document.getElementById('game-overlay').classList.remove('hidden');
   document.getElementById('game-result-text').textContent = didWin ? 'You won!' : 'Game over!';
+  intervalIds.forEach(clearInterval);
 }
 
 function restartGame() {
