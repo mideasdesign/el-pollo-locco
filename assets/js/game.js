@@ -31,7 +31,6 @@ function qutiGame() {
 }
 
 function endGame(didWin) {
-
   // Zeige Overlay
   document.getElementById('game-overlay').classList.remove('hidden');
   document.getElementById('game-result-text').textContent = didWin ? 'You won!' : 'Game over!';
@@ -69,6 +68,7 @@ window.addEventListener('keydown', (e) => {
     if (e.keyCode == 40) keyboard.down = true;
     if (e.keyCode == 32) keyboard.space = true;
     if (e.keyCode == 84) keyboard.t = true;
+    if (e.keyCode == 77) keyboard.m = true;
 });
 
 window.addEventListener('keyup', (e) => {
@@ -78,6 +78,7 @@ window.addEventListener('keyup', (e) => {
     if (e.keyCode == 40) keyboard.down = false;
     if (e.keyCode == 32) keyboard.space = false;
     if (e.keyCode == 84) keyboard.t = false;
+    if (e.keyCode == 77) keyboard.m = false;
 });
 function touchBtn(){
     document.getElementById('btn-left').addEventListener('touchstart', (e) => {

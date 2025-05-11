@@ -157,4 +157,10 @@ class World {
       this.ctx.restore();
     }
   }
+  stoppAllSound (){
+    if (this.keyboard.m) {
+        AudioHub.stopAll();
+    }
+
+  }
 }
