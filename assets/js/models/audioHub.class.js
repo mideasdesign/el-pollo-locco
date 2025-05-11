@@ -6,6 +6,7 @@ class AudioHub {
     static chickenSound = new Audio('./assets/sound/668804__mbpl__chicken-clucking-2.wav');
     static chicksSound = new Audio('./assets/sound/chick-chirping2-332878.mp3');
     static pepeSound = new Audio('./assets/sound/804622__qubodup__young-man-hurt-voice.wav');
+    static gameoverSound = new Audio('assets/sound/439890__simonbay__lushlife_gameover.wav');
 
     // Array, das alle definierten Audio-Dateien enthält
     static allSounds = [AudioHub.background, AudioHub.coinSound, AudioHub.bottleSound, AudioHub.chickenSound, AudioHub.pepeSound];

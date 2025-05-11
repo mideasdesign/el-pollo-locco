@@ -113,8 +113,8 @@ class Character extends MovableObject{
         gameIntervals(() => {
             if (this.isDead()) {
                 this.playAnimationOnce(this.images_dead);
-/*                 world.stopOne(pepeSound); */
-                endGame();
+                 AudioHub.stopOne(AudioHub.pepeSound);
+                looseGame();
             } else if (this.ishurt()) {
                 this.playAnimation(this.images_hurt);
             } else if (this.isJumping) {

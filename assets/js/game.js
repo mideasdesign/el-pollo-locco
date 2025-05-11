@@ -4,7 +4,6 @@ let canvas;
 let audio;
 let intervalIds = [];
 
-
     screen.orientation.addEventListener('change', () => {
     console.log(`The orientation of the screen is: ${screen.orientation}`);
     });
@@ -36,10 +35,18 @@ let intervalIds = [];
         location.reload();
     }
 
-    function endGame(didWin) {
+    function looseGame() {
     // Zeige Overlay
+        AudioHub.playOne(AudioHub.gameoverSound);
         document.getElementById('game-overlay').classList.remove('hidden');
-        document.getElementById('game-result-text').textContent = didWin ? 'You won!' : 'Game over!';
+        document.getElementById('game-result-text').textContent = 'Game over!';
+        intervalIds.forEach(clearInterval);
+    }
+    function wonGame() {
+    // Zeige Overlay
+        AudioHub.playOne(AudioHub.gameoverSound);
+        document.getElementById('game-overlay').classList.remove('hidden');
+        document.getElementById('game-result-text').textContent = 'You won!';
         intervalIds.forEach(clearInterval);
     }
 
