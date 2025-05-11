@@ -14,7 +14,7 @@ class BossBar extends StatusBar {
     this.img = this.imageCache[this.images[5]];
     this.x = 510;
     this.y = 13;
-    this.width = 140;
+    this.width = 120;
     this.height = 40;
     this.setPercentage(100);
    

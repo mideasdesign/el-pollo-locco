@@ -141,9 +141,24 @@ h1.headline{
 
 @media( max-width:936px){
 canvas {
-aspect-ratio: 1.5 /1;
+/* aspect-ratio: 1.5 /1; */
   height: 100svh;
 }
+
+
+#start-button {
+    background-color: #59695b;
+    margin:2rem 0 0 0;
+    padding: 12px 16px;
+    font-size: 20px;
+    color: #fad193;
+    border-radius: 15px;
+    border: 1px solid #59695b;
+    font-family: 'Kablammo', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 5px;
+}
+
   h1.headline {
     font-size: 4rem;
     text-align: center;
@@ -175,7 +190,7 @@ aspect-ratio: 1.5 /1;
     width: 100svw;
     height: 34px;
     left:0px;
-    bottom: 0px;
+    bottom: 10px;
     z-index: 8000;
     justify-content: space-evenly;
   }
