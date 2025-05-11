@@ -161,6 +161,5 @@ class World {
     if (this.keyboard.m) {
         AudioHub.stopAll();
     }
-
   }
 }
