@@ -70,7 +70,7 @@ class Endboss extends MovableObject{
             } else {
                 this.playAnimation(this.images_idle);
             }
-        }, 200);  
+        }, 100);  
     };
 
 }

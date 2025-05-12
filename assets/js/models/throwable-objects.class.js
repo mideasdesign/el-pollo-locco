@@ -35,7 +35,7 @@ images_splash = [
   animate(){
     gameIntervals(() => {
       this.x += 20; 
-        this.playAnimation(this.images_rotating_bottle);
+      this.playAnimation(this.images_rotating_bottle);
     },80);
 
 }

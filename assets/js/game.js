@@ -3,7 +3,6 @@ let keyboard = new Keyboard();
 let canvas;
 let audio;
 let intervalIds = [];
-let fs = document.documentElement;
 
     function gameIntervals(fn, time) {
         let id = setInterval (fn, time);
@@ -57,29 +56,26 @@ function fullscreen(){
     openFullscreen(fs);
 }
 
-
-/* When the openFullscreen() function is executed, open the video in fullscreen.
-Note that we must include prefixes for different browsers, as they don't support the requestFullscreen property yet */
 function openFullscreen() {    
     document.getElementById('fs-open').classList.add('hide');
     document.getElementById('fs-close').classList.remove('hide');
-  if (fs.requestFullscreen) {
-    fs.requestFullscreen();
-  } else if (fs.webkitRequestFullscreen) { /* Safari */
-    fs.webkitRequestFullscreen();
-  } else if (fs.msRequestFullscreen) { /* IE11 */
-    fs.msRequestFullscreen();
-  }
+    if (fs.requestFullscreen) {
+        fs.requestFullscreen();
+    } else if (fs.webkitRequestFullscreen) { /* Safari */
+        fs.webkitRequestFullscreen();
+    } else if (fs.msRequestFullscreen) { /* IE11 */
+        fs.msRequestFullscreen();
+    }
 }
 
 function closeFullscreen() {
     document.getElementById('fs-open').classList.remove('hide');
     document.getElementById('fs-close').classList.add('hide');
-  if (document.exitFullscreen) {
+    if (document.exitFullscreen) {
     document.exitFullscreen();
-  } else if (document.webkitExitFullscreen) { /* Safari */
+    } else if (document.webkitExitFullscreen) { /* Safari */
     document.webkitExitFullscreen();
-  } else if (document.msExitFullscreen) { /* IE11 */
+    } else if (document.msExitFullscreen) { /* IE11 */
     document.msExitFullscreen();
   }
 }
@@ -110,38 +106,47 @@ function closeFullscreen() {
             e.preventDefault();
             keyboard.left = true;
         });
+
         document.getElementById('btn-left').addEventListener('touchend', (e) => {
             e.preventDefault();
             keyboard.left = false;
         });
+
         document.getElementById('btn-right').addEventListener('touchstart', (e) => {
             e.preventDefault();
             keyboard.right = true;
         });
+
         document.getElementById('btn-right').addEventListener('touchend', (e) => {
             e.preventDefault();
             keyboard.right = false;
         });
+
         document.getElementById('btn-jump').addEventListener('touchstart', (e) => {
             e.preventDefault();
             keyboard.space = true;
         });
+
         document.getElementById('btn-jump').addEventListener('touchend', (e) => {
             e.preventDefault();
             keyboard.space = false;
         });
+
         document.getElementById('btn-throw').addEventListener('touchstart', (e) => {
             e.preventDefault();
             keyboard.t = true;
         });
+
         document.getElementById('btn-throw').addEventListener('touchend', (e) => {
             e.preventDefault();
             keyboard.t = false;
         });
+
         document.getElementById('btn-mute').addEventListener('touchstart', (e) => {
             e.preventDefault();
             keyboard.m = true;
         });
+
         document.getElementById('btn-mute').addEventListener('touchend', (e) => {
             e.preventDefault();
             keyboard.m = false;

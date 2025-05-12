@@ -60,6 +60,19 @@ class World {
         if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(chick) ){
           chick.isDead();
           chick.speed = 0;
+        AudioHub.playOne(AudioHub.chicksSound);
+          this.level.chicks.splice(index, 1);
+        }
+      });
+    }, 30);
+  };
+
+  checkCollisionChicksFromTop(){
+    gameIntervals(() => {
+      this.level.chicks.forEach((chick, index) => {
+        if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(chick) ){
+          chick.isDead();
+          chick.speed = 0;
          AudioHub.playOne(AudioHub.chicksSound);
           this.level.chicks.splice(index, 1);
         }

@@ -1,6 +1,6 @@
 class Chicks extends MovableObject{ 
-    width = 30;
-    height = 40;
+    width = 40;
+    height = 50;
     otherDirection = false;
     offset = {
         top: 7,
