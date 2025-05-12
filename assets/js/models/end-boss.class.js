@@ -22,7 +22,8 @@ class Endboss extends MovableObject{
         'assets/images/4_enemie_boss_chicken/2_alert/G11.png',
         'assets/images/4_enemie_boss_chicken/2_alert/G12.png',
         
-    ]
+    ];
+    
     images_boss_hurt = [
         'assets/images/4_enemie_boss_chicken/4_hurt/G21.png',
         'assets/images/4_enemie_boss_chicken/4_hurt/G22.png',
