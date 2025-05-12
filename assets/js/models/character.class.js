@@ -114,6 +114,7 @@ class Character extends MovableObject{
             if (this.isDead()) {
                 this.playAnimationOnce(this.images_dead);
                  AudioHub.stopOne(AudioHub.pepeSound);
+                 AudioHub.playOne(AudioHub.youlooseSound);
                 gameLoose();
             } else if (this.ishurt()) {
                 this.playAnimation(this.images_hurt);

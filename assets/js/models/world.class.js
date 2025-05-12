@@ -30,6 +30,21 @@ class World {
     this.character.startAnimation();
   };
 
+  stoppAllSound(){
+    if (this.keyboard.m) {
+        AudioHub.stopAll();
+    }
+  };
+
+  run() {
+    gameIntervals(() => {
+      this.checkCollisionsPepe(); 
+      this.checkCollisionsBoss();
+      this.checkThrowableObject();
+      this.checkCollectibles();
+      this.stoppAllSound();
+    }, 100);
+  };
 
   checkCollisionsFromTop(){
     gameIntervals(() => {
@@ -37,7 +52,7 @@ class World {
         if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(enemy) ){
           enemy.isDead();
           enemy.speed = 0;
-         AudioHub.playOne(AudioHub.chickenSound);
+          AudioHub.playOne(AudioHub.chickenSound);
           this.level.enemies.splice(index, 1);
         }
       });
@@ -54,7 +69,7 @@ class World {
           this.level.chicks.splice(index, 1);
         }
       });
-    }, 30);
+    }, 50);
   }
  
   checkCollisionsPepe(){
@@ -105,15 +120,6 @@ class World {
     });
   };
 
-    run() {
-    gameIntervals(() => {
-      this.checkCollisionsPepe(); 
-      this.checkCollisionsBoss();
-      this.checkThrowableObject();
-      this.checkCollectibles();
-    }, 100);
-  };
-
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.translate(this.cameraX, 0);
@@ -157,11 +163,6 @@ class World {
     if (mo.otherDirection) {
       mo.x = mo.x * -1;
       this.ctx.restore();
-    }
-  }
-  stoppAllSound (){
-    if (this.keyboard.m) {
-        AudioHub.stopAll();
     }
   }
 }

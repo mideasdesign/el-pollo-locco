@@ -88,6 +88,6 @@ class MovableObject extends DrawableObject {
   }
 
   isDead() {
-    return this.healthPepe == 0 || this.healthBoss == 0 || this.enemy == 0 || this.chicks == 0;
+    return this.healthPepe == 0 || this.healthBoss == 0 || this.enemy == 0 || this.chick == 0;
   }
 }

@@ -39,7 +39,7 @@ let intervalIds = [];
     }
     function gameWon() {
     // Zeige Overlay
-        AudioHub.playOne(AudioHub.gameoverSound);
+        AudioHub.playOne(AudioHub.gamewinSound);
         document.getElementById('game-overlay').classList.remove('hidden');
         document.getElementById('game-result-text').textContent = 'You won!';
         intervalIds.forEach(clearInterval);
@@ -54,7 +54,7 @@ let intervalIds = [];
         startGame(); // oder startGame(), wie du es bei Spielstart verwendest
     }
 
-    window.addEventListener('keydown', (e) => {
+    window.addEventListener('keydown', (e) => { 
         if (e.keyCode == 37) keyboard.left = true;
         if (e.keyCode == 39) keyboard.right = true;
         if (e.keyCode == 38) keyboard.up = true;

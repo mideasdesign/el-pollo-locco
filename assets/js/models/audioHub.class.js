@@ -6,10 +6,14 @@ class AudioHub {
     static chickenSound = new Audio('./assets/sound/668804__mbpl__chicken-clucking-2.wav');
     static chicksSound = new Audio('./assets/sound/chick-chirping2-332878.mp3');
     static pepeSound = new Audio('./assets/sound/804622__qubodup__young-man-hurt-voice.wav');
-    static gameoverSound = new Audio('assets/sound/439890__simonbay__lushlife_gameover.wav');
+    static gameoverSound = new Audio('./assets/sound/439890__simonbay__lushlife_gameover.wav');
+    static youwinSound = new Audio('./assets/sound/youwin.mp3');
+    static youlooseSound = new Audio('./assets/sound/youloose.mp3');
+    static gamewinSound = new Audio('./assets/sound/brass-fanfare-with-timpani-and-winchimes-reverberated-146260.mp3');
+    static attackSound = new Audio('./assets/sound/chase-8-bit-73312.mp3');
 
     // Array, das alle definierten Audio-Dateien enthält
-    static allSounds = [AudioHub.background, AudioHub.coinSound, AudioHub.bottleSound, AudioHub.chickenSound, AudioHub.pepeSound];
+    static allSounds = [AudioHub.background, AudioHub.coinSound, AudioHub.bottleSound, AudioHub.chickenSound, AudioHub.chicksSound,  AudioHub.pepeSound, AudioHub.youwinSound, AudioHub.youlooseSound, AudioHub.attackSound,];
 
 
     // Spielt eine einzelne Audiodatei ab
@@ -27,23 +31,9 @@ class AudioHub {
         AudioHub.allSounds.forEach(sound => {
             sound.pause();  // Pausiert jedes Audio in der Liste
         });
-        document.getElementById('volume').value = 0.2;  // Setzt den Sound-Slider wieder auf 0.2
     }
-
-
     // Stoppt das Abspielen einer einzelnen Audiodatei
     static stopOne(sound) {
         sound.pause();  // Pausiert das übergebene Audio
-    }
-
-
-    // ##########################################################################################################################
-    // ################################################  Sound Slider - BONUS !  ################################################
-    // Setzt die Lautstärke für alle Audiodateien
-    static objSetVolume(volumeSlider) {
-        let volumeValue = document.getElementById('volume').value;  // Holt den aktuellen Lautstärkewert aus dem Inputfeld
-        volumeSlider.forEach(sound => {
-            sound.volume = volumeValue;  // Setzt die Lautstärke für jedes Audio wie im Slider angegeben
-        });
     }
 }

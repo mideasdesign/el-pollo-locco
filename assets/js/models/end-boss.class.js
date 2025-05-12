@@ -63,13 +63,14 @@ class Endboss extends MovableObject{
         gameIntervals(() => {
             if (this.isDead()) {
                 this.playAnimationOnce(this.images_boss_dead);
+                AudioHub.playOne(AudioHub.youwinSound);
                 gameWon();
             } else if (this.ishurt()) {
                 this.playAnimation(this.images_boss_hurt);
             } else {
                 this.playAnimation(this.images_idle);
             }
-        }, 100);  
+        }, 200);  
     };
 
 }
