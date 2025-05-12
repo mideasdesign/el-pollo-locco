@@ -21,7 +21,8 @@ class World {
     this.checkCollisionChicksFromTop();
     this.checkCollisionsPepe();
     this.checkCollisionsBoss();
-    this.checkThrowableObject(); 
+    this.checkThrowableObject();
+    this.stoppAllSound(); 
     this.run();
   };
 

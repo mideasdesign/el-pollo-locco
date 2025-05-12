@@ -48,11 +48,35 @@
     border: 1px solid #59695b;
   }
 }
-
 .headline, #game-over{
 font-family:'Kablammo', sans-serif;
 text-shadow: 4px 3px 14px rgba(0,0,0,0.51);
 }
+.mt{
+  margin-top:2rem;
+}
+p{
+  text-align: center;
+}
+.credits{
+  font-size: 2rem;
+  letter-spacing: 5px;
+  font-family:'Kablammo', sans-serif;
+}
+.btn-back{
+  display:flex;
+  justify-content: center;
+}
+ul{
+  list-style: none;
+  margin:0;
+  padding:0;
+  text-align: center;
+  & li{
+    margin-bottom: 1rem;
+  }
+}
+
 #game-over{
   font-size: 8rem;
   display:none;

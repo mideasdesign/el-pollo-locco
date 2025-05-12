@@ -35,6 +35,13 @@ images_splash = [
       this.x += 30; 
         this.playAnimation(this.images_rotating_bottle);
     }, 1000 / 30);
+
+    gameIntervals(() => {
+      if (this.hitBoss()) {
+        this.playAnimation(this.images_splash);        
+      }
+    }, 1000 / 30);
+
 }
 
   throw(x, y){

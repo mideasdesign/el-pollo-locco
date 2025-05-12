@@ -4,17 +4,12 @@ let canvas;
 let audio;
 let intervalIds = [];
 
-    screen.orientation.lock('landscape').then(function() {
-    console.log('Orientation locked to landcape');
-    }).catch(function(error) {
-    console.log('Failed to lock orientation: ' + error.message);
-    })
-
     function gameIntervals(fn, time) {
         let id = setInterval (fn, time);
         intervalIds.push(id);
         
     }
+
     function startGame() {
         canvas = document.getElementById('canvas');
         initLevel();
@@ -26,19 +21,19 @@ let intervalIds = [];
         document.getElementById('el-pollo-loco').style.display = 'none';
     }
 
-    function qutiGame() {
+    function quitGame() {
         location.reload();
     }
 
     function gameLoose() {
-    // Zeige Overlay
+
         AudioHub.playOne(AudioHub.gameoverSound);
         document.getElementById('game-overlay').classList.remove('hidden');
         document.getElementById('game-result-text').textContent = 'Game over!';
         intervalIds.forEach(clearInterval);
     }
     function gameWon() {
-    // Zeige Overlay
+
         AudioHub.playOne(AudioHub.gamewinSound);
         document.getElementById('game-overlay').classList.remove('hidden');
         document.getElementById('game-result-text').textContent = 'You won!';
@@ -51,10 +46,12 @@ let intervalIds = [];
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         document.getElementById('game-overlay').classList.add('hidden');    
         world = null;
-        startGame(); // oder startGame(), wie du es bei Spielstart verwendest
+        startGame(); 
     }
 
     window.addEventListener('keydown', (e) => { 
+        console.log(e);
+        
         if (e.keyCode == 37) keyboard.left = true;
         if (e.keyCode == 39) keyboard.right = true;
         if (e.keyCode == 38) keyboard.up = true;
