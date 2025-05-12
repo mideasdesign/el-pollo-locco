@@ -42,7 +42,7 @@
         </div>
       </div>
     </div>
-    <div class="wrapper">      
+    <div id="fullscreen" class="wrapper">      
       <h1 id="el-pollo-loco" class="headline">El Pollo Loco</h1>   
       <div class="first-btns mt">
         <button id="start-button" class="btn" onclick="startGame()">Start Game</button>
@@ -61,12 +61,16 @@
         <div class="touch-pan-right">
           <button id="btn-jump"> <img src="./assets/images/btn_jump.svg" alt=""> </button> <button id="btn-throw"> <img src="./assets/images/btn_throw.svg" alt=""> </button>
         </div>        
+      </div>      
+      <div class="fullscreen-box">
+        <button onclick="openFullscreen()" id="fs-open" class="fullscreen hide"><img src="./assets/images/fullscreen.svg" alt="enter fullsrceen"></button>
+        <button onclick="closeFullscreen()" id="fs-close" class="fullscreen hide"><img src="./assets/images/fullscreen-exit.svg" alt="exit fullsrceen"></button>
       </div>
-
       <div id="instruction">
+        <h4>Instructions:</h4>
         <p>LEFT: Arrow left, RIGHT: Arrow right, JUMP: Space, THROW: t key</p>
       </div>
-      </div>
+
     </div>
   </body>
 </html>

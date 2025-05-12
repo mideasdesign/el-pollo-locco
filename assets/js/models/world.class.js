@@ -23,7 +23,6 @@ class World {
     this.checkCollisionsPepe();
     this.checkCollisionsBoss();
     this.checkThrowableObject();
-    this.stoppAllSound(); 
     this.run();
   };
 
@@ -32,11 +31,6 @@ class World {
     this.character.startAnimation();
   };
 
-  stoppAllSound(){
-    if (this.keyboard.m) {
-        AudioHub.stopAll();
-    }
-  };
 
   run() {
     gameIntervals(() => {
@@ -44,7 +38,6 @@ class World {
       this.checkCollisionsBoss();
       this.checkThrowableObject();
       this.checkCollectibles();
-      this.stoppAllSound();
     }, 100);
   };
 

@@ -37,6 +37,13 @@
   display: flex;
 
 }
+.hide{
+  display: none;
+}
+
+#fs-open:hover, #fs-close:hover{
+  cursor:pointer;
+}
 .btn{
     background-color: #59695b;
     margin:2rem 0 0 0;
@@ -52,6 +59,7 @@
     background-color: transparent;
     color:#59695b;
     border: 1px solid #59695b;
+    cursor:pointer;
   }
 }
 .headline, #game-over{
@@ -101,6 +109,7 @@ a{
     background-color: transparent;
     color:#59695b;
     border: 0px solid #59695b;
+    cursor:pointer;
   }
 }
 #game-result-text{
@@ -121,7 +130,19 @@ a{
     background-color: transparent;
     color:#f5f5f5;
     border: 1px solid #59695b;
+    cursor:pointer;
   }
+}
+.fullscreen-box{
+display: flex;
+justify-content: flex-end;
+padding-right:3%;
+margin-top:1rem;
+width:720px;
+}
+.fullscreen{
+  height:32px;
+  width: 32px;
 }
 .endscreen{
   margin-top: 7rem;

@@ -3,6 +3,7 @@ let keyboard = new Keyboard();
 let canvas;
 let audio;
 let intervalIds = [];
+let fs = document.getElementById('fullscreen');
 
     function gameIntervals(fn, time) {
         let id = setInterval (fn, time);
@@ -14,6 +15,8 @@ let intervalIds = [];
         canvas = document.getElementById('canvas');
         initLevel();
         world = new World(canvas, keyboard);
+        AudioHub.playOne(AudioHub.background);
+        document.getElementById('fs-open').classList.remove('hide');
         document.getElementById('canvas').style.display = 'flex';
         document.getElementById('start-button').style.display = 'none';
         document.getElementById('restart-button').style.display = 'block';
@@ -26,14 +29,14 @@ let intervalIds = [];
     }
 
     function gameLoose() {
-
+        AudioHub.stopOne(AudioHub.background);
         AudioHub.playOne(AudioHub.gameoverSound);
         document.getElementById('game-overlay').classList.remove('hidden');
         document.getElementById('game-result-text').textContent = 'Game over!';
         intervalIds.forEach(clearInterval);
     }
     function gameWon() {
-
+        AudioHub.stopOne(AudioHub.background);
         AudioHub.playOne(AudioHub.gamewinSound);
         document.getElementById('game-overlay').classList.remove('hidden');
         document.getElementById('game-result-text').textContent = 'You won!';
@@ -49,8 +52,34 @@ let intervalIds = [];
         startGame(); 
     }
 
+
+/* When the openFullscreen() function is executed, open the video in fullscreen.
+Note that we must include prefixes for different browsers, as they don't support the requestFullscreen property yet */
+function openFullscreen() {    
+    document.getElementById('fs-open').classList.add('hide');
+    document.getElementById('fs-close').classList.remove('hide');
+  if (fs.requestFullscreen) {
+    fs.requestFullscreen();
+  } else if (fs.webkitRequestFullscreen) { /* Safari */
+    fs.webkitRequestFullscreen();
+  } else if (fs.msRequestFullscreen) { /* IE11 */
+    fs.msRequestFullscreen();
+  }
+}
+
+function closeFullscreen() {
+    document.getElementById('fs-open').classList.remove('hide');
+    document.getElementById('fs-close').classList.add('hide');
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) { /* Safari */
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) { /* IE11 */
+    document.msExitFullscreen();
+  }
+}
+
     window.addEventListener('keydown', (e) => { 
-        console.log(e);
         
         if (e.keyCode == 37) keyboard.left = true;
         if (e.keyCode == 39) keyboard.right = true;
