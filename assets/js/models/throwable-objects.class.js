@@ -7,7 +7,6 @@ class ThrowableObject extends MovableObject {
   bottom: 6,
   left: 5
 };
-
   images_rotating_bottle = [
     'assets/images/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
     'assets/images/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
@@ -22,25 +21,22 @@ images_splash = [
   'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png',
   'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
   'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
+
 ];
 
   constructor(x, y) {
     super().loadImage('assets/images/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
     this.loadImages(this.images_rotating_bottle);
-        this.loadImages(this.images_splash);
+    this.loadImages(this.images_splash);
     this.throw(x, y);
+    this.animate();
   };
 
   animate(){
     gameIntervals(() => {
-      this.x += 30; 
+      this.x += 20; 
         this.playAnimation(this.images_rotating_bottle);
-    }, 1000 / 30);
-    if (this.hitBoss()){
-      gameIntervals(() => {
-          this.playAnimationOnce(this.images_splash);        
-      }, 1000 / 30);
-    }
+    },80);
 
 }
 

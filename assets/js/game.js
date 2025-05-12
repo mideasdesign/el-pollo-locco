@@ -3,7 +3,7 @@ let keyboard = new Keyboard();
 let canvas;
 let audio;
 let intervalIds = [];
-let fs = document.getElementById('fullscreen');
+let fs = document.documentElement;
 
     function gameIntervals(fn, time) {
         let id = setInterval (fn, time);
@@ -51,6 +51,11 @@ let fs = document.getElementById('fullscreen');
         world = null;
         startGame(); 
     }
+
+function fullscreen(){
+    let fs = document.getElementById('fullscreen');
+    openFullscreen(fs);
+}
 
 
 /* When the openFullscreen() function is executed, open the video in fullscreen.
