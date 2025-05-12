@@ -14,11 +14,11 @@ let intervalIds = [];
         canvas = document.getElementById('canvas');
         initLevel();
         world = new World(canvas, keyboard);
-        document.getElementById('loading-screen').style.display = 'none';
         document.getElementById('canvas').style.display = 'flex';
         document.getElementById('start-button').style.display = 'none';
         document.getElementById('restart-button').style.display = 'block';
         document.getElementById('el-pollo-loco').style.display = 'none';
+        document.getElementById('credits').style.display = 'none';
     }
 
     function quitGame() {
@@ -70,45 +70,46 @@ let intervalIds = [];
         if (e.keyCode == 84) keyboard.t = false;
         if (e.keyCode == 77) keyboard.m = false;
     });
+
     function touchBtn(){
         document.getElementById('btn-left').addEventListener('touchstart', (e) => {
             e.preventDefault();
-            this.left = true;
+            keyboard.left = true;
         });
         document.getElementById('btn-left').addEventListener('touchend', (e) => {
             e.preventDefault();
-            this.left = false;
+            keyboard.left = false;
         });
         document.getElementById('btn-right').addEventListener('touchstart', (e) => {
             e.preventDefault();
-            this.right = true;
+            keyboard.right = true;
         });
         document.getElementById('btn-right').addEventListener('touchend', (e) => {
             e.preventDefault();
-            this.right = false;
+            keyboard.right = false;
         });
         document.getElementById('btn-jump').addEventListener('touchstart', (e) => {
             e.preventDefault();
-            this.space = true;
+            keyboard.space = true;
         });
         document.getElementById('btn-jump').addEventListener('touchend', (e) => {
             e.preventDefault();
-            this.space = false;
+            keyboard.space = false;
         });
         document.getElementById('btn-throw').addEventListener('touchstart', (e) => {
             e.preventDefault();
-            this.t = true;
+            keyboard.t = true;
         });
         document.getElementById('btn-throw').addEventListener('touchend', (e) => {
             e.preventDefault();
-            this.t = false;
+            keyboard.t = false;
         });
         document.getElementById('btn-mute').addEventListener('touchstart', (e) => {
             e.preventDefault();
-            this.m = true;
+            keyboard.m = true;
         });
         document.getElementById('btn-mute').addEventListener('touchend', (e) => {
             e.preventDefault();
-            this.m = false;
+            keyboard.m = false;
         });
     }
