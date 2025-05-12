@@ -48,7 +48,6 @@ class Endboss extends MovableObject{
         'assets/images/4_enemie_boss_chicken/3_attack/G20.png'
     ];
 
-    hadFirstContact = false;
     currentImage = 0;
     constructor(){
         super().loadImage('assets/images/4_enemie_boss_chicken/2_alert/G5.png');
@@ -57,39 +56,20 @@ class Endboss extends MovableObject{
         this.loadImages(this.images_boss_attack);
         this.loadImages(this.images_boss_dead);
         this.getRealFrame();
+        this.animate();
     };
 
     animate(){
-        let i = 0
         gameIntervals(() => {
-            if(i < 10 ){
-                this.playAnimation(this.images_idle);
-            } else{
-                 this.playAnimation(this.images_attack);
-            } 
-            i++;
-            if (world.character.x > 2000 && !hadFirstContact) {
-                i = 0;
-                hadFirstContact = true;
-            }
             if (this.isDead()) {
                 this.playAnimationOnce(this.images_boss_dead);
-                wonGame();
+                gameWon();
             } else if (this.ishurt()) {
                 this.playAnimation(this.images_boss_hurt);
             } else {
-               
+                this.playAnimation(this.images_idle);
             }
-        }, 1000 / 30);  
-    };
-
-    hitBoss() {
-        this.healthBoss -= 4;
-        if (this.healthBoss < 0) {
-        this.healthBoss = 0;
-        } else {
-        this.lastHit = new Date().getTime();
-        }
+        }, 100);  
     };
 
 }

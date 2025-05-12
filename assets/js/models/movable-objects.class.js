@@ -70,7 +70,16 @@ class MovableObject extends DrawableObject {
     } else {
       this.lastHit = new Date().getTime();
     }
-  }
+  };
+
+  hitBoss() {
+    this.healthBoss -= 4;
+    if (this.healthBoss < 0) {
+    this.healthBoss = 0;
+    } else {
+    this.lastHit = new Date().getTime();
+    }
+  };
 
   ishurt() {
     let timespassed = new Date().getTime() - this.lastHit;

@@ -4,9 +4,6 @@ let canvas;
 let audio;
 let intervalIds = [];
 
-    screen.orientation.addEventListener('change', () => {
-    console.log(`The orientation of the screen is: ${screen.orientation}`);
-    });
     screen.orientation.lock('landscape').then(function() {
     console.log('Orientation locked to landcape');
     }).catch(function(error) {
@@ -27,43 +24,26 @@ let intervalIds = [];
         document.getElementById('start-button').style.display = 'none';
         document.getElementById('restart-button').style.display = 'block';
         document.getElementById('el-pollo-loco').style.display = 'none';
-/*         document.getElementById('controls-box').style.display = 'none'; */
-/*         resizeAndScaleCanvas(); */
     }
 
     function qutiGame() {
         location.reload();
     }
 
-    function looseGame() {
+    function gameLoose() {
     // Zeige Overlay
         AudioHub.playOne(AudioHub.gameoverSound);
         document.getElementById('game-overlay').classList.remove('hidden');
         document.getElementById('game-result-text').textContent = 'Game over!';
         intervalIds.forEach(clearInterval);
     }
-    function wonGame() {
+    function gameWon() {
     // Zeige Overlay
         AudioHub.playOne(AudioHub.gameoverSound);
         document.getElementById('game-overlay').classList.remove('hidden');
         document.getElementById('game-result-text').textContent = 'You won!';
         intervalIds.forEach(clearInterval);
     }
-
-
-/*     function resizeAndScaleCanvas() {
-        const canvas = document.getElementById('canvas');
-        const scaleX = window.innerWidth / 720;
-        const scaleY = window.innerHeight / 480;
-        const scale = Math.min(scaleX, scaleY);
-
-        canvas.style.transform = `scale(${scale})`;
-        canvas.style.transformOrigin = 'center center';
-        canvas.style.width = `720px`;
-        canvas.style.height = `480px`;
-    } */
-
-/*     window.addEventListener('resize', resizeAndScaleCanvas); */
 
     function restartGame() {
         canvas = document.getElementById('canvas');
@@ -96,34 +76,42 @@ let intervalIds = [];
     function touchBtn(){
         document.getElementById('btn-left').addEventListener('touchstart', (e) => {
             e.preventDefault();
-            keyboard.left = true;
+            this.left = true;
         });
         document.getElementById('btn-left').addEventListener('touchend', (e) => {
             e.preventDefault();
-            keyboard.left = false;
+            this.left = false;
         });
         document.getElementById('btn-right').addEventListener('touchstart', (e) => {
             e.preventDefault();
-            keyboard.right = true;
+            this.right = true;
         });
         document.getElementById('btn-right').addEventListener('touchend', (e) => {
             e.preventDefault();
-            keyboard.right = false;
+            this.right = false;
         });
         document.getElementById('btn-jump').addEventListener('touchstart', (e) => {
             e.preventDefault();
-            keyboard.space = true;
+            this.space = true;
         });
         document.getElementById('btn-jump').addEventListener('touchend', (e) => {
             e.preventDefault();
-            keyboard.space = false;
+            this.space = false;
         });
-        document.getElementById('btn-jump').addEventListener('touchstart', (e) => {
+        document.getElementById('btn-throw').addEventListener('touchstart', (e) => {
             e.preventDefault();
-            keyboard.space = true;
+            this.t = true;
         });
-        document.getElementById('btn-jump').addEventListener('touchend', (e) => {
+        document.getElementById('btn-throw').addEventListener('touchend', (e) => {
             e.preventDefault();
-            keyboard.space = false;
+            this.t = false;
+        });
+        document.getElementById('btn-mute').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            this.m = true;
+        });
+        document.getElementById('btn-mute').addEventListener('touchend', (e) => {
+            e.preventDefault();
+            this.m = false;
         });
     }

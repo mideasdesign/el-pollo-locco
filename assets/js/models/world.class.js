@@ -18,6 +18,7 @@ class World {
     this.draw();
     this.setWorld();  
     this.checkCollisionsFromTop();
+    this.checkCollisionChicksFromTop();
     this.checkCollisionsPepe();
     this.checkCollisionsBoss();
     this.checkThrowableObject(); 
@@ -41,7 +42,9 @@ class World {
         }
       });
     }, 30);
+  };
 
+  checkCollisionChicksFromTop(){
     gameIntervals(() => {
       this.level.chicks.forEach((chick, index) => {
         if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(chick) ){
@@ -52,8 +55,7 @@ class World {
         }
       });
     }, 30);
-
-  };
+  }
  
   checkCollisionsPepe(){
     this.level.enemies.forEach((enemy) => {
@@ -63,15 +65,6 @@ class World {
         this.statusBar.setPercentage(this.character.healthPepe);
       }
     });
-  };
-
-  run() {
-    gameIntervals(() => {
-      this.checkCollisionsPepe(); 
-      this.checkCollisionsBoss();
-      this.checkThrowableObject();
-      this.checkCollectibles();
-    }, 80);
   };
 
   checkThrowableObject(){
@@ -110,6 +103,15 @@ class World {
         this.level.bottles.splice(index, 1);
       }
     });
+  };
+
+    run() {
+    gameIntervals(() => {
+      this.checkCollisionsPepe(); 
+      this.checkCollisionsBoss();
+      this.checkThrowableObject();
+      this.checkCollectibles();
+    }, 100);
   };
 
   draw() {
