@@ -11,6 +11,7 @@ class World {
   keyboard;
   cameraX = 0;
   level = level1;
+
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext('2d');
     this.canvas = canvas;
@@ -23,6 +24,9 @@ class World {
     this.checkCollisionsPepe();
     this.checkCollisionsBoss();
     this.checkThrowableObject();
+    this.checkBossAttackZone();
+    this.getBossAttackZone();
+/*     this.isPlayerInAttackZone(); */
     this.run();
   };
 
@@ -38,6 +42,9 @@ class World {
       this.checkCollisionsBoss();
       this.checkThrowableObject();
       this.checkCollectibles();
+      this.getBossAttackZone();
+      this.isPlayerInAttackZone();
+      this.checkBossAttackZone();
     }, 100);
   };
 
@@ -60,7 +67,7 @@ class World {
         if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(chick) ){
           chick.isDead();
           chick.speed = 0;
-        AudioHub.playOne(AudioHub.chicksSound);
+          AudioHub.playOne(AudioHub.chicksSound);
           this.level.chicks.splice(index, 1);
         }
       });
@@ -73,7 +80,7 @@ class World {
         if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(chick) ){
           chick.isDead();
           chick.speed = 0;
-         AudioHub.playOne(AudioHub.chicksSound);
+          AudioHub.playOne(AudioHub.chicksSound);
           this.level.chicks.splice(index, 1);
         }
       });
@@ -90,6 +97,36 @@ class World {
     });
   };
 
+  getBossAttackZone() {
+    let range = 250;
+    return {
+      x: this.endboss.rX + range,
+      y: this.endboss.rY + range,
+      width: range,
+      height: this.endboss.height
+    };
+  };
+
+checkBossAttackZone() {
+  gameIntervals(() => {
+    if (!this.character || !this.endboss) return;
+
+    const zone = this.getBossAttackZone();
+    if (this.isPlayerInAttackZone(zone) && !this.endboss.isAttacking) {
+      startBossAttack();
+    }
+  }, 100);
+}
+
+isPlayerInAttackZone(zone) {
+  if (!zone || !this.character) return false;
+
+  return (
+    this.character.rX < zone.x + zone.width &&
+    this.character.rX + this.character.rW > zone.x
+  );
+}
+
   checkThrowableObject(){
     if (this.keyboard.t && this.bottlesBar.percentage > 0) {
       let x = this.character.rX + this.character.rW / 2.60;
@@ -98,7 +135,6 @@ class World {
       this.throwableObject.push(bottle); 
       this.bottlesBar.setPercentage(this.bottlesBar.percentage - 10);
     }
-   
   };
 
   checkCollisionsBoss(){
@@ -114,7 +150,7 @@ class World {
     this.level.coins.forEach((coin, index) => {
       if (this.character.isColliding(coin)) {
         this.coinsBar.setPercentage(this.coinsBar.percentage + 10);
-         AudioHub.playOne(AudioHub.coinSound);
+        AudioHub.playOne(AudioHub.coinSound);
         this.level.coins.splice(index, 1);
       }
     });
@@ -122,7 +158,7 @@ class World {
     this.level.bottles.forEach((bottle, index) => {
       if (this.character.isColliding(bottle)) {
         this.bottlesBar.setPercentage(this.bottlesBar.percentage + 10);
-          AudioHub.playOne(AudioHub.bottleSound);
+        AudioHub.playOne(AudioHub.bottleSound);
         this.level.bottles.splice(index, 1);
       }
     });

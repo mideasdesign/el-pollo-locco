@@ -129,10 +129,10 @@ class Character extends MovableObject{
                     this.isJumping = false; // Sprung beendet
                     this.isAnimating = false;
                 }
-            } else (this.world.keyboard.right || this.world.keyboard.left) {
+            } if (this.world.keyboard.right || this.world.keyboard.left) {
                 this.playAnimation(this.images_walking);
             }
-        }, 1000 / 30);  
+        }, 100);  
     };
     
     jump() {
