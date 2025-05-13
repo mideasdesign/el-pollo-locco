@@ -11,7 +11,7 @@ class AudioHub {
     static youlooseSound = new Audio('./assets/sound/youloose.mp3');
     static gamewinSound = new Audio('./assets/sound/brass-fanfare-with-timpani-and-winchimes-reverberated-146260.mp3');
     static attackSound = new Audio('./assets/sound/chase-8-bit-73312.mp3');
-     static endbossHurtSound = new Audio('./assets/sound/endboss-hurt.mp3');
+    static endbossHurtSound = new Audio('./assets/sound/endboss-hurt.mp3');
 
     // Array, das alle definierten Audio-Dateien enthält
     static allSounds = [AudioHub.background, AudioHub.coinSound, AudioHub.bottleSound, AudioHub.chickenSound, AudioHub.chicksSound,  AudioHub.pepeSound, AudioHub.youwinSound, AudioHub.youlooseSound, AudioHub.attackSound,];

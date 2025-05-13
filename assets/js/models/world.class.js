@@ -24,9 +24,6 @@ class World {
     this.checkCollisionsPepe();
     this.checkCollisionsBoss();
     this.checkThrowableObject();
-    this.checkBossAttackZone();
-    this.getBossAttackZone();
-/*     this.isPlayerInAttackZone(); */
     this.run();
   };
 
@@ -42,9 +39,10 @@ class World {
       this.checkCollisionsBoss();
       this.checkThrowableObject();
       this.checkCollectibles();
+      this.checkBossAttackZone();
       this.getBossAttackZone();
       this.isPlayerInAttackZone();
-      this.checkBossAttackZone();
+      this.checkCollisionsBossPepe();
     }, 100);
   };
 
@@ -97,8 +95,16 @@ class World {
     });
   };
 
+    checkCollisionsBossPepe(){
+      if (this.character.isColliding(this.endboss)) {
+        this.character.hitPepe();
+        AudioHub.playOne(AudioHub.pepeSound);
+        this.statusBar.setPercentage(this.character.healthPepe);
+      }
+  };
+
   getBossAttackZone() {
-    let range = 250;
+    let range = 450;
     return {
       x: this.endboss.rX + range,
       y: this.endboss.rY + range,
@@ -107,25 +113,30 @@ class World {
     };
   };
 
-checkBossAttackZone() {
-  gameIntervals(() => {
-    if (!this.character || !this.endboss) return;
+  checkBossAttackZone() {
+    gameIntervals(() => {
+      if (!this.character || !this.endboss) return;
+      const zone = this.getBossAttackZone();
+      if (this.isPlayerInAttackZone(zone) && !this.endboss.isAttacking) {
+        this.endboss.startAttackt();
+      }
+    }, 100);
+  }
 
-    const zone = this.getBossAttackZone();
-    if (this.isPlayerInAttackZone(zone) && !this.endboss.isAttacking) {
-      startBossAttack();
-    }
-  }, 100);
-}
-
-isPlayerInAttackZone(zone) {
-  if (!zone || !this.character) return false;
-
-  return (
-    this.character.rX < zone.x + zone.width &&
-    this.character.rX + this.character.rW > zone.x
-  );
-}
+  isPlayerInAttackZone(zone) {
+    if (!zone || !this.character) return false;
+    return (
+      this.character.rX < zone.x + zone.width &&
+      this.character.rX + this.character.rW > zone.x
+    );
+  }
+  startAttackt(){
+    this.isAttacking = true;
+    this.moveLeft();
+    setTimeout(() => {
+        this.isAttacking = false;
+    }, 1000);
+  }
 
   checkThrowableObject(){
     if (this.keyboard.t && this.bottlesBar.percentage > 0) {
@@ -208,5 +219,5 @@ isPlayerInAttackZone(zone) {
       mo.x = mo.x * -1;
       this.ctx.restore();
     }
-  }
+  };
 }

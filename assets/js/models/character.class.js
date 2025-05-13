@@ -12,7 +12,7 @@ class Character extends MovableObject{
         left: 20
     };
 
-    healthPepe = 100;
+    healthPepe = 1000;
     otherDirection = false;
 
     images_idle = [

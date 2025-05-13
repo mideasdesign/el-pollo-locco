@@ -11,7 +11,7 @@ class Endboss extends MovableObject{
     };
 
     healthBoss = 100;
-    isAttacking = true;
+    isAttacking = false;
 
     images_idle = [
         'assets/images/4_enemie_boss_chicken/2_alert/G5.png',
@@ -59,7 +59,6 @@ class Endboss extends MovableObject{
         this.loadImages(this.images_boss_dead);
         this.getRealFrame();
         this.animate();
-        this.startAttackt();
     };
 
     animate(){
@@ -71,20 +70,19 @@ class Endboss extends MovableObject{
             } else if (this.ishurt()) {
                 AudioHub.playOne(AudioHub.endbossHurtSound);
                 this.playAnimation(this.images_boss_hurt);
+            } else if (this.isAttacking){
+                AudioHub.playOne(AudioHub.attackSound);
+                this.playAnimation(this.images_boss_attack, 300);
             } else {
                 this.playAnimation(this.images_idle);
             }
         }, 300);  
     };
-    startAttackt(){
-        AudioHub.playOne(AudioHub.attackSound);
-        gameIntervals(() => {
-            this.isAttacking = true;
-            this.playAnimation(this.images_boss_attack);
-            this.moveLeft();
-            setTimeout(() => {
-                this.isAttacking = false;
-            }, 1600);
-        }, 100);
-        }
+    startAttackt() {
+
+        this.moveLeft(); 
+        setTimeout(() => {
+            this.isAttacking = false;
+        }, 1000);
+    }
 }
