@@ -4,72 +4,72 @@ let canvas;
 let audio;
 let intervalIds = [];
 
-  function resize() {
-    // We are resizing for mobile devices only. For other devices, the
-    // dimensions will be stuck at 800 * 600. To change the default dimensions,
-    // change the height and width of the canvas and the width of the #container
-    let win = window,
-        doc = document,
-        w = win.innerWidth,
-        h = win.innerHeight,
-        container = doc.getElementById('wrapper'),
-        canvas = doc.getElementById('canvas');
+function resize() {
+// We are resizing for mobile devices only. For other devices, the
+// dimensions will be stuck at 800 * 600. To change the default dimensions,
+// change the height and width of the canvas and the width of the #container
+let win = window,
+    doc = document,
+    w = win.innerWidth,
+    h = win.innerHeight,
+    container = doc.getElementById('wrapper'),
+    canvas = doc.getElementById('canvas');
+
+if( win.navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/i) ) {
+    canvas.height = h;
+    canvas.width  = w;
+    container.style.height = h+"px";
+    container.style.width = w+"px";
+}
+};
+
+function gameIntervals(fn, time) {
+    let id = setInterval (fn, time);
+    intervalIds.push(id);
     
-    if( win.navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/i) ) {
-      canvas.height = h;
-      canvas.width  = w;
-      container.style.height = h+"px";
-      container.style.width = w+"px";
-    }
-  };
+}
 
-    function gameIntervals(fn, time) {
-        let id = setInterval (fn, time);
-        intervalIds.push(id);
-        
-    }
+function startGame() {
+    canvas = document.getElementById('canvas');
+    initLevel();
+    world = new World(canvas, keyboard);
+    AudioHub.playOne(AudioHub.background);
+    document.getElementById('fs-open').classList.remove('hide');
+    document.getElementById('canvas').style.display = 'flex';
+    document.getElementById('controls-box').classList.remove('hide');        
+    document.getElementById('start-button').style.display = 'none';
+    document.getElementById('restart-button').style.display = 'block';
+    document.getElementById('el-pollo-loco').style.display = 'none';
+    document.getElementById('credits').style.display = 'none';
+}
 
-    function startGame() {
-        canvas = document.getElementById('canvas');
-        initLevel();
-        world = new World(canvas, keyboard);
-        AudioHub.playOne(AudioHub.background);
-        document.getElementById('fs-open').classList.remove('hide');
-        document.getElementById('canvas').style.display = 'flex';
-        document.getElementById('controls-box').classList.remove('hide');        
-        document.getElementById('start-button').style.display = 'none';
-        document.getElementById('restart-button').style.display = 'block';
-        document.getElementById('el-pollo-loco').style.display = 'none';
-        document.getElementById('credits').style.display = 'none';
-    }
+function quitGame() {
+    location.reload();
+}
 
-    function quitGame() {
-        location.reload();
-    }
+function gameLoose() {
+    AudioHub.stopOne(AudioHub.background);
+    AudioHub.playOne(AudioHub.gameoverSound);
+    document.getElementById('game-overlay').classList.remove('hide');
+    document.getElementById('game-result-text').textContent = 'Game over!';
+    intervalIds.forEach(clearInterval);
+}
+function gameWon() {
+    AudioHub.stopOne(AudioHub.background);
+    AudioHub.playOne(AudioHub.gamewinSound);
+    document.getElementById('game-overlay').classList.remove('hide');
+    document.getElementById('game-result-text').textContent = 'You win!';
+    intervalIds.forEach(clearInterval);
+}
 
-    function gameLoose() {
-        AudioHub.stopOne(AudioHub.background);
-        AudioHub.playOne(AudioHub.gameoverSound);
-        document.getElementById('game-overlay').classList.remove('hide');
-        document.getElementById('game-result-text').textContent = 'Game over!';
-        intervalIds.forEach(clearInterval);
-    }
-    function gameWon() {
-        AudioHub.stopOne(AudioHub.background);
-        AudioHub.playOne(AudioHub.gamewinSound);
-        document.getElementById('game-overlay').classList.remove('hide');
-        document.getElementById('game-result-text').textContent = 'You won!';
-        intervalIds.forEach(clearInterval);
-    }
-
-    function restartGame() {
-        canvas = document.getElementById('canvas');
-        ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        document.getElementById('game-overlay').classList.add('hide');    
-        world = null;
-        startGame(); 
-    }
+function restartGame() {
+    canvas = document.getElementById('canvas');
+    ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    document.getElementById('game-overlay').classList.add('hide');    
+    world = null;
+    startGame(); 
+}
 
 function fullscreen(){
     let fs = document.getElementById('fullscreen');

@@ -105,7 +105,7 @@ class World {
 checkBossAttack() {
   if (this.character.rX > 2350){
     this.isAttacking = true;
-    AudioHub.playOne(AudioHub.attackSound);
+    AudioHub.stopOne(AudioHub.background);
     this.endboss.startAttack();
   }
   

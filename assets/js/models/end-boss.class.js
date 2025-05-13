@@ -87,11 +87,13 @@ class Endboss extends MovableObject{
     };
     startAttack(){
         gameIntervals(() => {
-            this.moveLeft();
-        }, 1000 / 10);
-
-        gameIntervals(() => {
-            this.playAnimation(this.images_boss_walking);
+            if (this.ishurt()) {
+                this.playAnimation(this.images_boss_hurt);
+            } else{
+                this.moveLeft();
+                this.playAnimation(this.images_boss_walking);
+            }
+            
         }, 100);
     }
 }
