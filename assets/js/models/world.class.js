@@ -24,6 +24,7 @@ class World {
     this.checkCollisionsPepe();
     this.checkCollisionsBoss();
     this.checkThrowableObject();
+    this.checkBossAttack();  
     this.run();
   };
 
@@ -39,10 +40,8 @@ class World {
       this.checkCollisionsBoss();
       this.checkThrowableObject();
       this.checkCollectibles();
-      this.checkBossAttackZone();
-      this.getBossAttackZone();
-      this.isPlayerInAttackZone();
       this.checkCollisionsBossPepe();
+      this.checkBossAttack();  
     }, 100);
   };
 
@@ -103,40 +102,14 @@ class World {
       }
   };
 
-  getBossAttackZone() {
-    let range = 450;
-    return {
-      x: this.endboss.rX + range,
-      y: this.endboss.rY + range,
-      width: range,
-      height: this.endboss.height
-    };
-  };
-
-  checkBossAttackZone() {
-    gameIntervals(() => {
-      if (!this.character || !this.endboss) return;
-      const zone = this.getBossAttackZone();
-      if (this.isPlayerInAttackZone(zone) && !this.endboss.isAttacking) {
-        this.endboss.startAttackt();
-      }
-    }, 100);
-  }
-
-  isPlayerInAttackZone(zone) {
-    if (!zone || !this.character) return false;
-    return (
-      this.character.rX < zone.x + zone.width &&
-      this.character.rX + this.character.rW > zone.x
-    );
-  }
-  startAttackt(){
+checkBossAttack() {
+  if (this.character.rX > 2350){
     this.isAttacking = true;
-    this.moveLeft();
-    setTimeout(() => {
-        this.isAttacking = false;
-    }, 1000);
+    AudioHub.playOne(AudioHub.attackSound);
+    this.endboss.startAttack();
   }
+  
+}
 
   checkThrowableObject(){
     if (this.keyboard.t && this.bottlesBar.percentage > 0) {

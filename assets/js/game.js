@@ -36,6 +36,7 @@ let intervalIds = [];
         AudioHub.playOne(AudioHub.background);
         document.getElementById('fs-open').classList.remove('hide');
         document.getElementById('canvas').style.display = 'flex';
+        document.getElementById('controls-box').classList.remove('hide');        
         document.getElementById('start-button').style.display = 'none';
         document.getElementById('restart-button').style.display = 'block';
         document.getElementById('el-pollo-loco').style.display = 'none';
@@ -49,14 +50,14 @@ let intervalIds = [];
     function gameLoose() {
         AudioHub.stopOne(AudioHub.background);
         AudioHub.playOne(AudioHub.gameoverSound);
-        document.getElementById('game-overlay').classList.remove('hidden');
+        document.getElementById('game-overlay').classList.remove('hide');
         document.getElementById('game-result-text').textContent = 'Game over!';
         intervalIds.forEach(clearInterval);
     }
     function gameWon() {
         AudioHub.stopOne(AudioHub.background);
         AudioHub.playOne(AudioHub.gamewinSound);
-        document.getElementById('game-overlay').classList.remove('hidden');
+        document.getElementById('game-overlay').classList.remove('hide');
         document.getElementById('game-result-text').textContent = 'You won!';
         intervalIds.forEach(clearInterval);
     }
@@ -65,7 +66,7 @@ let intervalIds = [];
         canvas = document.getElementById('canvas');
         ctx = canvas.getContext('2d');
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        document.getElementById('game-overlay').classList.add('hidden');    
+        document.getElementById('game-overlay').classList.add('hide');    
         world = null;
         startGame(); 
     }
@@ -80,9 +81,9 @@ function openFullscreen() {
     document.getElementById('fs-close').classList.remove('hide');
     if (fs.requestFullscreen) {
         fs.requestFullscreen();
-    } else if (fs.webkitRequestFullscreen) { /* Safari */
+    } else if (fs.webkitRequestFullscreen) { 
         fs.webkitRequestFullscreen();
-    } else if (fs.msRequestFullscreen) { /* IE11 */
+    } else if (fs.msRequestFullscreen) { 
         fs.msRequestFullscreen();
     }
 }
@@ -92,9 +93,9 @@ function closeFullscreen() {
     document.getElementById('fs-close').classList.add('hide');
     if (document.exitFullscreen) {
     document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) { /* Safari */
+    } else if (document.webkitExitFullscreen) { 
     document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) { /* IE11 */
+    } else if (document.msExitFullscreen) { 
     document.msExitFullscreen();
   }
 }
