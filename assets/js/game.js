@@ -3,6 +3,7 @@ let keyboard = new Keyboard();
 let canvas;
 let audio;
 let intervalIds = [];
+let fs = document.documentElement;
 
 function resize() {
 // We are resizing for mobile devices only. For other devices, the
@@ -76,26 +77,29 @@ function fullscreen(){
     openFullscreen(fs);
 }
 
+
+/* When the openFullscreen() function is executed, open the video in fullscreen.
+Note that we must include prefixes for different browsers, as they don't support the requestFullscreen property yet */
 function openFullscreen() {    
     document.getElementById('fs-open').classList.add('hide');
     document.getElementById('fs-close').classList.remove('hide');
-    if (fs.requestFullscreen) {
-        fs.requestFullscreen();
-    } else if (fs.webkitRequestFullscreen) { 
-        fs.webkitRequestFullscreen();
-    } else if (fs.msRequestFullscreen) { 
-        fs.msRequestFullscreen();
-    }
+  if (fs.requestFullscreen) {
+    fs.requestFullscreen();
+  } else if (fs.webkitRequestFullscreen) { /* Safari */
+    fs.webkitRequestFullscreen();
+  } else if (fs.msRequestFullscreen) { /* IE11 */
+    fs.msRequestFullscreen();
+  }
 }
 
 function closeFullscreen() {
     document.getElementById('fs-open').classList.remove('hide');
     document.getElementById('fs-close').classList.add('hide');
-    if (document.exitFullscreen) {
+  if (document.exitFullscreen) {
     document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) { 
+  } else if (document.webkitExitFullscreen) { /* Safari */
     document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) { 
+  } else if (document.msExitFullscreen) { /* IE11 */
     document.msExitFullscreen();
   }
 }

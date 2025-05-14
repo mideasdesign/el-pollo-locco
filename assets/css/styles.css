@@ -151,7 +151,7 @@ a{
 }
 .fullscreen-box{
 position:absolute;
-bottom:40px;
+bottom:80px;
 right:0;
 display: flex;
 justify-content: flex-end;
