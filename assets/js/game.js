@@ -5,7 +5,7 @@ let audio;
 let intervalIds = [];
 let fs = document.documentElement;
 
- function resize() {
+/*  function resize() {
 // We are resizing for mobile devices only. For other devices, the
 // dimensions will be stuck at 800 * 600. To change the default dimensions,
 // change the height and width of the canvas and the width of the #container
@@ -22,7 +22,7 @@ if( win.navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/i) ) {
     container.style.height = h+"px";
     container.style.width = w+"px";
 }
-};
+}; */
 function gameIntervals(fn, time) {
     let id = setInterval (fn, time);
     intervalIds.push(id);
@@ -30,6 +30,9 @@ function gameIntervals(fn, time) {
 }
 
 function startGame() {
+    screen.orientation.lock('landscape').catch((err) => {
+        console.warn('Orientation lock failed:', err);
+    });
     canvas = document.getElementById('canvas');
     initLevel();
     world = new World(canvas, keyboard);
@@ -103,6 +106,21 @@ function closeFullscreen() {
   }
 }
 
+function allSounds() {
+    const isMuted = JSON.parse(localStorage.getItem('mute')) === 'on';
+    const btn = document.getElementById('btn-mute');
+
+    if (isMuted) {
+        btn.innerHTML = `<img src="./assets/images/btn_mute_off.svg" alt="mute button">`;
+        AudioHub.startAll();
+        localStorage.setItem('mute', JSON.stringify('off'));
+    } else {
+        btn.innerHTML = `<img src="./assets/images/btn_mute_on.svg" alt="mute button">`;
+        AudioHub.stopAll();
+        localStorage.setItem('mute', JSON.stringify('on'));
+    }
+}
+
     window.addEventListener('keydown', (e) => { 
         
         if (e.keyCode == 37) keyboard.left = true;
@@ -111,7 +129,7 @@ function closeFullscreen() {
         if (e.keyCode == 40) keyboard.down = true;
         if (e.keyCode == 32) keyboard.space = true;
         if (e.keyCode == 84) keyboard.t = true;
-        if (e.keyCode == 77) keyboard.m = true;
+/*         if (e.keyCode == 77) keyboard.m = true; */
     });
 
     window.addEventListener('keyup', (e) => {
@@ -121,7 +139,7 @@ function closeFullscreen() {
         if (e.keyCode == 40) keyboard.down = false;
         if (e.keyCode == 32) keyboard.space = false;
         if (e.keyCode == 84) keyboard.t = false;
-        if (e.keyCode == 77) keyboard.m = false;
+/*         if (e.keyCode == 77) keyboard.m = false; */
     });
 
     function touchBtn(){
@@ -164,7 +182,7 @@ function closeFullscreen() {
             e.preventDefault();
             keyboard.t = false;
         });
-
+/* 
         document.getElementById('btn-mute').addEventListener('touchstart', (e) => {
             e.preventDefault();
             keyboard.m = true;
@@ -173,5 +191,5 @@ function closeFullscreen() {
         document.getElementById('btn-mute').addEventListener('touchend', (e) => {
             e.preventDefault();
             keyboard.m = false;
-        });
+        }); */
     }

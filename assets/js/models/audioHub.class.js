@@ -14,7 +14,8 @@ class AudioHub {
     static endbossHurtSound = new Audio('./assets/sound/endboss-hurt.mp3');
 
     // Array, das alle definierten Audio-Dateien enthält
-    static allSounds = [AudioHub.background, AudioHub.coinSound, AudioHub.bottleSound, AudioHub.chickenSound, AudioHub.chicksSound,  AudioHub.pepeSound, AudioHub.youwinSound, AudioHub.youlooseSound, AudioHub.attackSound,];
+    static allSounds = [AudioHub.background, AudioHub.coinSound, AudioHub.bottleSound, AudioHub.chickenSound, AudioHub.chicksSound,  AudioHub.pepeSound ];
+    static fightSounds = [AudioHub.attackSound, AudioHub.youwinSound, AudioHub.youlooseSound];
 
 
     // Spielt eine einzelne Audiodatei ab

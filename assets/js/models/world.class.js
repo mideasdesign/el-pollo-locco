@@ -42,7 +42,6 @@ class World {
       this.checkCollisionsBossPepe();
       this.checkBossAttack();
       this.moveCoins();
-      this.allSounds();
     }, 100);
   }
 
@@ -184,20 +183,6 @@ class World {
     if (this.coinsBar >= 100 && this.statusBar < 100) {
       this.coinsBar.setPercentage(this.coinsBar.percentage - 10);
       this.statusBar.setPercentage(this.statusBar.percentage + 10);
-    }
-  }
-  allSounds() {
-    if (this.keyboard.m) {
-      const isMuted = JSON.parse(localStorage.getItem('mute')) === 'on';
-      if (isMuted) {
-        document.getElementById('btn-mute').innerHTML = `<img src="./assets/images/btn_mute_off.svg" alt="mute button">`;
-        localStorage.setItem('mute', JSON.stringify('off'));
-        AudioHub.startAll();
-      } else {
-        document.getElementById('btn-mute').innerHTML = `<img src="./assets/images/btn_mute_on.svg" alt="mute button">`;
-        localStorage.setItem('mute', JSON.stringify('on'));
-        AudioHub.stopAll();
-      }
     }
   }
 }

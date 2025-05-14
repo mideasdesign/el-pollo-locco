@@ -48,29 +48,27 @@
         <button id="start-button" class="btn" onclick="startGame()">Start Game</button>
         <button id="credits" class="btn ml"><a href="./credits.html">Credits</a></button>
       </div>
-
-      <canvas id="canvas" width="720" height="480" class="hide"></canvas> 
-      <div id="controls-box" class="box hide">
-        <div class="touch-pan-left">
-          <button id="btn-left"> <img src="./assets/images/btn_left.svg" alt=""> </button> <button id="btn-right"> <img src="./assets/images/btn_right.svg" alt=""> </button>
-        </div>
-        <div class="touch-pan-mute">
-          <button id="btn-mute" onclick="AudioHub.stopAll()"> <img src="./assets/images/btn_mute_off.svg" alt="mute button"> </button>
-        </div>
-          
-        <div class="touch-pan-right">
-          <button id="btn-jump"> <img src="./assets/images/btn_jump.svg" alt=""> </button> <button id="btn-throw"> <img src="./assets/images/btn_throw.svg" alt=""> </button>
-        </div>        
-      </div>      
+      <div class="touch-pan-mute">
+        <a href="imprint.html" id="imprint">Imprint</a>
+        <button id="btn-mute" onclick="allSounds()"> <img src="./assets/images/btn_mute_off.svg" alt="mute button"> </button>
+      </div>
       <div class="fullscreen-box">
         <button onclick="openFullscreen()" id="fs-open" class="fullscreen hide"><img src="./assets/images/fullscreen.svg" alt="enter fullsrceen"></button>
         <button onclick="closeFullscreen()" id="fs-close" class="fullscreen hide"><img src="./assets/images/fullscreen-exit.svg" alt="exit fullsrceen"></button>
       </div>
+      <canvas id="canvas" width="720" height="480" class="hide"></canvas> 
+      <div id="controls-box" class="box hide">
+        <div class="touch-pan-left">
+          <button id="btn-left"> <img src="./assets/images/btn_left.svg" alt=""> </button> <button id="btn-right"> <img src="./assets/images/btn_right.svg" alt=""> </button>
+        </div>          
+        <div class="touch-pan-right">
+          <button id="btn-jump"> <img src="./assets/images/btn_jump.svg" alt=""> </button> <button id="btn-throw"> <img src="./assets/images/btn_throw.svg" alt=""> </button>
+        </div>        
+      </div>      
       <div id="instruction">
         <h4>Instructions:</h4>
         <p>LEFT: Arrow left, RIGHT: Arrow right, JUMP: Space, THROW: t key</p>
       </div>
-      <div class="imprint"><a href="imprint.html">Imprint</a></div>
     </div>
   </body>
 </html>

@@ -70,19 +70,20 @@ text-shadow: 4px 3px 14px rgba(0,0,0,0.51);
 p{
   text-align: center;
 }
-#imprint{
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  width:720px;
-  font-size: 1.2rem;
-  letter-spacing: 5px;
-  text-align: center;
-  font-family:'Kablammo', sans-serif;
-  & h4, h2{
-    font-size: 1.3rem;
+a#imprint{
+  color: #222;
+  margin:10px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 0.8rem;
+  &:hover{
+    color:#59695b;
   }
 }
+
+.btn-mute img{
+    padding:10px;
+}
+
 .credits{
   font-size: 2rem;
   letter-spacing: 5px;
@@ -164,6 +165,15 @@ z-index:8000;
   display:flex;
   justify-content:space-evenly;
   width:100%;
+}
+.touch-pan-mute{
+  position:absolute;
+  top:0;
+  right:0;
+  width:99%;
+  display: flex;
+  justify-content: space-between;
+  z-index: 8000;
 }
 
 #instruction{
@@ -250,6 +260,7 @@ z-index:8000;
   display: flex;
   font-size: 1.3rem;
 }
+
 .touch-pan-left{
   margin-left: 30px;
 }
