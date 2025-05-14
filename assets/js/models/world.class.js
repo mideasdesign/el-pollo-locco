@@ -52,9 +52,12 @@ class World {
         if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(enemy)) {
           enemy.isDead();
           enemy.speed = 0;
+          enemy.loadImage('assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png');
           AudioHub.playOne(AudioHub.chickenSound);
-          this.level.enemies.splice(index, 1);
-        }
+          setTimeout(() => {
+            this.level.enemies.splice(index, 1);
+          }, 1000);
+                  }
       });
     }, 30);
   }

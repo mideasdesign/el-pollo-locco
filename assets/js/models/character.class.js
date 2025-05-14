@@ -14,6 +14,7 @@ class Character extends MovableObject {
 
   healthPepe = 1000;
   otherDirection = false;
+  lastMove = new Date().getTime();
 
   images_idle = [
     "assets/images/2_character_pepe/1_idle/idle/I-1.png",
@@ -87,16 +88,30 @@ class Character extends MovableObject {
     this.animate();
   }
 
+  wasInactive() {
+    return (new Date().getTime() - this.lastMove) / 1000;
+  }
+
   animate() {
     gameIntervals(() => {
-      if (!this.world.keyboard.right && !this.world.keyboard.left && !this.world.keyboard.t && !this.world.keyboard.space ) {
+      const k = this.world.keyboard;
+      const inactive = this.wasInactive();
+      const isMoving = k.right || k.left;
+
+      if (this.isDead() || this.ishurt() || this.isJumping) return;
+
+      if (isMoving) {
+        this.lastMove = new Date().getTime();
+        this.playAnimation(this.images_walking);
+      } else {
+        if (inactive < 6) {
           this.playAnimation(this.images_idle, 160);
-          setTimeout(() => {
-            this.playAnimation(this.images_long_idle, 120);
-          }, 2000);
+        } else {
+          this.playAnimation(this.images_long_idle, 160);
+        }
       }
-    }, 500);
-    
+    }, 300);
+
     gameIntervals(() => {
       if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {
         this.moveRight();
@@ -132,17 +147,14 @@ class Character extends MovableObject {
           this.isAnimating = false;
         }
       }
-      if (this.world.keyboard.right || this.world.keyboard.left) {
-        this.playAnimation(this.images_walking);
-      }
     }, 100);
   }
 
   jump() {
     if (!this.isJumping) {
-      this.speedY = 27;
+      this.speedY = 22;
       this.isJumping = true;
-      this.playAnimationOnce(this.images_jumping, 140);
+      this.playAnimationOnce(this.images_jumping, 80);
     }
   }
 
