@@ -79,6 +79,7 @@ class Endboss extends MovableObject {
       } else {
         this.moveLeft();
         this.playAnimation(this.images_boss_walking);
+        
       }
     }, 300);
   }

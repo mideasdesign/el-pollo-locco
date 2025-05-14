@@ -84,9 +84,18 @@ class Character extends MovableObject {
     this.loadImages(this.images_dead);
     this.getRealFrame();
     this.applyGravity();
+    this.animate();
   }
 
   animate() {
+    gameIntervals(() => {
+      if (!this.world.keyboard.right && !this.world.keyboard.left && !this.world.keyboard.t && !this.world.keyboard.space ) {
+        this.playAnimation(this.images_idle, 80);
+        setTimeout(() => {
+          this.playAnimation(this.images_long_idle, 80);
+        }, 4000);
+      }
+    }, 500);
     gameIntervals(() => {
       if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {
         this.moveRight();
@@ -95,7 +104,6 @@ class Character extends MovableObject {
         this.moveLeft();
         this.otherDirection = true;
       }
-
       if (this.world.keyboard.space && !this.isAboveGround()) {
         this.jump();
       }
@@ -108,7 +116,8 @@ class Character extends MovableObject {
         AudioHub.stopOne(AudioHub.pepeSound);
         AudioHub.playOne(AudioHub.youlooseSound);
         gameLoose();
-      } else if (this.ishurt()) {
+      } 
+      else if (this.ishurt()) {
         this.playAnimation(this.images_hurt);
       } else if (this.isJumping) {
         if (this.speedY > 0) {

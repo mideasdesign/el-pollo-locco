@@ -129,7 +129,6 @@ function allSounds() {
         if (e.keyCode == 40) keyboard.down = true;
         if (e.keyCode == 32) keyboard.space = true;
         if (e.keyCode == 84) keyboard.t = true;
-/*         if (e.keyCode == 77) keyboard.m = true; */
     });
 
     window.addEventListener('keyup', (e) => {
@@ -139,7 +138,7 @@ function allSounds() {
         if (e.keyCode == 40) keyboard.down = false;
         if (e.keyCode == 32) keyboard.space = false;
         if (e.keyCode == 84) keyboard.t = false;
-/*         if (e.keyCode == 77) keyboard.m = false; */
+
     });
 
     function touchBtn(){
@@ -182,14 +181,4 @@ function allSounds() {
             e.preventDefault();
             keyboard.t = false;
         });
-/* 
-        document.getElementById('btn-mute').addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            keyboard.m = true;
-        });
-
-        document.getElementById('btn-mute').addEventListener('touchend', (e) => {
-            e.preventDefault();
-            keyboard.m = false;
-        }); */
     }
