@@ -40,6 +40,7 @@ class World {
       this.checkThrowableObject();
       this.checkCollectibles();
       this.checkCollisionsBossPepe();
+      this.checkCollisionsChicksPepe()
       this.checkBossAttack();
       this.moveCoins();
     }, 100);
@@ -74,6 +75,16 @@ class World {
   checkCollisionsPepe() {
     this.level.enemies.forEach((enemy) => {
       if (this.character.isColliding(enemy)) {
+        this.character.hitPepe();
+        AudioHub.playOne(AudioHub.pepeSound);
+        this.statusBar.setPercentage(this.character.healthPepe);
+      }
+    });
+  }
+
+  checkCollisionsChicksPepe() {
+    this.level.chicks.forEach((chick) => {
+      if (this.character.isColliding(chick)) {
         this.character.hitPepe();
         AudioHub.playOne(AudioHub.pepeSound);
         this.statusBar.setPercentage(this.character.healthPepe);

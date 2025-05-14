@@ -90,12 +90,13 @@ class Character extends MovableObject {
   animate() {
     gameIntervals(() => {
       if (!this.world.keyboard.right && !this.world.keyboard.left && !this.world.keyboard.t && !this.world.keyboard.space ) {
-        this.playAnimation(this.images_idle, 80);
-        setTimeout(() => {
-          this.playAnimation(this.images_long_idle, 80);
-        }, 4000);
+          this.playAnimation(this.images_idle, 160);
+          setTimeout(() => {
+            this.playAnimation(this.images_long_idle, 120);
+          }, 2000);
       }
     }, 500);
+    
     gameIntervals(() => {
       if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {
         this.moveRight();
@@ -108,7 +109,7 @@ class Character extends MovableObject {
         this.jump();
       }
       this.world.cameraX = -this.x + 60;
-    }, 1000 / 30);
+    }, 1000 / 10);
 
     gameIntervals(() => {
       if (this.isDead()) {

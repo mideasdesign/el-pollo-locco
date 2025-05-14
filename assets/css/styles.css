@@ -5,6 +5,19 @@
       font-weight: 400;
       src: url('../fonts/kablammo-v1-latin-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
     }
+    :root{
+
+  --text--2: clamp(0.6944rem, 0.6577rem + 0.1836vw, 0.8rem);
+  --text--1: clamp(0.8333rem, 0.7754rem + 0.2899vw, 1rem);
+  --text-0: clamp(1rem, 0.913rem + 0.4348vw, 1.25rem);
+  --text-1: clamp(1.2rem, 1.0739rem + 0.6304vw, 1.5625rem);
+  --text-2: clamp(1.44rem, 1.2615rem + 0.8924vw, 1.9531rem);
+  --text-3: clamp(1.728rem, 1.4799rem + 1.2407vw, 2.4414rem);
+  --text-4: clamp(2.0736rem, 1.7334rem + 1.7011vw, 3.0518rem);
+  --text-5: clamp(2.4883rem, 2.027rem + 2.3067vw, 3.8147rem);
+  --text-6: clamp(2.986rem, 2.366rem + 3.0998vw, 4.7684rem);
+  --text-7: clamp(3.5832rem, 2.7563rem + 4.1344vw, 5.9605rem);
+    }
     body{
       margin:0;
       padding:0;
@@ -43,12 +56,11 @@
     background-color: #59695b;
     margin:2rem 0 0 0;
     padding: 12px 16px;
-    font-size: 20px;
+    font-size: var( --text-1);
     color: #fad193;
     border-radius: 15px;
     border: 1px solid #59695b;
     font-family: 'Kablammo', sans-serif;
-    font-size: 1.5rem;
     letter-spacing: 5px;
   &:hover{
     background-color: transparent;
@@ -70,14 +82,19 @@ text-shadow: 4px 3px 14px rgba(0,0,0,0.51);
 p{
   text-align: center;
 }
-a#imprint{
+a.imprint{
   color: #222;
   margin:10px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  font-size: 0.8rem;
+  font-size: var(--text-0);
   &:hover{
     color:#59695b;
   }
+}
+#imprint-container{
+  width: 720px;
+  text-align:center;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .btn-mute img{
@@ -85,7 +102,7 @@ a#imprint{
 }
 
 .credits{
-  font-size: 2rem;
+  font-size: var(--text-2);
   letter-spacing: 5px;
   font-family:'Kablammo', sans-serif;
 }
@@ -107,11 +124,11 @@ ul{
 }
 
 #game-over{
-  font-size: 8rem;
+  font-size: var(--text-4);
   display:none;
 }
 h1.headline{
-  font-size: 6rem;
+  font-size: var(--text-7);
   margin:1rem 0 2rem 0;
 }
 a{
@@ -131,7 +148,7 @@ a{
   display:flex;
   background-color:#f5f5f5;
   padding: 20px 16px;
-  font-size: 20px;
+  font-size:var(--text-1);
   color:#59695b;
   border-radius: 15px;
   border: 1px solid #59695b;
@@ -253,12 +270,12 @@ z-index:8000;
     height: 100svh;
 }
   h1.headline {
-    font-size: 4rem;
+    font-size: var(--text-4);
     text-align: center;
   }
 #restart-button, #quit-button{
   display: flex;
-  font-size: 1.3rem;
+  font-size:var(--text-1);
 }
 
 .touch-pan-left{
@@ -271,7 +288,7 @@ z-index:8000;
   display: none;
 }
 #el-pollo-loco{
-  font-size: 4rem;
+  font-size: var(--text-1);
   margin-bottom: 0rem;
 }
 #game-result-text{
@@ -301,7 +318,7 @@ z-index:8000;
     height: 100vh;
   }
   h1.headline {
-    font-size: 4rem;
+    font-size: var(--text-0);
     text-align: center;
 }
 }
