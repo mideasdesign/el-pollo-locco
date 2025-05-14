@@ -187,7 +187,7 @@ class World {
   }
   allSounds() {
     if (this.keyboard.m) {
-      isMuted = JSON.parse(localStorage.getItem('mute')) === 'on';
+      const isMuted = JSON.parse(localStorage.getItem('mute')) === 'on';
       if (isMuted) {
         document.getElementById('btn-mute').innerHTML = `<img src="./assets/images/btn_mute_off.svg" alt="mute button">`;
         localStorage.setItem('mute', JSON.stringify('off'));
