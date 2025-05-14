@@ -72,9 +72,8 @@ class Endboss extends MovableObject {
       }
     }, 300);
   }
-  startAttack() {
+  startAttack() {  
     gameIntervals(() => {
-      AudioHub.playOne(AudioHub.attackSound);
       if (this.ishurt()) {
         this.playAnimation(this.images_boss_hurt);
       } else {

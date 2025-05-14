@@ -5,7 +5,7 @@ let audio;
 let intervalIds = [];
 let fs = document.documentElement;
 
-function resize() {
+ function resize() {
 // We are resizing for mobile devices only. For other devices, the
 // dimensions will be stuck at 800 * 600. To change the default dimensions,
 // change the height and width of the canvas and the width of the #container
@@ -23,7 +23,6 @@ if( win.navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/i) ) {
     container.style.width = w+"px";
 }
 };
-
 function gameIntervals(fn, time) {
     let id = setInterval (fn, time);
     intervalIds.push(id);
@@ -36,7 +35,7 @@ function startGame() {
     world = new World(canvas, keyboard);
     AudioHub.playOne(AudioHub.background);
     document.getElementById('fs-open').classList.remove('hide');
-    document.getElementById('canvas').style.display = 'flex';
+    document.getElementById('canvas').classList.remove('hide');
     document.getElementById('controls-box').classList.remove('hide');        
     document.getElementById('start-button').style.display = 'none';
     document.getElementById('restart-button').style.display = 'block';

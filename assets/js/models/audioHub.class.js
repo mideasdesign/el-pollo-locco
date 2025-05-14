@@ -14,7 +14,7 @@ class AudioHub {
     static endbossHurtSound = new Audio('./assets/sound/endboss-hurt.mp3');
 
     // Array, das alle definierten Audio-Dateien enthält
-    static allSounds = [AudioHub.background, AudioHub.bottleSound, AudioHub.chickenSound, AudioHub.chicksSound,  AudioHub.pepeSound,];
+    static allSounds = [AudioHub.background, AudioHub.coinSound, AudioHub.bottleSound, AudioHub.chickenSound, AudioHub.chicksSound,  AudioHub.pepeSound, AudioHub.youwinSound, AudioHub.youlooseSound, AudioHub.attackSound,];
 
 
     // Spielt eine einzelne Audiodatei ab
@@ -33,9 +33,9 @@ class AudioHub {
         });
     }
     static startAll() {
-        AudioHub.allSounds.forEach(sound => {
-            sound.play();  // Spiel jedes Audio in der Liste
-        });
+    AudioHub.allSounds.forEach(sound => {
+        sound.play();  // Spiel jedes Audio in der Liste
+    });
     }
     // Stoppt das Abspielen einer einzelnen Audiodatei
     static stopOne(sound) {

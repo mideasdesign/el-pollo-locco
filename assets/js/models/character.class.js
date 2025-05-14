@@ -114,7 +114,7 @@ class Character extends MovableObject {
         if (this.speedY > 0) {
           if (!this.isAnimating) {
             this.isAnimating = true;
-            this.playAnimationOnce(this.images_jumping, 200);
+            this.playAnimationOnce(this.images_jumping, 160);
           }
         }
         if (!this.isAboveGround()) {
@@ -132,7 +132,7 @@ class Character extends MovableObject {
     if (!this.isJumping) {
       this.speedY = 27;
       this.isJumping = true;
-      this.playAnimationOnce(this.images_jumping, 160);
+      this.playAnimationOnce(this.images_jumping, 140);
     }
   }
 

@@ -94,6 +94,7 @@ class World {
     if (this.character.rX > 2350) {
       this.isAttacking = true;
       AudioHub.stopOne(AudioHub.background);
+      AudioHub.playOne(AudioHub.attackSound);
       this.endboss.startAttack();
     }
   }
@@ -180,7 +181,7 @@ class World {
     }
   }
   moveCoins(){
-    if (this.coinsBar == 100 && this.statusBar < 100) {
+    if (this.coinsBar >= 100 && this.statusBar < 100) {
       this.coinsBar.setPercentage(this.coinsBar.percentage - 10);
       this.statusBar.setPercentage(this.statusBar.percentage + 10);
     }
