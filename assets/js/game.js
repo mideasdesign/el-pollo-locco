@@ -30,7 +30,6 @@ function gameIntervals(fn, time) {
 }
 
 function startGame() {
-    getFromLocalStorage();
     canvas = document.getElementById('canvas');
     initLevel();
     world = new World(canvas, keyboard);

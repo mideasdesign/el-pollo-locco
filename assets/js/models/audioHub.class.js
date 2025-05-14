@@ -32,6 +32,11 @@ class AudioHub {
             sound.pause();  // Pausiert jedes Audio in der Liste
         });
     }
+    static startAll() {
+        AudioHub.allSounds.forEach(sound => {
+            sound.play();  // Spiel jedes Audio in der Liste
+        });
+    }
     // Stoppt das Abspielen einer einzelnen Audiodatei
     static stopOne(sound) {
         sound.pause();  // Pausiert das übergebene Audio
