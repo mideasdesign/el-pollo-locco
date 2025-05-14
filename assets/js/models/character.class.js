@@ -124,7 +124,7 @@ class Character extends MovableObject {
         this.jump();
       }
       this.world.cameraX = -this.x + 60;
-    }, 1000 / 10);
+    }, 1000 / 20);
 
     gameIntervals(() => {
       if (this.isDead()) {
@@ -139,7 +139,7 @@ class Character extends MovableObject {
         if (this.speedY > 0) {
           if (!this.isAnimating) {
             this.isAnimating = true;
-            this.playAnimationOnce(this.images_jumping, 160);
+            this.playAnimationOnce(this.images_jumping, 120);
           }
         }
         if (!this.isAboveGround()) {
@@ -147,12 +147,12 @@ class Character extends MovableObject {
           this.isAnimating = false;
         }
       }
-    }, 100);
+    }, 200);
   }
 
   jump() {
     if (!this.isJumping) {
-      this.speedY = 22;
+      this.speedY = 26;
       this.isJumping = true;
       this.playAnimationOnce(this.images_jumping, 80);
     }

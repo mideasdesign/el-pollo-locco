@@ -57,7 +57,9 @@ class Endboss extends MovableObject {
     this.animate();
     this.startAttack();
   }
-
+  lastAttack() {
+    return (new Date().getTime() - this.lastMove) / 1000;
+  }
   animate() {
     gameIntervals(() => {
       if (this.isDead()) {
@@ -68,20 +70,37 @@ class Endboss extends MovableObject {
         AudioHub.playOne(AudioHub.endbossHurtSound);
         this.playAnimation(this.images_boss_hurt);
       } else {
-        this.playAnimation(this.images_idle);
+        this.playAnimation(this.images_boss_idle);
       }
     }, 300);
   }
-  startAttack() {  
+  startAttack() {
+    let attackPhase = false;
+    let attackStart = Date.now();
+
     gameIntervals(() => {
-      if (this.ishurt()) {
-        this.playAnimation(this.images_boss_hurt);
-      } else {
+      if (this.isDead() || this.ishurt()) return;
+      const now = Date.now();
+      const time = now - attackStart;
+      if (!attackPhase) {
+        this.speed = 10;
+        this.playAnimation(this.images_boss_walking, 160);
         this.moveLeft();
-        this.playAnimation(this.images_boss_walking);
-        
+        if (time >= 2000) {
+          attackPhase = true;
+          this.stopMoving();
+          attackStart = now;
+        }
+      } else {
+        this.playAnimation(this.images_boss_attack, 160);
+        if (time >= 3000) {
+          attackPhase = false;
+          attackStart = now;
+        }
       }
     }, 300);
+  }
+  stopMoving() {
+    this.speed = 0;
   }
 }
-
