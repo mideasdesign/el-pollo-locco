@@ -21,18 +21,19 @@
     body{
       margin:0;
       padding:0;
-      box-sizing: border-box;
+    background-image: url('../images/desert-background.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     }
 
   canvas{
     background-color: black;
   }
-
+ #rotate{
+  display: none;
+ }
   .wrapper{
-    background-image: url('../images/desert-background.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
     height:100svh;
     display:flex;
     flex-direction: column;
@@ -262,7 +263,28 @@ z-index:8000;
         }
     }
   }
-
+  
+@media  (orientation: portrait) {
+  #rotate{
+    position: absolute;
+    top: 0; left: 0;
+    height: 100svh;
+    width:100svw;
+    padding:0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9000;
+    & h4{
+      font-size: var(--text-4);
+      text-align: center;
+      letter-spacing: 5px;
+      font-family: 'Kablammo', sans-serif;
+      color:#f5f5f5;
+    }
+  }
+}
 @media( max-width:936px){
  .fullscreen-box{
   position:absolute;
@@ -287,7 +309,9 @@ z-index:8000;
   display: flex;
   font-size:var(--text-1);
 }
-
+.credits{
+  font-size: var(--text-0);
+}
 .touch-pan-left{
   margin-left: 30px;
 }
@@ -298,7 +322,7 @@ z-index:8000;
   display: none;
 }
 #el-pollo-loco{
-  font-size: var(--text-1);
+  font-size: var(--text-5);
   margin-bottom: 0rem;
 }
 #game-result-text{
