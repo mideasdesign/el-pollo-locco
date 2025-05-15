@@ -77,7 +77,6 @@ class Endboss extends MovableObject {
   startAttack() {
     let attackPhase = false;
     let attackStart = Date.now();
-
     gameIntervals(() => {
       if (this.isDead() || this.ishurt()) return;
       const now = Date.now();

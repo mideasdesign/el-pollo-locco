@@ -51,4 +51,25 @@ images_splash = [
     this.animate();
   };
 
+splash() {
+  if (this.hasHit) return;
+  this.hasHit = true;
+  this.isSplashing = true;
+
+  this.speedY = 0;
+  this.speed = 0;
+
+  let splashAnimation = gameIntervals(() => {
+    this.playAnimation(this.images_splash);
+  }, 50);
+
+  setTimeout(() => {
+    clearInterval(splashAnimation);
+    const index = world.throwableObject.indexOf(this);
+    if (index > -1) {
+      world.throwableObject.splice(index, 1);
+    }
+  }, this.images_splash.length * 20);
+}
+
 }

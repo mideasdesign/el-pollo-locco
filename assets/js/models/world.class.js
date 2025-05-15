@@ -57,7 +57,7 @@ class World {
           setTimeout(() => {
             this.level.enemies.splice(index, 1);
           }, 1000);
-                  }
+        }
       });
     }, 30);
   }
@@ -127,6 +127,7 @@ class World {
       if (this.endboss.isColliding(bottle)) {
         this.endboss.hitBoss();
         this.bossBar.setPercentage(this.endboss.healthBoss);
+        bottle.splash();
       }
     });
   }
