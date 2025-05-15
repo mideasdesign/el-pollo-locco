@@ -295,6 +295,11 @@ z-index:8000;
 }
 .mobile-keys{
   display:flex;
+  & img{
+    height:24px;
+    width:24px;
+    margin: 0 1rem;
+  }
 }
  .fullscreen-box{
   position:absolute;
@@ -308,7 +313,6 @@ z-index:8000;
   }
   canvas {
     overflow-clip-margin: border-box;
-    overflow-inline:hidden;
     height: 100svh;
 }
   h1.headline {
