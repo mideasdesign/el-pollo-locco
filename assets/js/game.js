@@ -30,20 +30,10 @@ function gameIntervals(fn, time) {
 }
 
 function startGame() {
+    screen.orientation.lock('landscape').catch((err) => {
+        console.warn('Orientation lock failed:', err);
+    });
     canvas = document.getElementById('canvas');
-    try {
-        if (screen.orientation && screen.orientation.lock) {
-            screen.orientation.lock('landscape').catch((err) => {
-                console.warn('Orientation lock failed:', err);
-                showRotateHint();
-            });
-        } else {
-            showRotateHint();
-        }
-    } catch (e) {
-        console.warn('Orientation lock unsupported:', e);
-        showRotateHint();
-    }
     initLevel();
     world = new World(canvas, keyboard);
     AudioHub.playOne(AudioHub.background);
@@ -128,14 +118,6 @@ function allSounds() {
         btn.innerHTML = `<img src="./assets/images/btn_mute_on.svg" alt="mute button">`;
         AudioHub.stopAll();
         localStorage.setItem('mute', JSON.stringify('on'));
-    }
-}
-
-function showRotateHint() {
-    if (window.matchMedia('(orientation: portrait)').matches) {
-        document.getElementById('rotate').classList.remove('hide');
-    } else {
-        document.getElementById('rotate').classList.add('hide');
     }
 }
 
