@@ -1,5 +1,12 @@
 class ThrowableObject extends MovableObject {
-
+ height = 70;
+ width = 50;
+ offset = {
+  top: 7,
+  right: 10,
+  bottom: 6,
+  left: 5,
+};
   images_rotating_bottle = [
     'assets/images/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
     'assets/images/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
@@ -19,17 +26,18 @@ images_splash = [
 
   constructor(x, y) {
     super().loadImage('assets/images/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
-    this.height = 70;
-    this.width = 50;
     this.loadImages(this.images_rotating_bottle);
+    this.loadImages(this.images_splash);
     this.throw(x, y);
+    this.animate();
   };
 
   animate(){
-    setInterval(() => {
-      this.x += 15; 
-        this.playAnimation(this.images_rotating_bottle);
-    }, 1000 / 24);
+    gameIntervals(() => {
+      this.x += 20; 
+      this.playAnimation(this.images_rotating_bottle);
+    },80);
+
 }
 
   throw(x, y){
@@ -37,9 +45,29 @@ images_splash = [
     this.y = y;
     this.height = 70;
     this.width = 50;
-    this.speedY = 30;
+    this.speedY = 25;
+    this.getRealFrame();
     this.applyGravity();
     this.animate();
   };
+
+splash() {
+  if (this.hasHit) return;
+  this.hasHit = true;
+  this.isSplashing = true;
+  this.speedY = 0;
+  this.speed = 0;
+  let splashAnimation = gameIntervals(() => {
+    this.playAnimation(this.images_splash);
+  }, 80);
+
+  setTimeout(() => {
+    clearInterval(splashAnimation);
+    let index = world.throwableObject.indexOf(this);
+    if (index > -1) {
+      world.throwableObject.splice(index, 1);
+    }
+  }, this.images_splash.length * 30);
+}
 
 }

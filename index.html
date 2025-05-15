@@ -23,38 +23,56 @@
     <script src="./assets/js/models/bottles.class.js"></script>  
     <script src="./assets/js/models/clouds.class.js"></script>   
     <script src="./assets/js/models/chicken.class.js"></script>
+    <script src="./assets/js/models/chicks.class.js"></script>
     <script src="./assets/js/models/keyboard.class.js"></script>   
     <script src="./assets/js/models/background.class.js"></script>    
     <script src="./assets/js/models/end-boss.class.js"></script>
+    <script src="./assets/js/models/audioHub.class.js"></script>
     <script src="./assets/js/models/world.class.js"></script>  
     <script src="./assets/js/game.js"></script>
     <title>El Pollo Locco</title>
   </head>
-  <body onload="init()">
-    <div id="loading-screen" class="screen" style="display: none;">
-      <h2>Loading...</h2>
-    </div>
-    <div class="wrapper">      
-      <h1 id="el-pollo-loco" class="headline">El Pollo Loco</h1>
-      <audio loop="true" autostart="true" id="audio"> 
-        <source src="./assets/sound/tex-mex-delight-mexican-mariachi-113044.mp3" type="audio/mp3">
-      </audio>
-      <canvas id="canvas" width="720" height="480" style="display: none;"></canvas>    
-      <h1 id="game-over" class="headline">GAME OVER</h1> 
-      <button id="start-button" onclick="startGame()">Start Game</button>
-      <button id="restart-button" onclick="restartGame()">Restart Game</button>
-      <div id="controls-box" style="display: none;">
-        <div class="touch-pan-right">
-          <button id="btn-jump"> < </button> <button id="btn-throw"> > </button>
+  <body>
+    <div id="game-overlay" class="overlay hide">
+      <div class="overlay-content">
+        <h1 id="game-result-text" class="headline"></h1>
+        <div class="endscreen">
+          <button onclick="restartGame()" id="restart-button">Restart Game</button>
+          <button onclick="quitGame()" id="quit-button">Quit Game</button>
         </div>
-          
+      </div>
+    </div>
+    <div id="rotate">
+      <h4>please rotate<br>your device</h4>
+    </div>
+    <div id="fullscreen" class="wrapper">      
+      <h1 id="el-pollo-loco" class="headline">El Pollo Loco</h1>   
+      <div class="first-btns mt">
+        <button id="start-button" class="btn" onclick="startGame()">Start Game</button>
+        <button id="credits" class="btn ml"><a href="./credits.html">Credits</a></button>
+      </div>
+      <div class="touch-pan-mute">
+        <a href="imprint.html" class="imprint">Imprint</a>
+        <button id="btn-mute" onclick="allSounds()"> <img src="./assets/images/btn_mute_off.svg" alt="mute button"> </button>
+      </div>
+      <div class="fullscreen-box">
+        <button onclick="openFullscreen()" id="fs-open" class="fullscreen hide"><img src="./assets/images/fullscreen.svg" alt="enter fullsrceen"></button>
+        <button onclick="closeFullscreen()" id="fs-close" class="fullscreen hide"><img src="./assets/images/fullscreen-exit.svg" alt="exit fullsrceen"></button>
+      </div>
+      <canvas id="canvas" width="720" height="480" class="hide"></canvas> 
+      <div id="controls-box" class="box hide">
+        <div class="touch-pan-left">
+          <button id="btn-left"> <img src="./assets/images/btn_left.svg" alt=""> </button> <button id="btn-right"> <img src="./assets/images/btn_right.svg" alt=""> </button>
+        </div>          
         <div class="touch-pan-right">
-          <button id="btn-jump"> < </button> <button id="btn-throw"> > </button>
+          <button id="btn-jump"> <img src="./assets/images/btn_jump.svg" alt=""> </button> <button id="btn-throw"> <img src="./assets/images/btn_throw.svg" alt=""> </button>
         </div>        
-      </div>
+      </div>      
       <div id="instruction">
-        <p>LEFT: Arrow left, RIGHT: Arrow right, JUMP: Space, THROW: t key</p>
+        <h4>Instructions:</h4>
+        <div class="desktop-keys"> <span>LEFT: Arrow left</span><img src="./assets/images/arrow-left.svg" class="btn-key-box" alt="">   <span> RIGHT: Arrow right</span><img src="./assets/images/arrow-right.svg" class="btn-key-box" alt=""> <span> JUMP: <span class="btn-key-box">Space</span></span>  <span> THROW: <span class="btn-key-box">t key</span> </span></div>
       </div>
+        <div class="mobile-keys"> <span>LEFT: Arrow left</span><img src="./assets/images/arrow-left.svg" class="btn-key-box" alt="">   <span> RIGHT: Arrow right</span><img src="./assets/images/arrow-right.svg" class="btn-key-box" alt=""> <span> JUMP: <span class="btn-key-box">Space</span></span>  <span> THROW: <span class="btn-key-box">t key</span> </span></div>
       </div>
     </div>
   </body>

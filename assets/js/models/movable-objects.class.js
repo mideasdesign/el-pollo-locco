@@ -6,14 +6,14 @@ class MovableObject extends DrawableObject {
   height = 250;
   imageCache = {};
   currentImage = 0;
-  speed = 0.15;
+  speed = 0.23;
   acceleration = 2;
   offsetX = 0;
   offsetY = 0;
   lastHit = 0;
 
   applyGravity() {
-    setInterval(() => {
+    gameIntervals(() => {
       if (this.isAboveGround() || this.speedY > 0) {
         this.y -= this.speedY;
         this.speedY -= this.acceleration;
@@ -29,39 +29,40 @@ class MovableObject extends DrawableObject {
     };
   }
 
-  playAnimation(images) {
-    let i = this.currentImage % images.length;
-    let path = images[i];
-    this.img = this.imageCache[path];
-    this.currentImage++;
-  }
+playAnimation(images) {
+  if (!images || images.length === 0) return;
+  let i = this.currentImage % images.length;
+  let path = images[i];
+  this.img = this.imageCache[path];
+  this.currentImage++;
+}
 
   changeDirection(ctx) {
     ctx.save();
     ctx.translate(this.width, 0);
     ctx.scale(-1, 1);
     this.x = this.x * -1;
-  }
+  };
 
   moveRight() {
     this.x += this.speed;
     this.otherDirection = false;
-  }
+  };
 
   moveLeft() {
     this.x -= this.speed;
-  }
+  };
 
   jump() {
-    this.speedY = 22;
-  }
+    this.speedY = 24;
+  };
 
   isColliding(mo) {
-    return this.x + this.width >= mo.x && 
-    this.x <= mo.x + mo.width && 
-    this.y + this.offsetY + this.height >= mo.y && 
-    this.y + this.offsetY <= mo.y + mo.height;
-  }
+    return this.rX + this.rW > mo.rX && 
+    this.rY + this.rH > mo.rY && 
+    this.rX < mo.rX + mo.rW && 
+    this.rY < mo.rY + mo.rH;
+  }; 
 
   hitPepe() {
     this.healthPepe -= 4;
@@ -70,15 +71,24 @@ class MovableObject extends DrawableObject {
     } else {
       this.lastHit = new Date().getTime();
     }
-  }
+  };
+
+  hitBoss() {
+    this.healthBoss -= 4;
+    if (this.healthBoss < 0) {
+    this.healthBoss = 0;
+    } else {
+    this.lastHit = new Date().getTime();
+    }
+  };
 
   ishurt() {
     let timespassed = new Date().getTime() - this.lastHit;
     timespassed = timespassed / 1000;
-    return timespassed < 0.5;
+    return timespassed < 0.8;
   }
 
   isDead() {
-    return this.healthPepe == 0 || this.healthBoss == 0;
+    return this.healthPepe == 0 || this.healthBoss == 0 || this.enemy == 0 || this.chick == 0;
   }
 }

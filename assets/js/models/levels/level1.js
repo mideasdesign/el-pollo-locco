@@ -1,6 +1,7 @@
 function initLevel() {
   level1 = new Level(
-    [new Chicken(), new Chicken(), new Chicken()],
+    [new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken()],
+    [new Chicks(), new Chicks(), new Chicks(), new Chicken(), new Chicks(), new Chicks(), new Chicks(), new Chicks(), new Chicken(), new Chicks(), new Chicks(), new Chicks(), new Chicks(), new Chicken(), new Chicks()],
     [
       new Clouds('assets/images/5_background/layers/4_clouds/1.png', 0),
       new Clouds('assets/images/5_background/layers/4_clouds/2.png', 500),
@@ -38,14 +39,22 @@ function initLevel() {
       new BackgroundObject('assets/images/5_background/layers/1_first_layer/2.png', 719 * 5),
     ],
     [
-      new Coins(450, 230),
-      new Coins(630, 250),
-      new Coins(950, 230),
-      new Coins(1030, 260),
-      new Coins(1050, 250),
-      new Coins(1090, 230),
-      new Coins(1130, 260),
-      new Coins(1150, 250)
+      new Coins(450, 130),
+      new Coins(630, 150),
+      new Coins(950, 130),
+      new Coins(1020, 160),
+      new Coins(1110, 190),
+      new Coins(1190, 130),
+      new Coins(1290, 160),
+      new Coins(1390, 150),
+      new Coins(1500, 130),
+      new Coins(1600, 150),
+      new Coins(1820, 130),
+      new Coins(2000, 160),
+      new Coins(2100, 190),
+      new Coins(2200, 180),
+      new Coins(2290, 160),
+      new Coins(2400, 150)
     ],
 
     [
@@ -57,7 +66,16 @@ function initLevel() {
       new Bottles(1420, 330),
       new Bottles(1450, 360),
       new Bottles(1650, 350),
-      new Bottles(1650, 350)
+      new Bottles(1650, 350),
+      new Bottles(1800, 330),
+      new Bottles(1880, 350),
+      new Bottles(2050, 330),
+      new Bottles(2150, 360),
+      new Bottles(2300, 350),
+      new Bottles(2400, 330),
+      new Bottles(2600, 360),
+      new Bottles(2690, 350),
+      new Bottles(2710, 350)
     ]
   );
 }

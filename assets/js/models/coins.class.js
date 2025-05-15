@@ -1,8 +1,10 @@
 class Coins extends MovableObject {
+  width = 70;
+  height = 70;
   offset = {
-    top: 40,
-    right: 20,
-    bottom: 30,
+    top: 20,
+    right: 60,
+    bottom: 20,
     left: 20
 };
 coinsLevel = 0;
@@ -18,11 +20,12 @@ coinsLevel = 0;
       this.width = 70;
       this.height = 70;
       this.loadImages(this.images_coins);
+      this.getRealFrame();
       this.animate();
     }
   
     animate() {
-      setInterval(() => {
+      gameIntervals(() => {
         this.playAnimation(this.images_coins);
       }, 200);
     }

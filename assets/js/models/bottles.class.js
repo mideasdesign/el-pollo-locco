@@ -1,9 +1,11 @@
 class Bottles extends MovableObject {
+  width = 70;
+  height = 90;
   offset = {
-    top: 40,
-    right: 20,
-    bottom: 30,
-    left: 40
+    top: 17,
+    right: 57,
+    bottom: 10,
+    left: 28
   };
   bottlesLevel = 0;
   images_bottles = [
@@ -16,6 +18,7 @@ class Bottles extends MovableObject {
       this.y = y;
       this.width = 70;
       this.height = 90;
+      this.getRealFrame();
       this.loadImages(this.images_bottles);
     }
   }
