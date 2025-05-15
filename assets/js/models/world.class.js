@@ -6,6 +6,7 @@ class World {
   bossBar = new BossBar();
   throwableObject = [];
   endboss = new Endboss();
+  dead = false;
   canvas;
   ctx;
   keyboard;
@@ -35,38 +36,32 @@ class World {
 
   run() {
     gameIntervals(() => {
+      this.checkCollisionsFromTop();
       this.checkCollisionsPepe();
       this.checkCollisionsBoss();
       this.checkThrowableObject();
       this.checkCollectibles();
       this.checkCollisionsBossPepe();
-      this.checkCollisionsChicksPepe()
+      this.checkCollisionsChicksPepe();
       this.checkBossAttack();
       this.moveCoins();
     }, 100);
   }
 
   checkCollisionsFromTop() {
-    gameIntervals(() => {
       this.level.enemies.forEach((enemy, index) => {
         if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(enemy)) {
-          enemy.isDead();
-          enemy.speed = 0;
-          enemy.loadImage('assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png');
+          this.dead = true;
+          enemy.deadChicken();
           AudioHub.playOne(AudioHub.chickenSound);
-          setTimeout(() => {
-            this.level.enemies.splice(index, 1);
-          }, 1000);
         }
       });
-    }, 30);
   }
 
   checkCollisionChicksFromTop() {
     gameIntervals(() => {
       this.level.chicks.forEach((chick, index) => {
         if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(chick)) {
-          chick.isDead();
           chick.speed = 0;
           AudioHub.playOne(AudioHub.chicksSound);
           this.level.chicks.splice(index, 1);
@@ -77,7 +72,7 @@ class World {
 
   checkCollisionsPepe() {
     this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy)) {
+      if (this.character.isColliding(enemy) && !enemy.deadChicken()) {
         this.character.hitPepe();
         AudioHub.playOne(AudioHub.pepeSound);
         this.statusBar.setPercentage(this.character.healthPepe);
@@ -87,7 +82,7 @@ class World {
 
   checkCollisionsChicksPepe() {
     this.level.chicks.forEach((chick) => {
-      if (this.character.isColliding(chick)) {
+      if (this.character.isColliding(chick) && !chick.isDead()) {
         this.character.hitPepe();
         AudioHub.playOne(AudioHub.pepeSound);
         this.statusBar.setPercentage(this.character.healthPepe);
@@ -201,4 +196,3 @@ class World {
     }
   }
 }
-
