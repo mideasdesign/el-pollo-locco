@@ -5,7 +5,7 @@ class ThrowableObject extends MovableObject {
   top: 7,
   right: 10,
   bottom: 6,
-  left: 5
+  left: 5,
 };
   images_rotating_bottle = [
     'assets/images/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -55,21 +55,19 @@ splash() {
   if (this.hasHit) return;
   this.hasHit = true;
   this.isSplashing = true;
-
   this.speedY = 0;
   this.speed = 0;
-
   let splashAnimation = gameIntervals(() => {
     this.playAnimation(this.images_splash);
-  }, 50);
+  }, 80);
 
   setTimeout(() => {
     clearInterval(splashAnimation);
-    const index = world.throwableObject.indexOf(this);
+    let index = world.throwableObject.indexOf(this);
     if (index > -1) {
       world.throwableObject.splice(index, 1);
     }
-  }, this.images_splash.length * 20);
+  }, this.images_splash.length * 30);
 }
 
 }

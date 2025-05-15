@@ -6,7 +6,7 @@ class MovableObject extends DrawableObject {
   height = 250;
   imageCache = {};
   currentImage = 0;
-  speed = 0.15;
+  speed = 0.23;
   acceleration = 2;
   offsetX = 0;
   offsetY = 0;
@@ -54,7 +54,7 @@ playAnimation(images) {
   };
 
   jump() {
-    this.speedY = 22;
+    this.speedY = 24;
   };
 
   isColliding(mo) {
