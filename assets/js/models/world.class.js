@@ -32,6 +32,14 @@ class World {
   setWorld() {
     this.character.world = this;
     this.character.startAnimation();
+    // Set world reference for all enemies and chicks
+    this.level.enemies.forEach(enemy => {
+      enemy.world = this;
+    });
+    
+    this.level.chicks.forEach(chick => {
+      chick.world = this;
+    });
   }
 
   run() {
@@ -49,22 +57,22 @@ class World {
   }
 
   checkCollisionsFromTop() {
-      this.level.enemies.forEach((enemy, index) => {
-        if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(enemy)) {
-          this.dead = true;
-          enemy.deadChicken();
-          AudioHub.playOne(AudioHub.chickenSound);
+      this.level.enemies.forEach((enemy) => {
+        if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(enemy) && !enemy.isDead) {
+          enemy.die();
+          this.character.speedY = 20; // Make the character bounce up
+          AudioHub.playOne(AudioHub.chickenSound); // Using existing chicksSound
         }
       });
   }
 
   checkCollisionChicksFromTop() {
     gameIntervals(() => {
-      this.level.chicks.forEach((chick, index) => {
-        if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(chick)) {
-          chick.speed = 0;
+      this.level.chicks.forEach((chick) => {
+        if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(chick) && !chick.isDead) {
+          chick.die();
+          this.character.speedY = 20; // Make the character bounce up
           AudioHub.playOne(AudioHub.chicksSound);
-          this.level.chicks.splice(index, 1);
         }
       });
     }, 30);
@@ -72,7 +80,7 @@ class World {
 
   checkCollisionsPepe() {
     this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy) && !enemy.deadChicken()) {
+      if (this.character.isColliding(enemy) && !enemy.isDead) {
         this.character.hitPepe();
         AudioHub.playOne(AudioHub.pepeSound);
         this.statusBar.setPercentage(this.character.healthPepe);
@@ -82,7 +90,7 @@ class World {
 
   checkCollisionsChicksPepe() {
     this.level.chicks.forEach((chick) => {
-      if (this.character.isColliding(chick) && !chick.isDead()) {
+      if (this.character.isColliding(chick) && !chick.isDead) {
         this.character.hitPepe();
         AudioHub.playOne(AudioHub.pepeSound);
         this.statusBar.setPercentage(this.character.healthPepe);

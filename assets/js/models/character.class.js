@@ -14,7 +14,9 @@ class Character extends MovableObject {
 
   healthPepe = 120;
   otherDirection = false;
-  lastMove = new Date().getTime();
+  lastMoveTime = 0;
+  idleTimer = null;
+  isLongIdle = false;
 
   images_idle = [
     "assets/images/2_character_pepe/1_idle/idle/I-1.png",
@@ -92,66 +94,88 @@ class Character extends MovableObject {
     this.animate();
   }
 
-  wasInactive() {
-    return (new Date().getTime() - this.lastMove) / 1000;
-  }
-
   animate() {
-    gameIntervals(() => {
-      const k = this.world.keyboard;
-      const inactive = this.wasInactive();
-      const isMoving = k.right || k.left;
+    // Don't animate if world or keyboard isn't available yet
+    if (!this.world || !this.world.keyboard) {
+      return;
+    }
 
-      if (this.isDead() || this.ishurt() || this.isJumping) return;
-
-      if (isMoving) {
-        this.lastMove = new Date().getTime();
-        this.playAnimation(this.images_walking);
-      } else {
-        if (inactive < 6) {
-          this.playAnimation(this.images_idle, 160);
-        } else {
-          this.playAnimation(this.images_long_idle, 160);
-        }
+    const now = new Date().getTime();
+    const k = this.world.keyboard;
+    
+    // Check if character is moving
+    if (k.RIGHT || k.LEFT || k.UP || k.DOWN || k.SPACE) {
+      this.lastMoveTime = now;
+      this.isLongIdle = false;
+      
+      // Clear any existing idle timer
+      if (this.idleTimer) {
+        clearTimeout(this.idleTimer);
+        this.idleTimer = null;
       }
-    }, 300);
+      
+      // Set up a new idle timer (5 seconds)
+      this.idleTimer = setTimeout(() => {
+        this.isLongIdle = true;
+      }, 5000);
+    }
 
-    gameIntervals(() => {
-      if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {
+    // Movement logic
+    if (!this.isHurt() && !this.isDead) {
+      if (k.RIGHT) {
         this.moveRight();
+        this.otherDirection = false;
       }
-      if (this.world.keyboard.left && this.x > 66) {
+      if (k.LEFT) {
         this.moveLeft();
         this.otherDirection = true;
       }
-      if (this.world.keyboard.space && !this.isAboveGround()) {
+      if (k.SPACE && !this.isAboveGround()) {
         this.jump();
       }
-      this.world.cameraX = -this.x + 60;
-    }, 1000 / 20);
-
-    gameIntervals(() => {
-      if (this.isDead()) {
-        this.playAnimationOnce(this.images_dead);
-        AudioHub.stopOne(AudioHub.pepeSound);
-        AudioHub.playOne(AudioHub.youlooseSound);
-        gameLoose();
-      } 
-      else if (this.ishurt()) {
-        this.playAnimation(this.images_hurt);
-      } else if (this.isJumping) {
-        if (this.speedY > 0) {
-          if (!this.isAnimating) {
-            this.isAnimating = true;
-            this.playAnimationOnce(this.images_jumping, 120);
-          }
-        }
-        if (!this.isAboveGround()) {
-          this.isJumping = false; // Sprung beendet
-          this.isAnimating = false;
-        }
+      if (this.world.cameraX !== undefined) {
+        this.world.cameraX = -this.x + 100; // Camera follow
       }
-    }, 200);
+    }
+
+    // Animation logic - only if we have images loaded
+    if (this.isDead()) {
+      this.playAnimation(this.images_dead);
+    } else if (this.isHurt()) {
+      this.playAnimation(this.images_hurt);
+    } else if (this.isAboveGround()) {
+      this.playAnimation(this.images_jumping);
+    } else if (k.RIGHT || k.LEFT) {
+      this.playAnimation(this.images_walking);
+    } else if (this.isLongIdle) {
+      this.playAnimation(this.images_long_idle);
+    } else if (this.images_idle) {
+      this.playAnimation(this.images_idle);
+    }
+  }
+
+  isLongIdleTime() {
+    if (this.lastMoveTime === 0) return false;
+    const idleTime = new Date().getTime() - this.lastMoveTime;
+    return idleTime > 5000; // 5 seconds
+  }
+
+  hitPepe() {
+    if (!this.isHurt()) {
+      this.healthPepe -= 10;
+      this.lastMoveTime = new Date().getTime();
+      this.isLongIdle = false;
+      if (this.idleTimer) {
+        clearTimeout(this.idleTimer);
+        this.idleTimer = null;
+      }
+      if (this.healthPepe <= 0) {
+        this.healthPepe = 0;
+        this.die();
+      } else {
+        this.hurt();
+      }
+    }
   }
 
   jump() {

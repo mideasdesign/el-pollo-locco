@@ -52,9 +52,6 @@ images_splash = [
   };
 
 splash() {
-  if (this.hasHit) return;
-  this.hasHit = true;
-  this.isSplashing = true;
   this.speedY = 0;
   this.speed = 0;
   let splashAnimation = gameIntervals(() => {

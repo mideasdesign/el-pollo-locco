@@ -1,9 +1,16 @@
 let world;
-let keyboard = new Keyboard();
 let canvas;
 let audio;
 let intervalIds = [];
 let fs = document.documentElement;
+let keyboardListenersSet = false;
+const keyboard = {
+    LEFT: false,
+    RIGHT: false,
+    UP: false,
+    DOWN: false,
+    SPACE: false
+};
 
 /*  function resize() {
 // We are resizing for mobile devices only. For other devices, the
@@ -120,65 +127,56 @@ function allSounds() {
         localStorage.setItem('mute', JSON.stringify('on'));
     }
 }
-
-    window.addEventListener('keydown', (e) => { 
-        
-        if (e.keyCode == 37) keyboard.left = true;
-        if (e.keyCode == 39) keyboard.right = true;
-        if (e.keyCode == 38) keyboard.up = true;
-        if (e.keyCode == 40) keyboard.down = true;
-        if (e.keyCode == 32) keyboard.space = true;
-        if (e.keyCode == 84) keyboard.t = true;
+// Keyboard event listeners
+if (!keyboardListenersSet) {
+    window.addEventListener('keydown', (e) => {
+        if (e.keyCode == 37) keyboard.LEFT = true;
+        if (e.keyCode == 39) keyboard.RIGHT = true;
+        if (e.keyCode == 40) keyboard.DOWN = true;
+        if (e.keyCode == 38) keyboard.UP = true;
+        if (e.keyCode == 32) keyboard.SPACE = true;
     });
 
     window.addEventListener('keyup', (e) => {
-        if (e.keyCode == 37) keyboard.left = false;
-        if (e.keyCode == 39) keyboard.right = false;
-        if (e.keyCode == 38) keyboard.up = false;
-        if (e.keyCode == 40) keyboard.down = false;
-        if (e.keyCode == 32) keyboard.space = false;
-        if (e.keyCode == 84) keyboard.t = false;
-
+        if (e.keyCode == 37) keyboard.LEFT = false;
+        if (e.keyCode == 39) keyboard.RIGHT = false;
+        if (e.keyCode == 40) keyboard.DOWN = false;
+        if (e.keyCode == 38) keyboard.UP = false;
+        if (e.keyCode == 32) keyboard.SPACE = false;
     });
+    
+    keyboardListenersSet = true;
+}
 
     function touchBtn(){
         document.getElementById('btn-left').addEventListener('touchstart', (e) => {
             e.preventDefault();
-            keyboard.left = true;
+            keyboard.LEFT = true;
         });
 
         document.getElementById('btn-left').addEventListener('touchend', (e) => {
             e.preventDefault();
-            keyboard.left = false;
+            keyboard.LEFT = false;
         });
 
         document.getElementById('btn-right').addEventListener('touchstart', (e) => {
             e.preventDefault();
-            keyboard.right = true;
+            keyboard.RIGHT = true;
         });
 
         document.getElementById('btn-right').addEventListener('touchend', (e) => {
             e.preventDefault();
-            keyboard.right = false;
-        });
-
-        document.getElementById('btn-jump').addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            keyboard.space = true;
+            keyboard.RIGHT = false;
         });
 
         document.getElementById('btn-jump').addEventListener('touchend', (e) => {
             e.preventDefault();
-            keyboard.space = false;
+            keyboard.SPACE = false;
         });
 
         document.getElementById('btn-throw').addEventListener('touchstart', (e) => {
             e.preventDefault();
-            keyboard.t = true;
+            keyboard.SPACE = true;
         });
 
-        document.getElementById('btn-throw').addEventListener('touchend', (e) => {
-            e.preventDefault();
-            keyboard.t = false;
-        });
     }
