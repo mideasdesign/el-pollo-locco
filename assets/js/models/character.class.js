@@ -12,7 +12,7 @@ class Character extends MovableObject {
     left: 20,
   };
 
-  healthPepe = 1000;
+  healthPepe = 120;
   otherDirection = false;
   lastMove = new Date().getTime();
 
@@ -62,7 +62,11 @@ class Character extends MovableObject {
     "assets/images/2_character_pepe/3_jump/J-39.png",
   ];
 
-  images_hurt = ["assets/images/2_character_pepe/4_hurt/H-41.png", "assets/images/2_character_pepe/4_hurt/H-42.png", "assets/images/2_character_pepe/4_hurt/H-43.png"];
+  images_hurt = [
+    "assets/images/2_character_pepe/4_hurt/H-41.png", 
+    "assets/images/2_character_pepe/4_hurt/H-42.png", 
+    "assets/images/2_character_pepe/4_hurt/H-43.png"
+  ];
 
   images_dead = [
     "assets/images/2_character_pepe/5_dead/D-51.png",

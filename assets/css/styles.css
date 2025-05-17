@@ -42,6 +42,12 @@
     margin:0;
     padding:0;
 }
+section{
+  max-width: 720px;
+  padding:2rem;
+  border-radius: 10px;
+  background:rgba(255,255,255,0.6)
+}
 .first-btns{
   display: flex;
 
@@ -83,6 +89,7 @@ text-shadow: 4px 3px 14px rgba(0,0,0,0.51);
 }
 p{
   text-align: center;
+  line-height: 1.6rem;
 }
 a.imprint{
   color: #222;
@@ -94,7 +101,6 @@ a.imprint{
   }
 }
 #imprint-container{
-  width: 720px;
   text-align:center;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
@@ -107,6 +113,7 @@ a.imprint{
   font-size: var(--text-2);
   letter-spacing: 5px;
   font-family:'Kablammo', sans-serif;
+  text-wrap: balance;
 }
 .box{
   display: none;
@@ -139,9 +146,10 @@ ul{
 h1.headline{
   font-size: var(--text-7);
   margin:1rem 0 2rem 0;
+  text-align:center;
 }
 a{
-  color:#fad193;
+  color:#353d36;
   text-decoration: none;
   &:hover{
     background-color: transparent;
@@ -377,9 +385,17 @@ z-index:8000;
   }
 }
 @media(width < 480px){
+  .wrapper{
+flex-direction: row;
+  }
   canvas {
     height: 100vh;
   }
+  section{
+width: 100svw;
+height:100svh;
+padding:0 1rem;
+}
   h1.headline {
     font-size: var(--text-0);
     text-align: center;

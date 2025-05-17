@@ -65,7 +65,7 @@ playAnimation(images) {
   }; 
 
   hitPepe() {
-    this.healthPepe -= 4;
+    this.healthPepe -= 5;
     if (this.healthPepe < 0) {
       this.healthPepe = 0;
     } else {
@@ -74,7 +74,7 @@ playAnimation(images) {
   };
 
   hitBoss() {
-    this.healthBoss -= 4;
+    this.healthBoss -= 5;
     if (this.healthBoss < 0) {
     this.healthBoss = 0;
     } else {
@@ -85,7 +85,7 @@ playAnimation(images) {
   ishurt() {
     let timespassed = new Date().getTime() - this.lastHit;
     timespassed = timespassed / 1000;
-    return timespassed < 0.8;
+    return timespassed < 0.5;
   }
 
   isDead() {
