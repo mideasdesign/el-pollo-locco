@@ -14,19 +14,31 @@ class World {
   level = level1;
 
   constructor(canvas, keyboard) {
+    this.initializeCanvas(canvas, keyboard);
+    this.initializeGame();
+  }
+
+  initializeCanvas(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
     touchBtn();
+  }
+
+  initializeGame() {
     this.draw();
     this.setWorld();
+    this.startCollisionChecks();
+    this.run();
+  }
+
+  startCollisionChecks() {
     this.checkCollisionsFromTop();
     this.checkCollisionChicksFromTop();
     this.checkCollisionsPepe();
     this.checkCollisionsBoss();
     this.checkThrowableObject();
     this.checkBossAttack();
-    this.run();
   }
 
   setWorld() {
@@ -146,14 +158,27 @@ class World {
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.drawBackground();
+    this.drawUI();
+    this.drawGameObjects();
+    this.scheduleNextFrame();
+  }
+
+  drawBackground() {
     this.ctx.translate(this.cameraX, 0);
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds);
     this.ctx.translate(-this.cameraX, 0);
+  }
+
+  drawUI() {
     this.addToMap(this.statusBar);
     this.addToMap(this.coinsBar);
     this.addToMap(this.bottlesBar);
     this.addToMap(this.bossBar);
+  }
+
+  drawGameObjects() {
     this.ctx.translate(this.cameraX, 0);
     this.addToMap(this.character);
     this.addToMap(this.endboss);
@@ -163,7 +188,9 @@ class World {
     this.addObjectsToMap(this.level.chicks);
     this.addObjectsToMap(this.level.enemies);
     this.ctx.translate(-this.cameraX, 0);
-    //draw() wird immer wieder aufgerufen
+  }
+
+  scheduleNextFrame() {
     let self = this;
     requestAnimationFrame(function () {
       self.draw();

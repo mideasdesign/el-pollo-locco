@@ -93,6 +93,12 @@ class Character extends MovableObject {
   }
 
   animate() {
+    this.animateVisuals();
+    this.animateMovement();
+    this.animateStates();
+  }
+
+  animateVisuals() {
     gameIntervals(() => {
       const k = this.world.keyboard;
       const inactive = this.wasInactive();
@@ -111,7 +117,9 @@ class Character extends MovableObject {
         }
       }
     }, 300);
+  }
 
+  animateMovement() {
     gameIntervals(() => {
       if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {
         this.moveRight();
@@ -125,29 +133,38 @@ class Character extends MovableObject {
       }
       this.world.cameraX = -this.x + 60;
     }, 1000 / 20);
+  }
 
+  animateStates() {
     gameIntervals(() => {
       if (this.isDead()) {
-        this.playAnimationOnce(this.images_dead);
-        AudioHub.stopOne(AudioHub.pepeSound);
-        AudioHub.playOne(AudioHub.youlooseSound);
-        gameLoose();
-      } 
-      else if (this.ishurt()) {
+        this.handleDeathAnimation();
+      } else if (this.ishurt()) {
         this.playAnimation(this.images_hurt);
       } else if (this.isJumping) {
-        if (this.speedY > 0) {
-          if (!this.isAnimating) {
-            this.isAnimating = true;
-            this.playAnimationOnce(this.images_jumping, 120);
-          }
-        }
-        if (!this.isAboveGround()) {
-          this.isJumping = false; // Sprung beendet
-          this.isAnimating = false;
-        }
+        this.handleJumpAnimation();
       }
     }, 200);
+  }
+
+  handleDeathAnimation() {
+    this.playAnimationOnce(this.images_dead);
+    AudioHub.stopOne(AudioHub.pepeSound);
+    AudioHub.playOne(AudioHub.youlooseSound);
+    gameLoose();
+  }
+
+  handleJumpAnimation() {
+    if (this.speedY > 0) {
+      if (!this.isAnimating) {
+        this.isAnimating = true;
+        this.playAnimationOnce(this.images_jumping, 120);
+      }
+    }
+    if (!this.isAboveGround()) {
+      this.isJumping = false; // Sprung beendet
+      this.isAnimating = false;
+    }
   }
 
   jump() {
