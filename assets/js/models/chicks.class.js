@@ -17,8 +17,8 @@ class Chicks extends MovableObject{
 
     currentImage = 0;
     constructor(){
-        super().loadImage('assets/images/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
-        this.x = 200 + Math.random() * 500;
+        super().loadImage('assets/images/3_enemies_chicken/chicken_small/1_walk/1_w.png');
+        this.x = 1400 + Math.random() * 2000;
         this.y = 430 - this.height;
         this.getRealFrame();
         this.loadImages(this.images_walking);
@@ -27,11 +27,11 @@ class Chicks extends MovableObject{
     };
     
     animate(){
-        setInterval(() => {
+        gameIntervals(() => {
             this.moveLeft();
-        }, 1000 / 60);
+        }, 1000 / 25);
 
-        setInterval(() => {
+        gameIntervals(() => {
             this.playAnimation(this.images_walking);
         }, 100);
     }
