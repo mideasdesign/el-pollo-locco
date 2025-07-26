@@ -40,14 +40,9 @@ class Chicken extends MovableObject{
 
     deadChicken() {
         this.dead = true;
+        this.speed = 0; // Stoppe Bewegung
         clearInterval(this.moveLeftInterval);
         clearInterval(this.wakingInterval);
         this.loadImage('assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png');
-        setTimeout(() => {
-        const index = world.level.enemies.indexOf(this);
-        if (index > -1) {
-            world.level.enemies.splice(index, 1); // Entfernt Chicken aus dem Array
-        }
-        }, 2000);
     }
 }

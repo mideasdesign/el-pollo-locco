@@ -29,6 +29,7 @@
 
   canvas{
     background-color: black;
+    display: block;
   }
  #rotate{
   display: none;
@@ -193,13 +194,14 @@ z-index:8000;
   width:100%;
 }
 .touch-pan-mute{
-  position:absolute;
-  top:0;
-  right:0;
-  width:99%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 98svw;
   display: flex;
   justify-content: space-between;
   z-index: 8000;
+  padding: 10px 15px;
 }
 
 #instruction{
@@ -308,21 +310,29 @@ z-index:8000;
 }
 .mobile-keys{
   display:flex;
+  margin-top: 2rem;
+  justify-content: center;
+  align-items: center;
 }
  .fullscreen-box{
-  position:absolute;
-  left:0;
-  bottom: 10px;
+  position: fixed;
+  left: 0;
+  bottom: 70px;
   display: none;
   justify-content: flex-end;
-  padding-right:3%;
-  margin-top:1rem;
-  width:99%;
+  padding-right: 3%;
+  width: 100%;
+  z-index: 8000;
   }
   canvas {
     overflow-clip-margin: border-box;
-    overflow-inline:hidden;
+    overflow: hidden;
     height: 100svh;
+    width: 100svw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
 }
   h1.headline {
     font-size: var(--text-4);
@@ -354,13 +364,15 @@ z-index:8000;
 }
   .box{
     display: flex;
-    position:absolute;
+    position: fixed;
     width: 100svw;
-    height: 34px;
-    left:0px;
-    bottom: 12px;
+    height: 60px;
+    left: 0px;
+    bottom: 0px;
     z-index: 8000;
     justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
   }
   .hide{
     display:none;
@@ -379,9 +391,21 @@ z-index:8000;
 @media(width < 480px){
   canvas {
     height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
   }
   h1.headline {
     font-size: var(--text-0);
     text-align: center;
-}
+  }
+  .box {
+    height: 50px;
+    bottom: 0;
+  }
+  .touch-pan-mute {
+    padding: 8px 12px;
+  }
 }

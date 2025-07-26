@@ -6,7 +6,6 @@ class World {
   bossBar = new BossBar();
   throwableObject = [];
   endboss = new Endboss();
-  dead = false;
   canvas;
   ctx;
   keyboard;
@@ -48,7 +47,6 @@ class World {
 
   run() {
     gameIntervals(() => {
-      this.checkCollisionsFromTop();
       this.checkCollisionsPepe();
       this.checkCollisionsBoss();
       this.checkThrowableObject();
@@ -61,13 +59,16 @@ class World {
   }
 
   checkCollisionsFromTop() {
+    gameIntervals(() => {
       this.level.enemies.forEach((enemy, index) => {
-        if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(enemy)) {
-          this.dead = true;
+        if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(enemy) && !enemy.dead) {
           enemy.deadChicken();
           AudioHub.playOne(AudioHub.chickenSound);
+          // Sofortiges Entfernen des toten Huhns
+          this.level.enemies.splice(index, 1);
         }
       });
+    }, 30);
   }
 
   checkCollisionChicksFromTop() {
@@ -84,7 +85,7 @@ class World {
 
   checkCollisionsPepe() {
     this.level.enemies.forEach((enemy) => {
-      if (this.character.isColliding(enemy) && !enemy.deadChicken()) {
+      if (this.character.isColliding(enemy) && !enemy.dead) {
         this.character.hitPepe();
         AudioHub.playOne(AudioHub.pepeSound);
         this.statusBar.setPercentage(this.character.healthPepe);

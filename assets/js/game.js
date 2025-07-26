@@ -137,6 +137,22 @@ function allSounds() {
     }
 }
 
+function initializeMuteState() {
+    const isMuted = JSON.parse(localStorage.getItem('mute')) === 'on';
+    const btn = document.getElementById('btn-mute');
+    
+    if (isMuted) {
+        AudioHub.isMuted = true;
+        btn.innerHTML = `<img src="./assets/images/btn_mute_on.svg" alt="mute button">`;
+    } else {
+        AudioHub.isMuted = false;
+        btn.innerHTML = `<img src="./assets/images/btn_mute_off.svg" alt="mute button">`;
+    }
+}
+
+// Initialisiere Mute-Status beim Laden der Seite
+document.addEventListener('DOMContentLoaded', initializeMuteState);
+
     window.addEventListener('keydown', (e) => { 
         
         if (e.keyCode == 37) keyboard.left = true;

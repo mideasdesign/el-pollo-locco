@@ -12,32 +12,65 @@ class AudioHub {
     static gamewinSound = new Audio('./assets/sound/brass-fanfare-with-timpani-and-winchimes-reverberated-146260.mp3');
     static attackSound = new Audio('./assets/sound/chase-8-bit-73312.mp3');
     static endbossHurtSound = new Audio('./assets/sound/endboss-hurt.mp3');
-    // Array, das alle definierten Audio-Dateien enthält
-    static allSounds = [AudioHub.background, AudioHub.coinSound, AudioHub.bottleSound, AudioHub.chickenSound, AudioHub.chicksSound,  AudioHub.pepeSound ];
-    static fightSounds = [AudioHub.attackSound, AudioHub.youwinSound, AudioHub.youlooseSound]
+    
+    // Alle Audio-Dateien für Mute-Funktionalität
+    static allSounds = [
+        AudioHub.background, AudioHub.coinSound, AudioHub.bottleSound, 
+        AudioHub.chickenSound, AudioHub.chicksSound, AudioHub.pepeSound,
+        AudioHub.gameoverSound, AudioHub.youwinSound, AudioHub.youlooseSound,
+        AudioHub.gamewinSound, AudioHub.attackSound, AudioHub.endbossHurtSound
+    ];
+    
+    // Speichert pausierte Sounds und ihre Positionen
+    static pausedSounds = new Map();
+    static isMuted = false;
 
     // Spielt eine einzelne Audiodatei ab
-        static playOne(sound) { 
+    static playOne(sound) { 
+        if (AudioHub.isMuted) return; // Nicht abspielen wenn stumm
+        
         if (sound.readyState == 4) {
-            sound.volume = 0.3;  // Setzt die Lautstärke auf 0.2 = 20% / 1 = 100%
-            sound.currentTime = 0;  // Startet ab einer bestimmten stelle (0=Anfang/ 5 = 5 sec.)
-            sound.play();  // Spielt das übergebene Sound-Objekt ab
+            sound.volume = 0.3;
+            
+            // Spezielle Behandlung für Hintergrundmusik
+            if (sound === AudioHub.background) {
+                sound.loop = true; // Endlosschleife für Hintergrundmusik
+            }
+            
+            // Nur bei neuen Sounds auf 0 setzen, nicht bei fortgesetzten
+            if (!AudioHub.pausedSounds.has(sound)) {
+                sound.currentTime = 0;
+            }
+            sound.play();
         } 
-       
     }
 
     static stopAll() {
+        AudioHub.isMuted = true;
         AudioHub.allSounds.forEach(sound => {
-            sound.pause();  // Pausiert jedes Audio in der Liste
+            if (!sound.paused) {
+                // Speichere Position nur wenn Sound aktiv läuft
+                AudioHub.pausedSounds.set(sound, sound.currentTime);
+                sound.pause();
+            }
         });
     }
+    
     static startAll() {
-    AudioHub.allSounds.forEach(sound => {
-        sound.play();  // Spiel jedes Audio in der Liste
-    });
+        AudioHub.isMuted = false;
+        AudioHub.pausedSounds.forEach((position, sound) => {
+            if (sound.readyState == 4) {
+                sound.currentTime = position; // Setze auf gespeicherte Position
+                sound.play();
+            }
+        });
+        // Lösche gespeicherte Positionen nach dem Fortsetzen
+        AudioHub.pausedSounds.clear();
     }
+    
     // Stoppt das Abspielen einer einzelnen Audiodatei
     static stopOne(sound) {
-        sound.pause();  // Pausiert das übergebene Audio
+        sound.pause();
+        sound.currentTime = 0; // Bei einzelnem Stop auf Anfang setzen
     }
 }
