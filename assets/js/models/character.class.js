@@ -116,7 +116,7 @@ class Character extends MovableObject {
           this.playAnimation(this.images_long_idle, 160);
         }
       }
-    }, 300);
+    }, 120); // Schnellere Walking-Animation für natürlichere Bewegung
   }
 
   animateMovement() {

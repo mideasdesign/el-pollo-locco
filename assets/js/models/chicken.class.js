@@ -15,6 +15,10 @@ class Chicken extends MovableObject{
         'assets/images/3_enemies_chicken/chicken_normal/1_walk/3_w.png'
     ];
 
+    images_dead = [
+        'assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png'
+    ];
+
     currentImage = 0;
     dead = false;
 
@@ -24,16 +28,21 @@ class Chicken extends MovableObject{
         this.y = 430 - this.height;
         this.getRealFrame();
         this.loadImages(this.images_walking);
+        this.loadImages(this.images_dead); // Lade auch das tote Bild
         this.speed = 0.15 + Math.random() * 0.40;
         this.animate();
     };
     
     animate(){
              this.moveLeftInterval = gameIntervals(() => {
-                this.moveLeft();
+                if (!this.dead) { // Nur bewegen wenn nicht tot
+                    this.moveLeft();
+                }
             }, 1000 / 25);
            this.wakingInterval = gameIntervals(() => {
-                this.playAnimation(this.images_walking);
+                if (!this.dead) { // Nur animieren wenn nicht tot
+                    this.playAnimation(this.images_walking);
+                }
             }, 100);
 
     }
@@ -43,6 +52,13 @@ class Chicken extends MovableObject{
         this.speed = 0; // Stoppe Bewegung
         clearInterval(this.moveLeftInterval);
         clearInterval(this.wakingInterval);
+        
+        // Direkte und sichere Bildladung
         this.loadImage('assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png');
+        
+        // Zusätzlich: Stelle sicher, dass das Bild sofort gesetzt wird
+        if (this.imageCache['assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png']) {
+            this.img = this.imageCache['assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png'];
+        }
     }
 }

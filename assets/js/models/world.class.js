@@ -64,8 +64,13 @@ class World {
         if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(enemy) && !enemy.dead) {
           enemy.deadChicken();
           AudioHub.playOne(AudioHub.chickenSound);
-          // Sofortiges Entfernen des toten Huhns
-          this.level.enemies.splice(index, 1);
+          // Verzögerung für die Darstellung des toten Huhns
+          setTimeout(() => {
+            const currentIndex = this.level.enemies.indexOf(enemy);
+            if (currentIndex > -1) {
+              this.level.enemies.splice(currentIndex, 1);
+            }
+          }, 1000); // 1 Sekunde Verzögerung
         }
       });
     }, 30);
