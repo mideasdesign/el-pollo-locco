@@ -1,11 +1,28 @@
+/**
+ * @fileoverview Game initialization and startup sequence management
+ * Handles the transition from start screen to gameplay
+ */
+
+/** @type {World} - Global reference to the game world instance */
 let world;
+/** @type {Keyboard} - Global keyboard input handler */
 let keyboard = new Keyboard();
+/** @type {HTMLCanvasElement} - Game canvas element */
 let canvas;
 
+/**
+ * Initializes the game canvas reference.
+ * Called when the page loads to prepare the canvas element.
+ */
 function init() {
     canvas = document.getElementById('canvas');
 }
 
+/**
+ * Starts a new game with animated transition sequence.
+ * Handles the fade-out of start screen, loading screen display,
+ * and initialization of the game world.
+ */
 function startGame() {
     const startScreen = document.getElementById('start-screen');
     // Entferne das Startbild und den Button mit einer Ausblend-Animation

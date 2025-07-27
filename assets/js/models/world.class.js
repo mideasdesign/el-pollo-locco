@@ -1,22 +1,49 @@
+/**
+ * Main game world class that manages all game entities and game logic.
+ * Handles rendering, collision detection, and game state management.
+ */
 class World {
+  /** @type {Character} - The main player character */
   character = new Character();
+  /** @type {StatusBar} - Health status bar UI element */
   statusBar = new StatusBar();
+  /** @type {CoinsBar} - Coin counter UI element */
   coinsBar = new CoinsBar();
+  /** @type {BottlesBar} - Bottle counter UI element */
   bottlesBar = new BottlesBar();
+  /** @type {BossBar} - Boss health bar UI element */
   bossBar = new BossBar();
+  /** @type {ThrowableObject[]} - Array of thrown bottle objects */
   throwableObject = [];
+  /** @type {Endboss} - The final boss enemy */
   endboss = new Endboss();
+  /** @type {HTMLCanvasElement} - The game canvas */
   canvas;
+  /** @type {CanvasRenderingContext2D} - Canvas 2D rendering context */
   ctx;
+  /** @type {Keyboard} - Keyboard input handler */
   keyboard;
+  /** @type {number} - Camera X position for scrolling */
   cameraX = 0;
+  /** @type {Level} - Current game level data */
   level = level1;
 
+  /**
+   * Creates a new World instance.
+   * @param {HTMLCanvasElement} canvas - The game canvas element
+   * @param {Keyboard} keyboard - The keyboard input handler
+   */
   constructor(canvas, keyboard) {
     this.initializeCanvas(canvas, keyboard);
     this.initializeGame();
   }
 
+  /**
+   * Initializes canvas context and keyboard controls.
+   * Sets up the 2D rendering context and touch controls.
+   * @param {HTMLCanvasElement} canvas - The game canvas element
+   * @param {Keyboard} keyboard - The keyboard input handler
+   */
   initializeCanvas(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
@@ -24,6 +51,10 @@ class World {
     touchBtn();
   }
 
+  /**
+   * Initializes the game world and starts main game loops.
+   * Sets up drawing, world references, collision detection, and game logic.
+   */
   initializeGame() {
     this.draw();
     this.setWorld();
@@ -31,6 +62,10 @@ class World {
     this.run();
   }
 
+  /**
+   * Starts all collision detection intervals.
+   * Sets up continuous checking for various types of collisions.
+   */
   startCollisionChecks() {
     this.checkCollisionsFromTop();
     this.checkCollisionChicksFromTop();
@@ -40,11 +75,19 @@ class World {
     this.checkBossAttack();
   }
 
+  /**
+   * Establishes bidirectional reference between world and character.
+   * Allows character to access world properties and starts character animation.
+   */
   setWorld() {
     this.character.world = this;
     this.character.startAnimation();
   }
 
+  /**
+   * Main game loop that handles ongoing collision detection.
+   * Runs collision checks at 60 FPS for responsive gameplay.
+   */
   run() {
     gameIntervals(() => {
       this.checkCollisionsPepe();

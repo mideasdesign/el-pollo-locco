@@ -1,8 +1,25 @@
+/**
+ * Final boss enemy that appears at the end of the level.
+ * Large, powerful chicken with multiple attack patterns and high health.
+ * Provides the ultimate challenge and culmination of the game.
+ * @extends MovableObject
+ */
 class Endboss extends MovableObject {
+  /** @type {number} - Width of the boss sprite (much larger than regular enemies) */
   width = 200;
+  /** @type {number} - Height of the boss sprite (much larger than regular enemies) */
   height = 450;
+  /** @type {number} - X position at the end of the level */
   x = 3090;
+  /** @type {number} - Y position (elevated compared to ground enemies) */
   y = 30;
+  /** 
+   * @type {Object} - Collision box offset for boss combat
+   * @property {number} top - Top offset
+   * @property {number} right - Right offset  
+   * @property {number} bottom - Bottom offset
+   * @property {number} left - Left offset
+   */
   offset = {
     top: 100,
     right: 30,
@@ -10,7 +27,9 @@ class Endboss extends MovableObject {
     left: 16,
   };
 
+  /** @type {number} - Boss health points (much higher than regular enemies) */
   healthBoss = 100;
+  /** @type {boolean} - True when boss is currently attacking */
   isAttacking = false;
 
   images_idle = [

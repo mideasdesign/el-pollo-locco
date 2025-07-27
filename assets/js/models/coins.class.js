@@ -1,18 +1,42 @@
+/**
+ * Collectible coin objects that provide score and progression tracking.
+ * Coins are strategically placed throughout the level to encourage exploration.
+ * They feature a spinning animation to attract player attention.
+ * @extends MovableObject
+ */
 class Coins extends MovableObject {
+  /** @type {number} - Width of the coin sprite */
   width = 70;
+  /** @type {number} - Height of the coin sprite */
   height = 70;
+  /** 
+   * @type {Object} - Collision box offset for collection detection
+   * @property {number} top - Top offset
+   * @property {number} right - Right offset  
+   * @property {number} bottom - Bottom offset
+   * @property {number} left - Left offset
+   */
   offset = {
     top: 20,
     right: 60,
     bottom: 20,
     left: 20
 };
+/** @type {number} - Current coin level/state (unused) */
 coinsLevel = 0;
 
+  /** @type {string[]} - Array of coin image frames for spinning animation */
   images_coins = [
-        'assets/images/8_coin/coin_1.png',
-        'assets/images/8_coin/coin_2.png'
+        'assets/images/8_coin/coin_1.png',  // Coin frame 1 (spinning animation)
+        'assets/images/8_coin/coin_2.png'   // Coin frame 2 (spinning animation)
       ];  
+      
+  /**
+   * Creates a new Coins instance at specified position.
+   * Sets up spinning animation and collision detection.
+   * @param {number} x - X position of the coin
+   * @param {number} y - Y position of the coin
+   */
   constructor(x, y) {
       super().loadImage('assets/images/8_coin/coin_1.png');
       this.x = x;
@@ -24,9 +48,14 @@ coinsLevel = 0;
       this.animate();
     }
   
+    /**
+     * Starts the coin's spinning animation.
+     * Creates an attractive visual effect by cycling through coin frames.
+     * Animation runs every 200ms for a smooth spinning effect.
+     */
     animate() {
       gameIntervals(() => {
         this.playAnimation(this.images_coins);
-      }, 200);
+      }, 200);  // Spin every 200ms for attractive effect
     }
   }

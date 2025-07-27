@@ -1,8 +1,16 @@
+/** @fileoverview Main game controller for El Pollo Loco jump'n'run game */
+
+/** @type {World} - Global reference to the game world instance */
 let world;
+/** @type {Keyboard} - Global keyboard input handler */
 let keyboard = new Keyboard();
+/** @type {HTMLCanvasElement} - Game canvas element */
 let canvas;
+/** @type {AudioContext} - Web Audio API context (unused) */
 let audio;
+/** @type {number[]} - Array to track all game intervals for cleanup */
 let intervalIds = [];
+/** @type {Element} - Reference to document element for fullscreen */
 let fs = document.documentElement;
 
 /*  function resize() {
@@ -23,12 +31,25 @@ if( win.navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/i) ) {
     container.style.width = w+"px";
 }
 }; */
+
+/**
+ * Creates a tracked interval that can be cleared when the game ends.
+ * All intervals created with this function are automatically managed.
+ * @param {Function} fn - Function to execute at each interval
+ * @param {number} time - Interval time in milliseconds
+ * @returns {number} The interval ID
+ */
 function gameIntervals(fn, time) {
     let id = setInterval (fn, time);
     intervalIds.push(id);
     
 }
 
+/**
+ * Starts a new game session.
+ * Locks screen orientation to landscape and initializes the game world.
+ * Shows the game UI and begins gameplay.
+ */
 function startGame() {
     screen.orientation.lock('landscape').catch((err) => {
         console.warn('Orientation lock failed:', err);
@@ -37,6 +58,11 @@ function startGame() {
     showGameUI();
 }
 
+/**
+ * Initializes the game world and starts background music.
+ * Creates the canvas context, level data, and world instance.
+ * Called internally by startGame().
+ */
 function initializeGame() {
     canvas = document.getElementById('canvas');
     initLevel();
@@ -44,6 +70,11 @@ function initializeGame() {
     AudioHub.playOne(AudioHub.background);
 }
 
+/**
+ * Shows the game UI elements (canvas, controls, fullscreen button).
+ * Removes the 'hide' class from game interface elements.
+ * Called after game initialization.
+ */
 function showGameUI() {
     document.getElementById('fs-open').classList.remove('hide');
     document.getElementById('canvas').classList.remove('hide');
