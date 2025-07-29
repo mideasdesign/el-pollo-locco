@@ -28,6 +28,13 @@ class World {
   /** @type {Level} - Current game level data */
   level = level1;
 
+  /** @type {boolean} - True when boss attack sequence has been triggered */
+  bossAttackTriggered = false;
+  /** @type {number} - Timestamp of last bottle throw for cooldown control */
+  lastThrowTime = 0;
+  /** @type {number} - Minimum time between throws in milliseconds (500ms = 0.5 seconds) */
+  throwCooldown = 500;
+
   /**
    * Creates a new World instance.
    * @param {HTMLCanvasElement} canvas - The game canvas element
@@ -159,8 +166,14 @@ class World {
     }
   }
 
+  /**
+   * Checks if boss attack should be triggered based on character position.
+   * Only triggers once when character reaches the boss area to prevent
+   * multiple audio stops/starts during movement.
+   */
   checkBossAttack() {
-    if (this.character.rX > 2350) {
+    if (this.character.rX > 2350 && !this.bossAttackTriggered) {
+      this.bossAttackTriggered = true;  // Prevent multiple triggers
       this.isAttacking = true;
       AudioHub.stopOne(AudioHub.background);
       AudioHub.playOne(AudioHub.attackSound);
@@ -168,13 +181,27 @@ class World {
     }
   }
 
+  /**
+   * Handles throwing bottles with cooldown system.
+   * Prevents machine-gun style throwing by enforcing 500ms delay between throws.
+   * Only allows throwing when player has bottles and cooldown period has passed.
+   */
   checkThrowableObject() {
-    if (this.keyboard.t && this.bottlesBar.percentage > 0) {
+    const currentTime = new Date().getTime();
+    const timeSinceLastThrow = currentTime - this.lastThrowTime;
+    
+    if (this.keyboard.t && 
+        this.bottlesBar.percentage > 0 && 
+        timeSinceLastThrow >= this.throwCooldown) {
+      
       let x = this.character.rX + this.character.rW / 2.6;
       let y = this.character.rY + this.character.rH / 2.6;
       let bottle = new ThrowableObject(x, y);
       this.throwableObject.push(bottle);
       this.bottlesBar.setPercentage(this.bottlesBar.percentage - 10);
+      
+      // Update last throw time to start cooldown
+      this.lastThrowTime = currentTime;
     }
   }
 
