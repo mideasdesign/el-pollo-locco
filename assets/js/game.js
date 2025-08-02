@@ -46,16 +46,28 @@ function gameIntervals(fn, time) {
 }
 
 /**
- * Starts a new game session.
- * Locks screen orientation to landscape and initializes the game world.
+ * Starts the game session with iOS audio support.
+ * Initializes audio system, locks screen orientation, and begins gameplay.
  * Shows the game UI and begins gameplay.
  */
-function startGame() {
-    screen.orientation.lock('landscape').catch((err) => {
-        console.warn('Orientation lock failed:', err);
-    });
-    initializeGame();
-    showGameUI();
+async function startGame() {
+    try {
+        // Initialize iOS audio system first
+        await AudioHub.initializeIOSAudio();
+        
+        // Lock screen orientation
+        screen.orientation.lock('landscape').catch((err) => {
+            console.warn('Orientation lock failed:', err);
+        });
+        
+        initializeGame();
+        showGameUI();
+    } catch (error) {
+        console.warn('Game start warning:', error);
+        // Fallback: start game anyway
+        initializeGame();
+        showGameUI();
+    }
 }
 
 /**
@@ -67,6 +79,8 @@ function initializeGame() {
     canvas = document.getElementById('canvas');
     initLevel();
     world = new World(canvas, keyboard);
+    
+    // Start background music (will be queued if iOS audio not ready)
     AudioHub.playOne(AudioHub.background);
 }
 
@@ -183,6 +197,48 @@ function initializeMuteState() {
 
 // Initialisiere Mute-Status beim Laden der Seite
 document.addEventListener('DOMContentLoaded', initializeMuteState);
+
+/**
+ * Handles start game button click with iOS audio initialization.
+ * Unlocks audio system first, then starts the game.
+ */
+async function handleStartGame() {
+    console.log('Start Game button clicked - initializing iOS audio...');
+    
+    try {
+        // Initialize iOS audio on user interaction
+        await AudioHub.initializeIOSAudio();
+        console.log('iOS audio initialized, starting game...');
+        
+        // Start the actual game
+        startGame();
+    } catch (error) {
+        console.warn('Audio initialization failed, starting game anyway:', error);
+        startGame();
+    }
+}
+
+/**
+ * Sets up global iOS audio unlock listeners.
+ * Ensures audio is unlocked on any user interaction.
+ */
+function setupIOSAudioUnlock() {
+    const unlockAudio = async () => {
+        if (!AudioHub.audioUnlocked) {
+            console.log('User interaction detected, unlocking iOS audio...');
+            await AudioHub.initializeIOSAudio();
+        }
+    };
+
+    // Add listeners for all possible user interactions
+    document.addEventListener('touchstart', unlockAudio, { once: true, passive: true });
+    document.addEventListener('touchend', unlockAudio, { once: true, passive: true });
+    document.addEventListener('click', unlockAudio, { once: true, passive: true });
+    document.addEventListener('keydown', unlockAudio, { once: true, passive: true });
+}
+
+// Initialize iOS audio unlock on page load
+document.addEventListener('DOMContentLoaded', setupIOSAudioUnlock);
 
     window.addEventListener('keydown', (e) => { 
         

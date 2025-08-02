@@ -2,7 +2,14 @@
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    
+    <!-- iOS-spezifische Meta-Tags für Audio und Performance -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    
     <title>El Pollo Loco</title>
     <link rel="icon" type="image/png" href="./favicon-96x96.png" sizes="96x96" />
 <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
@@ -48,7 +55,7 @@
     <div id="fullscreen" class="wrapper">      
       <h1 id="el-pollo-loco" class="headline">El Pollo Loco</h1>   
       <div class="first-btns mt">
-        <button id="start-button" class="btn" onclick="startGame()">Start Game</button>
+        <button id="start-button" class="btn" onclick="handleStartGame()">Start Game</button>
         <button id="credits" class="btn ml"><a href="./credits.html">Credits</a></button>
       </div>
       <div class="touch-pan-mute">

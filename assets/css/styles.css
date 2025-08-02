@@ -35,7 +35,7 @@
   display: none;
  }
   .wrapper{
-    height:100svh;
+    height:100vh;
     display:flex;
     flex-direction: column;
     justify-content: center;
@@ -225,8 +225,8 @@ z-index:8000;
   .overlay {
     position: absolute;
     top: 0; left: 0;
-    width: 100svw; 
-    height: 100svh;
+    width: 100vw; 
+    height: 100vh;
     background: rgba(0,0,0,0.7);
     display: flex;
     justify-content: center;
@@ -239,8 +239,8 @@ z-index:8000;
   .overlay-content {
     background: transparent;
     text-align: center;
-    height: 100svh;
-    width:100svw;
+    height: 100vh;
+    width:100vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -278,8 +278,8 @@ z-index:8000;
   #rotate{
     position: absolute;
     top: 0; left: 0;
-    height: 100svh;
-    width:100svw;
+    height: 100vh;
+    width:100vw;
     padding:0;
     background: rgba(0,0,0,0.7);
     display: flex;
@@ -297,8 +297,8 @@ z-index:8000;
 }
 @media( max-width:936px){
   section{
-    height:100svh;
-    width:100svw;
+    height:100vh;
+    width:100vw;
     padding: 0 0 1rem 0;
     margin:0;
     display:flex;
@@ -327,8 +327,8 @@ z-index:8000;
   canvas {
     overflow-clip-margin: border-box;
     overflow: hidden;
-    height: 100svh;
-    width: 100svw;
+    height: 100vh;
+    width: 100vw;
     position: absolute;
     top: 0;
     left: 0;
@@ -365,7 +365,7 @@ z-index:8000;
   .box{
     display: flex;
     position: fixed;
-    width: 100svw;
+    width: 100vw;
     height: 60px;
     left: 0px;
     bottom: 0px;
