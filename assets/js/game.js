@@ -57,14 +57,13 @@ async function startGame() {
         
         // Lock screen orientation
         screen.orientation.lock('landscape').catch((err) => {
-            console.warn('Orientation lock failed:', err);
+            // Orientation lock failed (not critical)
         });
         
         initializeGame();
         showGameUI();
     } catch (error) {
-        console.warn('Game start warning:', error);
-        // Fallback: start game anyway
+        // Game start warning - fallback: start game anyway
         initializeGame();
         showGameUI();
     }
@@ -99,40 +98,89 @@ function showGameUI() {
     document.getElementById('credits').style.display = 'none';
 }
 
+/**
+ * Quits the game and returns to main menu.
+ * Stops all sounds before reloading the page.
+ */
 function quitGame() {
+    // Stoppe alle Sounds vor dem Quit
+    AudioHub.stopAll();
+    
+    // Seite neu laden (zurück zum Hauptmenü)
     location.reload();
 }
 
+/**
+ * Handles game over (loss) state.
+ * Stops all audio except endgame sounds, plays game over sound, and shows overlay.
+ */
 function gameLoose() {
-    AudioHub.stopOne(AudioHub.background);
+    // Stoppe alle Sounds außer Endgame-Sounds
+    AudioHub.stopAllExceptEndgame();
+    
+    // Spiele Game-Over-Sound direkt
     AudioHub.playOne(AudioHub.gameoverSound);
+    
+    // Zeige Game-Over-Overlay
     document.getElementById('game-overlay').classList.remove('hide');
     document.getElementById('game-result-text').textContent = 'Game over!';
-    intervalIds.forEach(clearInterval);
-}
-function gameWon() {
-    AudioHub.stopOne(AudioHub.background);
-    AudioHub.playOne(AudioHub.gamewinSound);
-    document.getElementById('game-overlay').classList.remove('hide');
-    document.getElementById('game-result-text').textContent = 'You win!';
+    
+    // Stoppe alle Spiel-Intervalle
     intervalIds.forEach(clearInterval);
 }
 
+/**
+ * Handles game won state.
+ * Stops all audio except endgame sounds, plays victory sound, and shows overlay.
+ */
+function gameWon() {
+    // Stoppe alle Sounds außer Endgame-Sounds
+    AudioHub.stopAllExceptEndgame();
+    
+    // Spiele Gewinn-Sound direkt
+    AudioHub.playOne(AudioHub.gamewinSound);
+    
+    // Zeige Gewinn-Overlay
+    document.getElementById('game-overlay').classList.remove('hide');
+    document.getElementById('game-result-text').textContent = 'You win!';
+    
+    // Stoppe alle Spiel-Intervalle
+    intervalIds.forEach(clearInterval);
+}
+
+/**
+ * Restarts the game after game over.
+ * Cleans up previous game state and starts fresh.
+ */
 function restartGame() {
+    // Stoppe alle Sounds vor Neustart
+    AudioHub.stopAll();
+    
     clearCanvas();
     resetGameState();
     startGame(); 
 }
 
+/**
+ * Clears the game canvas completely.
+ */
 function clearCanvas() {
     canvas = document.getElementById('canvas');
     ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
+/**
+ * Resets the game state for restart.
+ * Hides overlay and clears world reference.
+ */
 function resetGameState() {
     document.getElementById('game-overlay').classList.add('hide');    
     world = null;
+    
+    // Intervalle zurücksetzen für sauberen Neustart
+    intervalIds.forEach(clearInterval);
+    intervalIds = [];
 }
 
 function fullscreen(){
@@ -203,17 +251,14 @@ document.addEventListener('DOMContentLoaded', initializeMuteState);
  * Unlocks audio system first, then starts the game.
  */
 async function handleStartGame() {
-    console.log('Start Game button clicked - initializing iOS audio...');
-    
     try {
         // Initialize iOS audio on user interaction
         await AudioHub.initializeIOSAudio();
-        console.log('iOS audio initialized, starting game...');
         
         // Start the actual game
         startGame();
     } catch (error) {
-        console.warn('Audio initialization failed, starting game anyway:', error);
+        // Audio initialization failed, starting game anyway
         startGame();
     }
 }
@@ -225,7 +270,6 @@ async function handleStartGame() {
 function setupIOSAudioUnlock() {
     const unlockAudio = async () => {
         if (!AudioHub.audioUnlocked) {
-            console.log('User interaction detected, unlocking iOS audio...');
             await AudioHub.initializeIOSAudio();
         }
     };

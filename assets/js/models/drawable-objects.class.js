@@ -55,8 +55,7 @@ class DrawableObject {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
         }
         catch(e){
-            console.warn('Error loading Image', e);
-            console.log('Could not not load Image', this.img);
+            // Error loading image - using fallback
         }
     };
 

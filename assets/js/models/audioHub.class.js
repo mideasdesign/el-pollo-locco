@@ -63,11 +63,8 @@ class AudioHub {
             
             if (!isIOS) {
                 AudioHub.audioUnlocked = true;
-                console.log('Non-iOS device detected, audio ready');
                 return true;
             }
-
-            console.log('iOS device detected, initializing audio...');
             
             // Create AudioContext for iOS
             const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -95,18 +92,15 @@ class AudioHub {
                 testAudio.pause();
                 testAudio.currentTime = 0;
                 AudioHub.audioUnlocked = true;
-                console.log('iOS audio successfully unlocked!');
                 
                 // Process any queued audio
                 AudioHub.processAudioQueue();
                 return true;
             } catch (error) {
-                console.warn('iOS audio test failed:', error);
                 return false;
             }
             
         } catch (error) {
-            console.error('Failed to initialize iOS audio:', error);
             return false;
         }
     }
@@ -136,7 +130,6 @@ class AudioHub {
             if (!AudioHub.pendingAudioQueue.includes(sound)) {
                 AudioHub.pendingAudioQueue.push(sound);
             }
-            console.log('Audio queued for iOS unlock:', sound.src);
             return;
         }
         
@@ -154,17 +147,18 @@ class AudioHub {
             const playPromise = sound.play();
             if (playPromise !== undefined) {
                 playPromise.then(() => {
-                    console.log('Audio playing successfully:', sound.src);
+                    // Audio playing successfully
                 }).catch(error => {
-                    console.warn('Audio playback failed:', error);
-                    // Retry once on failure
+                    // Audio playback failed - retry once
                     setTimeout(() => {
-                        sound.play().catch(e => console.warn('Audio retry failed:', e));
+                        sound.play().catch(e => {
+                            // Audio retry failed
+                        });
                     }, 100);
                 });
             }
         } catch (error) {
-            console.error('Audio play error:', error);
+            // Audio play error
         }
     }
 
@@ -195,7 +189,40 @@ class AudioHub {
         AudioHub.pausedSounds.clear();
     }
     
-    // Stoppt das Abspielen einer einzelnen Audiodatei
+    /**
+     * Stoppt alle laufenden Sounds und setzt sie auf Anfang zurück.
+     * Ideal für Spielende (Gewinn/Verlust) um alle Audio-Wiedergabe zu beenden.
+     * @param {Audio[]} exceptions - Optional: Sounds die nicht gestoppt werden sollen
+     */
+    static stopAll(exceptions = []) {
+        AudioHub.allSounds.forEach((sound) => {
+            // Überspringe Sounds in der Ausnahmeliste
+            if (!exceptions.includes(sound)) {
+                sound.pause();
+                sound.currentTime = 0; // Alle Sounds auf Anfang zurücksetzen
+            }
+        });
+        
+        // Leere die Warteschlange für iOS
+        AudioHub.pendingAudioQueue = [];
+        
+        // Leere pausierte Sounds
+        AudioHub.pausedSounds.clear();
+    }
+
+    /**
+     * Stoppt alle Sounds außer Game-Over- und Gewinn-Sounds.
+     * Spezielle Methode für Spielende.
+     */
+    static stopAllExceptEndgame() {
+        const endgameSounds = [AudioHub.gameoverSound, AudioHub.gamewinSound, AudioHub.youwinSound, AudioHub.youlooseSound];
+        AudioHub.stopAll(endgameSounds);
+    }
+    
+    /**
+     * Stoppt das Abspielen einer einzelnen Audiodatei.
+     * @param {Audio} sound - Das zu stoppende Audio-Element
+     */
     static stopOne(sound) {
         sound.pause();
         sound.currentTime = 0; // Bei einzelnem Stop auf Anfang setzen
