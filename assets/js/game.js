@@ -12,26 +12,6 @@ let audio;
 let intervalIds = [];
 /** @type {Element} - Reference to document element for fullscreen */
 let fs = document.documentElement;
-
-/*  function resize() {
-// We are resizing for mobile devices only. For other devices, the
-// dimensions will be stuck at 800 * 600. To change the default dimensions,
-// change the height and width of the canvas and the width of the #container
-let win = window,
-    doc = document,
-    w = win.innerWidth,
-    h = win.innerHeight,
-    container = doc.getElementById('wrapper'),
-    canvas = doc.getElementById('canvas');
-
-if( win.navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/i) ) {
-    canvas.height = h;
-    canvas.width  = w;
-    container.style.height = h+"px";
-    container.style.width = w+"px";
-}
-}; */
-
 /**
  * Creates a tracked interval that can be cleared when the game ends.
  * All intervals created with this function are automatically managed.
