@@ -111,6 +111,8 @@ class World {
   checkCollisionsFromTop() {
     gameIntervals(() => {
       this.level.enemies.forEach((enemy, index) => {
+        this.character.getRealFrame();
+        enemy.getRealFrame();
         if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(enemy) && !enemy.dead) {
           enemy.deadChicken();
           AudioHub.playOne(AudioHub.chickenSound);
@@ -129,6 +131,8 @@ class World {
   checkCollisionChicksFromTop() {
     gameIntervals(() => {
       this.level.chicks.forEach((chick, index) => {
+        this.character.getRealFrame();
+        chick.getRealFrame();
         if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(chick)) {
           chick.speed = 0;
           AudioHub.playOne(AudioHub.chicksSound);
@@ -140,6 +144,8 @@ class World {
 
   checkCollisionsPepe() {
     this.level.enemies.forEach((enemy) => {
+      this.character.getRealFrame();
+      enemy.getRealFrame();
       if (this.character.isColliding(enemy) && !enemy.dead) {
         this.character.hitPepe();
         AudioHub.playOne(AudioHub.pepeSound);
@@ -150,6 +156,8 @@ class World {
 
   checkCollisionsChicksPepe() {
     this.level.chicks.forEach((chick) => {
+      this.character.getRealFrame();
+      chick.getRealFrame();
       if (this.character.isColliding(chick) && !chick.isDead()) {
         this.character.hitPepe();
         AudioHub.playOne(AudioHub.pepeSound);
@@ -159,6 +167,8 @@ class World {
   }
 
   checkCollisionsBossPepe() {
+    this.character.getRealFrame();
+    this.endboss.getRealFrame();
     if (this.character.isColliding(this.endboss)) {
       this.character.hitPepe();
       AudioHub.playOne(AudioHub.pepeSound);
@@ -207,6 +217,8 @@ class World {
 
   checkCollisionsBoss() {
     this.throwableObject.forEach((bottle) => {
+      this.endboss.getRealFrame();
+      bottle.getRealFrame();
       if (this.endboss.isColliding(bottle)) {
         this.endboss.hitBoss();
         this.bossBar.setPercentage(this.endboss.healthBoss);
@@ -217,6 +229,8 @@ class World {
 
   checkCollectibles() {
     this.level.coins.forEach((coin, index) => {
+      this.character.getRealFrame();
+      coin.getRealFrame();
       if (this.character.isColliding(coin)) {
         this.coinsBar.setPercentage(this.coinsBar.percentage + 10);
         AudioHub.playOne(AudioHub.coinSound);
@@ -224,6 +238,8 @@ class World {
       }
     });
     this.level.bottles.forEach((bottle, index) => {
+      this.character.getRealFrame();
+      bottle.getRealFrame();
       if (this.character.isColliding(bottle)) {
         this.bottlesBar.setPercentage(this.bottlesBar.percentage + 10);
         AudioHub.playOne(AudioHub.bottleSound);

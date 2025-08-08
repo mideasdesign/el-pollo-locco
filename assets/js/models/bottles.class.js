@@ -45,4 +45,15 @@ class Bottles extends MovableObject {
       this.getRealFrame();
       this.loadImages(this.images_bottles);
     }
+
+    /**
+     * Calculates collision frame for bottles using original formula.
+     * Bottles need larger collision boxes for easier collection.
+     */
+    getRealFrame() {
+      this.rX = this.x + this.offset.left;
+      this.rY = this.y + this.offset.top;
+      this.rW = this.width + this.offset.left - this.offset.right;
+      this.rH = this.height - this.offset.top - this.offset.bottom;
+    }
   }

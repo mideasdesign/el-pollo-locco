@@ -9,8 +9,6 @@ class Chicks extends MovableObject{
     width = 40;
     /** @type {number} - Height of the chick sprite (smaller than regular chickens) */
     height = 50;
-    /** @type {boolean} - True when chick is facing left */
-    otherDirection = false;
     /** 
      * @type {Object} - Collision box offset for precise collision detection
      * @property {number} top - Top offset
@@ -20,9 +18,9 @@ class Chicks extends MovableObject{
      */
     offset = {
         top: 7,
-        right: 10,
+        right: 5,    // Vertausche left/right für nach links schauende Sprites
         bottom: 6,
-        left: 5
+        left: 10
     };
 
     /** @type {string[]} - Array of image paths for walking animation */
@@ -44,6 +42,7 @@ class Chicks extends MovableObject{
         super().loadImage('assets/images/3_enemies_chicken/chicken_small/1_walk/1_w.png');
         this.x = 1400 + Math.random() * 2000;  // Random position in later level area
         this.y = 430 - this.height;            // Ground level positioning
+        this.otherDirection = false; // Küken-Sprites schauen bereits nach links
         this.getRealFrame();
         this.loadImages(this.images_walking);
         this.speed = 0.19 + Math.random() * 1.20;  // Variable speed (faster than chickens)
@@ -65,5 +64,24 @@ class Chicks extends MovableObject{
         gameIntervals(() => {
             this.playAnimation(this.images_walking);
         }, 100);
+    }
+
+    /**
+     * Calculates the real collision frame based on chick position.
+     * Uses standard calculation since offsets are designed for left-facing sprites.
+     */
+    getRealFrame() {
+        this.rX = this.x + this.offset.left;
+        this.rY = this.y + this.offset.top;
+        this.rW = this.width + this.offset.left - this.offset.right;
+        this.rH = this.height - this.offset.top - this.offset.bottom;
+    }
+
+    /**
+     * Moves the chick to the left.
+     * Uses the base implementation since direction doesn't change.
+     */
+    moveLeft() {
+        this.x -= this.speed;
     }
 }

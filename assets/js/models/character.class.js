@@ -9,7 +9,7 @@ class Character extends MovableObject {
   /** @type {number} - Initial y position of the character */
   y = 80;
   /** @type {number} - Width of the character sprite */
-  width = 120;
+  width = 130;
   /** @type {number} - Height of the character sprite */
   height = 250;
   /** @type {number} - Movement speed of the character */
@@ -25,9 +25,9 @@ class Character extends MovableObject {
    */
   offset = {
     top: 110,
-    right: 70,
+    right: 28,    // Erhöhe beide Werte um die Box zu verkleinern
     bottom: 15,
-    left: 20,
+    left: 28,     // Gleicher Wert für Symmetrie
   };
 
   /** @type {number} - Character's health points */
@@ -131,6 +131,26 @@ class Character extends MovableObject {
   }
 
   /**
+   * Calculates the real collision frame based on character position and direction.
+   * Overrides the base method to properly handle character direction changes.
+   */
+  getRealFrame() {
+    if (this.otherDirection) {
+      // When facing left, adjust collision box accordingly
+      this.rX = this.x + this.offset.right;
+      this.rY = this.y + this.offset.top;
+      this.rW = this.width - this.offset.right - this.offset.left;
+      this.rH = this.height - this.offset.top - this.offset.bottom;
+    } else {
+      // Normal calculation when facing right
+      this.rX = this.x + this.offset.left;
+      this.rY = this.y + this.offset.top;
+      this.rW = this.width - this.offset.left - this.offset.right;
+      this.rH = this.height - this.offset.top - this.offset.bottom;
+    }
+  }
+
+  /**
    * Main animation controller that starts all animation loops.
    * Coordinates visual animations, movement, and state changes.
    */
@@ -175,6 +195,7 @@ class Character extends MovableObject {
     gameIntervals(() => {
       if (this.world.keyboard.right && this.x < this.world.level.level_end_x) {
         this.moveRight();
+        this.otherDirection = false;
       }
       if (this.world.keyboard.left && this.x > 66) {
         this.moveLeft();

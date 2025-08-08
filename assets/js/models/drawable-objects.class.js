@@ -46,7 +46,7 @@ class DrawableObject {
     getRealFrame(){
         this.rX = this.x + this.offset.left;
         this.rY = this.y + this.offset.top;
-        this.rW = this.width + this.offset.left - this.offset.right;
+        this.rW = this.width - this.offset.left - this.offset.right;
         this.rH = this.height - this.offset.top - this.offset.bottom;
     };
     
@@ -72,8 +72,8 @@ class DrawableObject {
     drawRealFrame(ctx){
         if (this instanceof Character || this instanceof Chicken || this instanceof Chicks || this instanceof Endboss || this instanceof Coins || this instanceof Bottles || this instanceof ThrowableObject){
             ctx.beginPath();
-            ctx.lineWidth = '1';
-            ctx.strokeStyle = 'transparent';
+            ctx.lineWidth = '2';
+            ctx.strokeStyle = 'red';
             ctx.rect(this.rX, this.rY, this.rW, this.rH);
             ctx.stroke();
         }

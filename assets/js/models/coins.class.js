@@ -58,4 +58,15 @@ coinsLevel = 0;
         this.playAnimation(this.images_coins);
       }, 200);  // Spin every 200ms for attractive effect
     }
+
+    /**
+     * Calculates collision frame for coins using original formula.
+     * Coins need larger collision boxes for easier collection.
+     */
+    getRealFrame() {
+      this.rX = this.x + this.offset.left;
+      this.rY = this.y + this.offset.top;
+      this.rW = this.width + this.offset.left - this.offset.right;
+      this.rH = this.height - this.offset.top - this.offset.bottom;
+    }
   }

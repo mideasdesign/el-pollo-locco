@@ -8,8 +8,6 @@ class Chicken extends MovableObject{
     width = 40;
     /** @type {number} - Height of the chicken sprite */
     height = 60;
-    /** @type {boolean} - True when chicken is facing left */
-    otherDirection = false;
     /** 
      * @type {Object} - Collision box offset for precise collision detection
      * @property {number} top - Top offset
@@ -19,9 +17,9 @@ class Chicken extends MovableObject{
      */
     offset = {
         top: 7,
-        right: 10,
+        right: 5,    // Vertausche left/right für nach links schauende Sprites
         bottom: 6,
-        left: 5
+        left: 10
     };
 
     /** @type {string[]} - Array of image paths for walking animation */
@@ -50,6 +48,7 @@ class Chicken extends MovableObject{
         super().loadImage('assets/images/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.x = 1500 + Math.random() * 1700;
         this.y = 430 - this.height;
+        this.otherDirection = false; // Hühner-Sprites schauen bereits nach links
         this.getRealFrame();
         this.loadImages(this.images_walking);
         this.loadImages(this.images_dead); // Lade auch das tote Bild
@@ -94,5 +93,24 @@ class Chicken extends MovableObject{
         if (this.imageCache['assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png']) {
             this.img = this.imageCache['assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png'];
         }
+    }
+
+    /**
+     * Calculates the real collision frame based on chicken position.
+     * Uses standard calculation since offsets are designed for left-facing sprites.
+     */
+    getRealFrame() {
+        this.rX = this.x + this.offset.left;
+        this.rY = this.y + this.offset.top;
+        this.rW = this.width + this.offset.left - this.offset.right;
+        this.rH = this.height - this.offset.top - this.offset.bottom;
+    }
+
+    /**
+     * Moves the chicken to the left.
+     * Uses the base implementation since direction doesn't change.
+     */
+    moveLeft() {
+        this.x -= this.speed;
     }
 }
