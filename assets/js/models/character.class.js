@@ -31,11 +31,13 @@ class Character extends MovableObject {
   };
 
   /** @type {number} - Character's health points */
-  healthPepe = 1000;
+  healthPepe = 300;
   /** @type {boolean} - True when character is facing left */
   otherDirection = false;
   /** @type {number} - Timestamp of last movement for idle animation */
   lastMove = new Date().getTime();
+  /** @type {number} - Timestamp of last hurt sound to prevent spam */
+  lastHurtSound = 0;
 
   /** @type {string[]} - Array of image paths for idle animation */
   images_idle = [

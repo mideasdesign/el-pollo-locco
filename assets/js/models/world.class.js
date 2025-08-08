@@ -148,7 +148,12 @@ class World {
       enemy.getRealFrame();
       if (this.character.isColliding(enemy) && !enemy.dead) {
         this.character.hitPepe();
-        AudioHub.playOne(AudioHub.pepeSound);
+        // Only play hurt sound if enough time has passed since last hurt sound
+        const currentTime = new Date().getTime();
+        if (currentTime - this.character.lastHurtSound > 400) { // 400ms cooldown for sound
+          AudioHub.playOne(AudioHub.pepeSound);
+          this.character.lastHurtSound = currentTime;
+        }
         this.statusBar.setPercentage(this.character.healthPepe);
       }
     });
@@ -160,7 +165,12 @@ class World {
       chick.getRealFrame();
       if (this.character.isColliding(chick) && !chick.isDead()) {
         this.character.hitPepe();
-        AudioHub.playOne(AudioHub.pepeSound);
+        // Only play hurt sound if enough time has passed since last hurt sound
+        const currentTime = new Date().getTime();
+        if (currentTime - this.character.lastHurtSound > 400) { // 400ms cooldown for sound
+          AudioHub.playOne(AudioHub.pepeSound);
+          this.character.lastHurtSound = currentTime;
+        }
         this.statusBar.setPercentage(this.character.healthPepe);
       }
     });
@@ -171,7 +181,12 @@ class World {
     this.endboss.getRealFrame();
     if (this.character.isColliding(this.endboss)) {
       this.character.hitPepe();
-      AudioHub.playOne(AudioHub.pepeSound);
+      // Only play hurt sound if enough time has passed since last hurt sound
+      const currentTime = new Date().getTime();
+      if (currentTime - this.character.lastHurtSound > 400) { // 400ms cooldown for sound
+        AudioHub.playOne(AudioHub.pepeSound);
+        this.character.lastHurtSound = currentTime;
+      }
       this.statusBar.setPercentage(this.character.healthPepe);
     }
   }
@@ -182,7 +197,7 @@ class World {
    * multiple audio stops/starts during movement.
    */
   checkBossAttack() {
-    if (this.character.rX > 2350 && !this.bossAttackTriggered) {
+    if (this.character.rX > 2500 && !this.bossAttackTriggered) {
       this.bossAttackTriggered = true;  // Prevent multiple triggers
       this.isAttacking = true;
       AudioHub.stopOne(AudioHub.background);

@@ -173,6 +173,9 @@ class AudioHub {
                 // Speichere Position nur wenn Sound aktiv läuft
                 AudioHub.pausedSounds.set(sound, sound.currentTime);
                 sound.pause();
+            } else if (sound === AudioHub.background && sound.currentTime > 0) {
+                // Spezielle Behandlung für pausierte Hintergrundmusik
+                AudioHub.pausedSounds.set(sound, sound.currentTime);
             }
         });
     }
@@ -182,9 +185,28 @@ class AudioHub {
         AudioHub.pausedSounds.forEach((position, sound) => {
             if (sound.readyState == 4) {
                 sound.currentTime = position; // Setze auf gespeicherte Position
-                sound.play();
+                sound.play().catch(error => {
+                    // Wenn normaler Start fehlschlägt, versuche von vorne
+                    sound.currentTime = 0;
+                    sound.play().catch(e => {
+                        // Auch Neustart fehlgeschlagen
+                    });
+                });
             }
         });
+        
+        // Spezielle Behandlung für Hintergrundmusik falls sie nicht in pausedSounds war
+        if (!AudioHub.pausedSounds.has(AudioHub.background) && 
+            AudioHub.background.paused && 
+            AudioHub.background.readyState == 4) {
+            AudioHub.background.currentTime = 0;
+            AudioHub.background.loop = true;
+            AudioHub.background.volume = 0.3;
+            AudioHub.background.play().catch(error => {
+                // Hintergrundmusik Start fehlgeschlagen
+            });
+        }
+        
         // Lösche gespeicherte Positionen nach dem Fortsetzen
         AudioHub.pausedSounds.clear();
     }
