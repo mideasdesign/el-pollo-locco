@@ -124,6 +124,7 @@ a.imprint{
   padding:6px;
   margin: 0 1rem;
   font-size:var(--text-0);
+  height:20px;
 }
 ul{
   list-style: none;
@@ -297,6 +298,53 @@ z-index:8000;
     }
   }
 }
+/* Touch Control Styles - Hidden by default, shown only on touch devices */
+#controls-box {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: none; /* Hidden by default */
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 1000;
+}
+
+/* Show touch controls when touch device is detected */
+#controls-box.show-touch-controls {
+  display: flex;
+}
+
+#controls-box button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+#controls-box button:active,
+#controls-box button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(0.95);
+}
+
+#controls-box button img {
+  width: 30px;
+  height: 30px;
+  filter: invert(1);
+}
+
+.touch-pan-left,
+.touch-pan-right {
+  display: flex;
+  gap: 15px;
+}
+
 @media( max-width:936px){
   section{
     width:100vw;
@@ -306,11 +354,8 @@ z-index:8000;
     flex-direction: column;
     justify-content: center;
   }
-.desktop-keys{
-  display:none;
-}
+/* Note: .desktop-keys and .mobile-keys visibility now controlled by touchDetection.js */
 .mobile-keys{
-  display:flex;
   margin-top: 2rem;
   justify-content: center;
   align-items: center;

@@ -55,7 +55,7 @@ class World {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
-    touchBtn();
+    // Touch controls are now initialized by touchDetection.js in startGame()
   }
 
   /**

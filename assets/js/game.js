@@ -35,6 +35,10 @@ async function startGame() {
         // Initialize iOS audio system first
         await AudioHub.initializeIOSAudio();
         
+        // Setup input controls based on device capabilities
+        setupInputControls();
+        setupResponsiveControls();
+        
         // Lock screen orientation
         screen.orientation.lock('landscape').catch((err) => {
             // Orientation lock failed (not critical)
@@ -44,6 +48,8 @@ async function startGame() {
         showGameUI();
     } catch (error) {
         // Game start warning - fallback: start game anyway
+        setupInputControls();
+        setupResponsiveControls();
         initializeGame();
         showGameUI();
     }
@@ -284,23 +290,9 @@ document.addEventListener('DOMContentLoaded', setupIOSAudioUnlock);
 
     });
 
+    // Legacy touch function - now replaced by touchDetection.js
+    // Kept for compatibility but functionality moved to setupTouchControls()
     function touchBtn(){
-        addTouchListener('btn-left', 'left');
-        addTouchListener('btn-right', 'right');
-        addTouchListener('btn-jump', 'space');
-        addTouchListener('btn-throw', 't');
-    }
-
-    function addTouchListener(buttonId, keyboardProperty) {
-        const button = document.getElementById(buttonId);
-        
-        button.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            keyboard[keyboardProperty] = true;
-        });
-
-        button.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            keyboard[keyboardProperty] = false;
-        });
+        // This function is now handled by setupInputControls() in touchDetection.js
+        console.log('⚠️ Legacy touchBtn() called - functionality moved to touchDetection.js');
     }
