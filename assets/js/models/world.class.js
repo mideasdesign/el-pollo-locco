@@ -43,7 +43,7 @@ class World {
   constructor(canvas, keyboard) {
     this.initializeCanvas(canvas, keyboard);
     this.initializeGame();
-  }
+  };
 
   /**
    * Initializes canvas context and keyboard controls.
@@ -56,7 +56,7 @@ class World {
     this.canvas = canvas;
     this.keyboard = keyboard;
     // Touch controls are now initialized by touchDetection.js in startGame()
-  }
+  };
 
   /**
    * Initializes the game world and starts main game loops.
@@ -67,7 +67,7 @@ class World {
     this.setWorld();
     this.startCollisionChecks();
     this.run();
-  }
+  };
 
   /**
    * Starts all collision detection intervals.
@@ -80,7 +80,7 @@ class World {
     this.checkCollisionsBoss();
     this.checkThrowableObject();
     this.checkBossAttack();
-  }
+  };
 
   /**
    * Establishes bidirectional reference between world and character.
@@ -89,7 +89,7 @@ class World {
   setWorld() {
     this.character.world = this;
     this.character.startAnimation();
-  }
+  };
 
   /**
    * Main game loop that handles ongoing collision detection.
@@ -106,7 +106,7 @@ class World {
       this.checkBossAttack();
       this.moveCoins();
     }, 100);
-  }
+  };
 
   checkCollisionsFromTop() {
     gameIntervals(() => {
@@ -122,11 +122,15 @@ class World {
             if (currentIndex > -1) {
               this.level.enemies.splice(currentIndex, 1);
             }
+
           }, 1000); // 1 Sekunde Verzögerung
         }
+
       });
+
     }, 30);
-  }
+
+  };
 
   checkCollisionChicksFromTop() {
     gameIntervals(() => {
@@ -139,8 +143,9 @@ class World {
           this.level.chicks.splice(index, 1);
         }
       });
+      
     }, 30);
-  }
+  };
 
   checkCollisionsPepe() {
     this.level.enemies.forEach((enemy) => {
@@ -153,11 +158,11 @@ class World {
         if (currentTime - this.character.lastHurtSound > 400) { // 400ms cooldown for sound
           AudioHub.playOne(AudioHub.pepeSound);
           this.character.lastHurtSound = currentTime;
-        }
+        };
         this.statusBar.setPercentage(this.character.healthPepe);
-      }
+      };
     });
-  }
+  };
 
   checkCollisionsChicksPepe() {
     this.level.chicks.forEach((chick) => {
@@ -170,11 +175,11 @@ class World {
         if (currentTime - this.character.lastHurtSound > 400) { // 400ms cooldown for sound
           AudioHub.playOne(AudioHub.pepeSound);
           this.character.lastHurtSound = currentTime;
-        }
+        };
         this.statusBar.setPercentage(this.character.healthPepe);
-      }
+      };
     });
-  }
+  };
 
   checkCollisionsBossPepe() {
     this.character.getRealFrame();
@@ -188,8 +193,8 @@ class World {
         this.character.lastHurtSound = currentTime;
       }
       this.statusBar.setPercentage(this.character.healthPepe);
-    }
-  }
+    };
+  };
 
   /**
    * Checks if boss attack should be triggered based on character position.
@@ -203,8 +208,8 @@ class World {
       AudioHub.stopOne(AudioHub.background);
       AudioHub.playOne(AudioHub.attackSound);
       this.endboss.startAttack();
-    }
-  }
+    };
+  };
 
   /**
    * Handles throwing bottles with cooldown system.
@@ -227,8 +232,8 @@ class World {
       
       // Update last throw time to start cooldown
       this.lastThrowTime = currentTime;
-    }
-  }
+    };
+  };
 
   checkCollisionsBoss() {
     this.throwableObject.forEach((bottle) => {
@@ -238,9 +243,9 @@ class World {
         this.endboss.hitBoss();
         this.bossBar.setPercentage(this.endboss.healthBoss);
         bottle.splash();
-      }
+      };
     });
-  }
+  };
 
   checkCollectibles() {
     this.level.coins.forEach((coin, index) => {
@@ -250,7 +255,7 @@ class World {
         this.coinsBar.setPercentage(this.coinsBar.percentage + 10);
         AudioHub.playOne(AudioHub.coinSound);
         this.level.coins.splice(index, 1);
-      }
+      };
     });
     this.level.bottles.forEach((bottle, index) => {
       this.character.getRealFrame();
@@ -259,9 +264,9 @@ class World {
         this.bottlesBar.setPercentage(this.bottlesBar.percentage + 10);
         AudioHub.playOne(AudioHub.bottleSound);
         this.level.bottles.splice(index, 1);
-      }
+      };
     });
-  }
+  };
 
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -269,21 +274,21 @@ class World {
     this.drawUI();
     this.drawGameObjects();
     this.scheduleNextFrame();
-  }
+  };
 
   drawBackground() {
     this.ctx.translate(this.cameraX, 0);
     this.addObjectsToMap(this.level.backgroundObjects);
     this.addObjectsToMap(this.level.clouds);
     this.ctx.translate(-this.cameraX, 0);
-  }
+  };
 
   drawUI() {
     this.addToMap(this.statusBar);
     this.addToMap(this.coinsBar);
     this.addToMap(this.bottlesBar);
     this.addToMap(this.bossBar);
-  }
+  };
 
   drawGameObjects() {
     this.ctx.translate(this.cameraX, 0);
@@ -295,25 +300,25 @@ class World {
     this.addObjectsToMap(this.level.chicks);
     this.addObjectsToMap(this.level.enemies);
     this.ctx.translate(-this.cameraX, 0);
-  }
+  };
 
   scheduleNextFrame() {
     let self = this;
     requestAnimationFrame(function () {
       self.draw();
     });
-  }
+  };
 
   addObjectsToMap(objects) {
     objects.forEach((o) => {
       this.addToMap(o);
     });
-  }
+  };
 
   addToMap(mo) {
     if (mo.otherDirection) {
       mo.changeDirection(this.ctx);
-    }
+    };
     mo.getRealFrame();
     mo.draw(this.ctx);
     mo.drawFrame(this.ctx);
@@ -321,12 +326,12 @@ class World {
     if (mo.otherDirection) {
       mo.x = mo.x * -1;
       this.ctx.restore();
-    }
-  }
+    };
+  };
   moveCoins(){
     if (this.coinsBar >= 100 && this.statusBar < 100) {
       this.coinsBar.setPercentage(this.coinsBar.percentage - 10);
       this.statusBar.setPercentage(this.statusBar.percentage + 10);
-    }
-  }
+    };
+  };
 }

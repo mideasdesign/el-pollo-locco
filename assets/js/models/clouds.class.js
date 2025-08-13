@@ -18,20 +18,20 @@ class Clouds extends MovableObject {
    * @param {string} imagePath - Path to the cloud image file
    * @param {number} x - Initial X position of the cloud
    */
-  constructor(imagePath, x){
+  constructor(imagePath, x) {
     super().loadImage(imagePath);
     this.x = x;
     this.y = 400 - this.height;  // Position in sky area (negative Y)
     this.animate();
-}
+  }
 
   /**
    * Starts the cloud's slow drift animation.
    * Moves clouds continuously left at 30 FPS for smooth motion.
    */
-  animate(){
+  animate() {
     gameIntervals(() => {
         this.moveLeft();
     }, 1000 / 30);  // 30 FPS for smooth cloud movement
-}
+  }
 }

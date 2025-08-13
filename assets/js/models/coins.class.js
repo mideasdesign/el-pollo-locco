@@ -29,8 +29,8 @@ coinsLevel = 0;
   images_coins = [
         'assets/images/8_coin/coin_1.png',  // Coin frame 1 (spinning animation)
         'assets/images/8_coin/coin_2.png'   // Coin frame 2 (spinning animation)
-      ];  
-      
+      ];
+
   /**
    * Creates a new Coins instance at specified position.
    * Sets up spinning animation and collision detection.
@@ -47,7 +47,7 @@ coinsLevel = 0;
       this.getRealFrame();
       this.animate();
     }
-  
+
     /**
      * Starts the coin's spinning animation.
      * Creates an attractive visual effect by cycling through coin frames.

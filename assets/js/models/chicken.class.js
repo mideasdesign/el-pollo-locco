@@ -61,18 +61,17 @@ class Chicken extends MovableObject{
      * Handles continuous left movement and walking animation.
      * Stops all animations when the chicken is dead.
      */
-    animate(){
-             this.moveLeftInterval = gameIntervals(() => {
-                if (!this.dead) { // Nur bewegen wenn nicht tot
-                    this.moveLeft();
-                }
-            }, 1000 / 25);
-           this.wakingInterval = gameIntervals(() => {
-                if (!this.dead) { // Nur animieren wenn nicht tot
-                    this.playAnimation(this.images_walking);
-                }
-            }, 100);
-
+    animate() {
+        this.moveLeftInterval = gameIntervals(() => {
+            if (!this.dead) { // Nur bewegen wenn nicht tot
+                this.moveLeft();
+            }
+        }, 1000 / 25);
+        this.wakingInterval = gameIntervals(() => {
+            if (!this.dead) { // Nur animieren wenn nicht tot
+                this.playAnimation(this.images_walking);
+            }
+        }, 100);
     }
 
     /**
@@ -85,10 +84,8 @@ class Chicken extends MovableObject{
         this.speed = 0; // Stoppe Bewegung
         clearInterval(this.moveLeftInterval);
         clearInterval(this.wakingInterval);
-        
         // Direkte und sichere Bildladung
         this.loadImage('assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png');
-        
         // Zusätzlich: Stelle sicher, dass das Bild sofort gesetzt wird
         if (this.imageCache['assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png']) {
             this.img = this.imageCache['assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png'];

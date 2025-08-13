@@ -105,7 +105,7 @@ class Character extends MovableObject {
 
   /** @type {World} - Reference to the game world instance */
   world;
-  
+
   /**
    * Creates a new Character instance.
    * Loads all image assets and initializes animations and physics.
@@ -172,9 +172,7 @@ class Character extends MovableObject {
       const k = this.world.keyboard;
       const inactive = this.wasInactive();
       const isMoving = k.right || k.left;
-
       if (this.isDead() || this.ishurt() || this.isJumping) return;
-
       if (isMoving) {
         this.lastMove = new Date().getTime();
         this.playAnimation(this.images_walking);

@@ -32,7 +32,10 @@ function gameIntervals(fn, time) {
  */
 async function startGame() {
     try {
-        // Initialize iOS audio system first
+        // Initialize mute state from localStorage FIRST
+        initializeMuteState();
+        
+        // Initialize iOS audio system
         await AudioHub.initializeIOSAudio();
         
         // Setup input controls based on device capabilities
@@ -48,6 +51,7 @@ async function startGame() {
         showGameUI();
     } catch (error) {
         // Game start warning - fallback: start game anyway
+        initializeMuteState(); // Ensure mute state is set even in fallback
         setupInputControls();
         setupResponsiveControls();
         initializeGame();
@@ -137,10 +141,16 @@ function gameWon() {
 /**
  * Restarts the game after game over.
  * Cleans up previous game state and starts fresh.
+ * Preserves user's mute preference during restart.
  */
 function restartGame() {
-    // Stoppe alle Sounds vor Neustart
-    AudioHub.stopAll();
+    // Stoppe alle aktuell spielenden Sounds vor Neustart
+    AudioHub.allSounds.forEach(sound => {
+        if (!sound.paused) {
+            sound.pause();
+            sound.currentTime = 0;
+        }
+    });
     
     clearCanvas();
     resetGameState();
@@ -216,15 +226,21 @@ function allSounds() {
     }
 }
 
+/**
+ * Initializes the mute state from localStorage and updates UI accordingly.
+ * Sets the AudioHub mute state and button icon based on saved preferences.
+ * Called at game start to restore user's audio preferences.
+ */
 function initializeMuteState() {
     const isMuted = JSON.parse(localStorage.getItem('mute')) === 'on';
     const btn = document.getElementById('btn-mute');
     
+    // Set AudioHub mute state to match localStorage
+    AudioHub.isMuted = isMuted;
+    
     if (isMuted) {
-        AudioHub.isMuted = true;
         btn.innerHTML = `<img src="./assets/images/btn_mute_on.svg" alt="mute button">`;
     } else {
-        AudioHub.isMuted = false;
         btn.innerHTML = `<img src="./assets/images/btn_mute_off.svg" alt="mute button">`;
     }
 }

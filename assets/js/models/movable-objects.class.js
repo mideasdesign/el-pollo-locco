@@ -67,7 +67,7 @@ playAnimation(images) {
   let path = images[i];
   this.img = this.imageCache[path];
   this.currentImage++;
-}
+};
 
   /**
    * Flips the object horizontally for rendering in opposite direction.
@@ -127,9 +127,9 @@ playAnimation(images) {
     let timespassed = new Date().getTime() - this.lastHit;
     timespassed = timespassed / 1000;
     return timespassed < 0.8;
-  }
+  };
 
   isDead() {
     return this.healthPepe == 0 || this.healthBoss == 0 || this.enemy == 0 || this.chick == 0;
-  }
+  };
 }

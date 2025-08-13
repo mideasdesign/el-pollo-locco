@@ -28,36 +28,36 @@ class DrawableObject {
     rW;
     /** @type {number} - Real collision box height */
     rH;
-  
+
     /**
      * Loads a single image from the specified path.
      * Creates a new Image object and sets its source.
      * @param {string} path - Path to the image file
      */
-    loadImage(path){
+    loadImage(path) {
         this.img = new Image();
         this.img.src = path;
-    };
+    }
 
     /**
      * Calculates the real collision frame based on object position and offsets.
      * Used for precise collision detection by adjusting the collision box.
      */
-    getRealFrame(){
+    getRealFrame() {
         this.rX = this.x + this.offset.left;
         this.rY = this.y + this.offset.top;
         this.rW = this.width - this.offset.left - this.offset.right;
         this.rH = this.height - this.offset.top - this.offset.bottom;
-    };
-    
-    draw(ctx){
-        try{
+    }
+
+    draw(ctx) {
+        try {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
         }
-        catch(e){
+        catch(e) {
             // Error loading image - using fallback
         }
-    };
+    }
 
     drawFrame(ctx){
         if (this instanceof Character || this instanceof Chicken || this instanceof Chicks || this instanceof Endboss || this instanceof Coins || this instanceof Bottles || this instanceof ThrowableObject){
@@ -67,29 +67,29 @@ class DrawableObject {
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
         }
-    };
+    }
 
-    drawRealFrame(ctx){
-        if (this instanceof Character || this instanceof Chicken || this instanceof Chicks || this instanceof Endboss || this instanceof Coins || this instanceof Bottles || this instanceof ThrowableObject){
+    drawRealFrame(ctx) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Chicks || this instanceof Endboss || this instanceof Coins || this instanceof Bottles || this instanceof ThrowableObject) {
             ctx.beginPath();
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'transparent';
             ctx.rect(this.rX, this.rY, this.rW, this.rH);
             ctx.stroke();
         }
-    };
+    }
+
     /**
-     * 
-     * @param { Array
-     * } arr - ['assets/images/img1.png, assets/images/img1.png, ....']
+     * Loads multiple images into the image cache for animations.
+     * @param {string[]} arr - Array of image paths to load
      */
-    loadImages(arr){
+    loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image();
             img.src = path;
             this.imageCache[path] = img;
         });
-    };
+    }
 
     playAnimationOnce(images, frameRate = 100) {
         if (this.isAnimating) return;

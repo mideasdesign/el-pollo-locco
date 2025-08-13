@@ -18,7 +18,6 @@ class Level {
     chicks;
     /** @type {number} - X coordinate where the level ends (triggers boss or completion) */
     level_end_x = 3090;
-    
     /**
      * Creates a new Level instance with all game entities.
      * @param {Enemy[]} enemies - Array of main enemy objects

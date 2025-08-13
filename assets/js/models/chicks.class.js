@@ -38,7 +38,7 @@ class Chicks extends MovableObject{
      * Spawns in the later part of the level with variable movement speed.
      * @constructor
      */
-    constructor(){
+    constructor() {
         super().loadImage('assets/images/3_enemies_chicken/chicken_small/1_walk/1_w.png');
         this.x = 1400 + Math.random() * 2000;  // Random position in later level area
         this.y = 430 - this.height;            // Ground level positioning
@@ -47,14 +47,14 @@ class Chicks extends MovableObject{
         this.loadImages(this.images_walking);
         this.speed = 0.19 + Math.random() * 1.20;  // Variable speed (faster than chickens)
         this.animate();
-    };
-    
+    }
+
     /**
      * Starts the chick's movement and animation loops.
      * Handles continuous left movement and walking animation.
      * Chicks move faster than regular chickens for increased challenge.
      */
-    animate(){
+    animate() {
         // Movement loop - moves left continuously at 40 FPS
         gameIntervals(() => {
             this.moveLeft();

@@ -40,8 +40,8 @@ class AudioHub {
     
     /** @type {Map<Audio, number>} - Stores paused sounds and their playback positions */
     static pausedSounds = new Map();
-    /** @type {boolean} - Global mute state flag */
-    static isMuted = false;
+    /** @type {boolean} - Global mute state flag (initialized from localStorage) */
+    static isMuted = AudioHub.loadMuteState();
     
     /** @type {AudioContext|null} - WebAudio context for iOS compatibility */
     static audioContext = null;
@@ -49,6 +49,19 @@ class AudioHub {
     static audioUnlocked = false;
     /** @type {Audio[]} - Queue of sounds waiting to be played after iOS unlock */
     static pendingAudioQueue = [];
+
+    /**
+     * Loads the mute state from localStorage.
+     * @returns {boolean} True if audio should be muted
+     */
+    static loadMuteState() {
+        try {
+            const muteState = localStorage.getItem('mute');
+            return muteState ? JSON.parse(muteState) === 'on' : false;
+        } catch (error) {
+            return false; // Default to unmuted if localStorage fails
+        }
+    }
 
     /**
      * Initializes iOS-compatible audio system.

@@ -17,7 +17,7 @@ class StatusBar extends DrawableObject {
     'assets/images/7_statusbars/1_statusbar/2_statusbar_health/orange/80.png',   // 80% health
     'assets/images/7_statusbars/1_statusbar/2_statusbar_health/orange/100.png',  // 100% health (full)
   ];
-  
+
   /**
    * Creates a new StatusBar instance.
    * Initializes with health bar images and positions in top-left corner.

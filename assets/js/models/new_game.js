@@ -39,6 +39,7 @@ function startGame() {
             document.getElementById('loading-screen').style.display = 'none';
             document.getElementById('canvas').style.display = 'block';
         }, 1000); // simuliertes kurzes Laden
+        
     }, 1000);
 }
 

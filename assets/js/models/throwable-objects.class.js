@@ -22,6 +22,7 @@ class ThrowableObject extends MovableObject {
   bottom: 6,
   left: 5,
 };
+
   /** @type {string[]} - Array of bottle rotation images for flight animation */
   images_rotating_bottle = [
     'assets/images/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',  // Rotation frame 1
