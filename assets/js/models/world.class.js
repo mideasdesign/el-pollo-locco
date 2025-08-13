@@ -232,8 +232,11 @@ class World {
       
       // Update last throw time to start cooldown
       this.lastThrowTime = currentTime;
-    };
-  };
+      
+      // Register throw action to prevent idle animation
+      this.character.registerThrowAction();
+    }
+  }
 
   checkCollisionsBoss() {
     this.throwableObject.forEach((bottle) => {

@@ -38,6 +38,8 @@ class Character extends MovableObject {
   lastMove = new Date().getTime();
   /** @type {number} - Timestamp of last hurt sound to prevent spam */
   lastHurtSound = 0;
+  /** @type {number} - Timestamp of last throw action to prevent idle during throwing */
+  lastThrow = 0;
 
   /** @type {string[]} - Array of image paths for idle animation */
   images_idle = [
@@ -126,10 +128,22 @@ class Character extends MovableObject {
 
   /**
    * Calculates how long the character has been inactive.
-   * @returns {number} Time in seconds since last movement
+   * Considers both movement and throwing actions as activity.
+   * @returns {number} Time in seconds since last movement or throw action
    */
   wasInactive() {
-    return (new Date().getTime() - this.lastMove) / 1000;
+    const timeSinceMove = new Date().getTime() - this.lastMove;
+    const timeSinceThrow = new Date().getTime() - this.lastThrow;
+    const lastActivity = Math.max(this.lastMove, this.lastThrow);
+    return (new Date().getTime() - lastActivity) / 1000;
+  }
+
+  /**
+   * Registers a throw action to prevent idle animation during throwing.
+   * Called by the world when character throws a bottle.
+   */
+  registerThrowAction() {
+    this.lastThrow = new Date().getTime();
   }
 
   /**
@@ -172,10 +186,17 @@ class Character extends MovableObject {
       const k = this.world.keyboard;
       const inactive = this.wasInactive();
       const isMoving = k.right || k.left;
+      const isThrowing = k.t; // Check if throw key is pressed
+      
       if (this.isDead() || this.ishurt() || this.isJumping) return;
+      
       if (isMoving) {
         this.lastMove = new Date().getTime();
         this.playAnimation(this.images_walking);
+      } else if (isThrowing) {
+        // Keep character active while throwing (no idle animation)
+        this.lastMove = new Date().getTime();
+        this.playAnimation(this.images_idle, 160); // Show basic idle, not long idle
       } else {
         if (inactive < 6) {
           this.playAnimation(this.images_idle, 160);
