@@ -94,16 +94,6 @@ function setupInputControls() {
     const desktopInstructions = document.querySelector('.desktop-keys');
     const mobileInstructions = document.querySelector('.mobile-keys');
     
-    // Erweiterte Debug-Informationen
-    console.log(`🎮 Touch Detection Debug:
-    - Input Method: ${inputMethod}
-    - Is Touch Device: ${isTouchDevice()}
-    - Is Tablet: ${isTablet()}
-    - Screen Size: ${window.innerWidth}x${window.innerHeight}
-    - Max Touch Points: ${navigator.maxTouchPoints}
-    - User Agent: ${navigator.userAgent}
-    - Platform: ${navigator.platform}`);
-    
     switch (inputMethod) {
         case 'touch':
             // Zeige nur Touch-Controls
@@ -176,8 +166,6 @@ function setupTouchControls() {
         button.addEventListener('mouseup', button._touchEndHandler);
         button.addEventListener('mouseleave', button._touchEndHandler);
     });
-    
-    console.log('🎮 Touch controls initialized');
 }
 
 /**
@@ -189,7 +177,6 @@ function setupResponsiveControls() {
     function handleResize() {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
-            console.log('📱 Screen orientation/size changed, reconfiguring controls...');
             setupInputControls();
         }, 250);
     }

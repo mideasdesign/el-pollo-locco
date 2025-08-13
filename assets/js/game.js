@@ -310,5 +310,4 @@ document.addEventListener('DOMContentLoaded', setupIOSAudioUnlock);
     // Kept for compatibility but functionality moved to setupTouchControls()
     function touchBtn(){
         // This function is now handled by setupInputControls() in touchDetection.js
-        console.log('⚠️ Legacy touchBtn() called - functionality moved to touchDetection.js');
     }
