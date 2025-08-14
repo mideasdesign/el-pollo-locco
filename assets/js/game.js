@@ -185,11 +185,12 @@ function fullscreen(){
 }
 
 
-/* When the openFullscreen() function is executed, open the video in fullscreen.
-Note that we must include prefixes for different browsers, as they don't support the requestFullscreen property yet */
+/**
+ * Opens fullscreen mode for the game.
+ * Supports all major browsers with vendor prefixes.
+ * Icon updates are handled by the fullscreenchange event listener.
+ */
 function openFullscreen() {    
-    document.getElementById('fs-open').classList.add('hide');
-    document.getElementById('fs-close').classList.remove('hide');
   if (fs.requestFullscreen) {
     fs.requestFullscreen();
   } else if (fs.webkitRequestFullscreen) { /* Safari */
@@ -199,9 +200,12 @@ function openFullscreen() {
   }
 }
 
+/**
+ * Exits fullscreen mode.
+ * Supports all major browsers with vendor prefixes.
+ * Icon updates are handled by the fullscreenchange event listener.
+ */
 function closeFullscreen() {
-    document.getElementById('fs-open').classList.remove('hide');
-    document.getElementById('fs-close').classList.add('hide');
   if (document.exitFullscreen) {
     document.exitFullscreen();
   } else if (document.webkitExitFullscreen) { /* Safari */
@@ -245,8 +249,38 @@ function initializeMuteState() {
     }
 }
 
+/**
+ * Handles fullscreen state changes, including ESC key exits.
+ * Updates the fullscreen button icons when fullscreen mode is entered or exited.
+ * This ensures proper icon state even when ESC key is used to exit fullscreen.
+ */
+function handleFullscreenChange() {
+    const isFullscreen = !!(
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement
+    );
+    
+    if (isFullscreen) {
+        // In fullscreen mode - show close button
+        document.getElementById('fs-open').classList.add('hide');
+        document.getElementById('fs-close').classList.remove('hide');
+    } else {
+        // Not in fullscreen mode - show open button
+        document.getElementById('fs-open').classList.remove('hide');
+        document.getElementById('fs-close').classList.add('hide');
+    }
+}
+
 // Initialisiere Mute-Status beim Laden der Seite
 document.addEventListener('DOMContentLoaded', initializeMuteState);
+
+// Überwache Fullscreen-Änderungen (inkl. ESC-Taste)
+document.addEventListener('fullscreenchange', handleFullscreenChange);
+document.addEventListener('webkitfullscreenchange', handleFullscreenChange); // Safari
+document.addEventListener('mozfullscreenchange', handleFullscreenChange);    // Firefox
+document.addEventListener('MSFullscreenChange', handleFullscreenChange);     // IE/Edge
 
 /**
  * Handles start game button click with iOS audio initialization.
