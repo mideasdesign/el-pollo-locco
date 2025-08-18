@@ -88,12 +88,11 @@ class World {
    */
   setWorld() {
     this.character.world = this;
-    this.character.startAnimation();
+ this.character.startAnimation();
   };
 
   /**
    * Main game loop that handles ongoing collision detection.
-   * Runs collision checks at 60 FPS for responsive gameplay.
    */
   run() {
     gameIntervals(() => {
@@ -108,6 +107,10 @@ class World {
     }, 100);
   };
 
+  /**
+   * Checks for character jumping on enemies from above.
+   * Handles enemy elimination when character lands on them while falling.
+   */
   checkCollisionsFromTop() {
     gameIntervals(() => {
       this.level.enemies.forEach((enemy, index) => {
@@ -132,6 +135,11 @@ class World {
 
   };
 
+  /**
+   * Checks for collisions with small chickens from the top direction.
+   * Allows character to defeat small chickens by jumping on them.
+   * Instantly removes defeated chicks with sound effect.
+   */
   checkCollisionChicksFromTop() {
     gameIntervals(() => {
       this.level.chicks.forEach((chick, index) => {
@@ -147,6 +155,11 @@ class World {
     }, 30);
   };
 
+  /**
+   * Checks for standard collisions between Pepe and enemies.
+   * Handles damage to character when hit by enemies with sound cooldown.
+   * Updates health status bar after damage is taken.
+   */
   checkCollisionsPepe() {
     this.level.enemies.forEach((enemy) => {
       this.character.getRealFrame();
@@ -164,6 +177,10 @@ class World {
     });
   };
 
+  /**
+   * Checks for collisions between Pepe and small chickens.
+   * Handles damage when character collides with small enemies.
+   */
   checkCollisionsChicksPepe() {
     this.level.chicks.forEach((chick) => {
       this.character.getRealFrame();
@@ -181,6 +198,11 @@ class World {
     });
   };
 
+  /**
+   * Checks for collisions between Pepe and the boss enemy.
+   * Handles damage when character collides with the end boss.
+   * Updates health status bar and plays hurt sound with cooldown.
+   */
   checkCollisionsBossPepe() {
     this.character.getRealFrame();
     this.endboss.getRealFrame();
@@ -238,6 +260,11 @@ class World {
     }
   }
 
+  /**
+   * Checks for collisions between bottles and boss enemies.
+   * Handles boss damage and bottle splash effect on impact.
+   * Updates boss health bar when boss takes damage.
+   */
   checkCollisionsBoss() {
     this.throwableObject.forEach((bottle) => {
       this.endboss.getRealFrame();
@@ -250,6 +277,11 @@ class World {
     });
   };
 
+  /**
+   * Checks for collectible item interactions (coins and bottles).
+   * Handles item collection, status bar updates, and sound effects.
+   * Removes collected items from the level arrays.
+   */
   checkCollectibles() {
     this.level.coins.forEach((coin, index) => {
       this.character.getRealFrame();
@@ -271,6 +303,11 @@ class World {
     });
   };
 
+  /**
+   * Main drawing method that renders the entire game world.
+   * Clears canvas, applies camera translation, and draws all game objects.
+   * Coordinates all rendering operations in the correct order.
+   */
   draw() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.drawBackground();
@@ -279,6 +316,10 @@ class World {
     this.scheduleNextFrame();
   };
 
+  /**
+   * Draws the background layers with parallax scrolling effect.
+   * Applies camera translation for scrolling background elements.
+   */
   drawBackground() {
     this.ctx.translate(this.cameraX, 0);
     this.addObjectsToMap(this.level.backgroundObjects);
@@ -286,6 +327,11 @@ class World {
     this.ctx.translate(-this.cameraX, 0);
   };
 
+  /**
+   * Draws the user interface elements (status bars).
+   * Renders health, coins, bottles, and boss health bars.
+   * UI elements are not affected by camera translation.
+   */
   drawUI() {
     this.addToMap(this.statusBar);
     this.addToMap(this.coinsBar);
@@ -293,6 +339,10 @@ class World {
     this.addToMap(this.bossBar);
   };
 
+  /**
+   * Draws all interactive game objects with camera translation.
+   * Renders character, enemies, collectibles, and throwable objects.
+   */
   drawGameObjects() {
     this.ctx.translate(this.cameraX, 0);
     this.addToMap(this.character);
@@ -305,6 +355,10 @@ class World {
     this.ctx.translate(-this.cameraX, 0);
   };
 
+  /**
+   * Schedules the next animation frame for smooth rendering.
+   * Uses requestAnimationFrame for optimal performance and smooth gameplay.
+   */
   scheduleNextFrame() {
     let self = this;
     requestAnimationFrame(function () {
@@ -312,12 +366,22 @@ class World {
     });
   };
 
+  /**
+   * Adds an array of objects to the rendering map.
+   * Iterates through object arrays and renders each individual object.
+   * @param {DrawableObject[]} objects - Array of objects to render
+   */
   addObjectsToMap(objects) {
     objects.forEach((o) => {
       this.addToMap(o);
     });
   };
 
+  /**
+   * Adds a single movable object to the rendering context.
+   * Handles direction changes, drawing, and debug frame rendering.
+   * @param {MovableObject} mo - The movable object to render
+   */
   addToMap(mo) {
     if (mo.otherDirection) {
       mo.changeDirection(this.ctx);
@@ -329,12 +393,6 @@ class World {
     if (mo.otherDirection) {
       mo.x = mo.x * -1;
       this.ctx.restore();
-    };
-  };
-  moveCoins(){
-    if (this.coinsBar >= 100 && this.statusBar < 100) {
-      this.coinsBar.setPercentage(this.coinsBar.percentage - 10);
-      this.statusBar.setPercentage(this.statusBar.percentage + 10);
     };
   };
 }
