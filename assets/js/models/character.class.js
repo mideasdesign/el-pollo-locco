@@ -25,9 +25,9 @@ class Character extends MovableObject {
    */
   offset = {
     top: 110,
-    right: 28,    // Erhöhe beide Werte um die Box zu verkleinern
+    right: 28,    // Increase both values to shrink the hitbox
     bottom: 15,
-    left: 28,     // Gleicher Wert für Symmetrie
+    left: 28,     // Same value for symmetry
   };
 
   /** @type {number} - Character's health points */
@@ -222,7 +222,7 @@ class Character extends MovableObject {
         this.moveLeft();
         this.otherDirection = true;
       }
-      if (this.world.keyboard.space && !this.isAboveGround()) {
+      if (this.world.keyboard.j && !this.isAboveGround()) {
         this.jump();
       }
       this.world.cameraX = -this.x + 60;

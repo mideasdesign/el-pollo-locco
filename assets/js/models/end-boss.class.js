@@ -103,14 +103,14 @@ class Endboss extends MovableObject {
         this.speed = 10;
         this.playAnimation(this.images_boss_walking, 160);
         this.moveLeft();
-        if (time >= 2000) {
+        if (time >= 1000) {
           attackPhase = true;
           this.stopMoving();
           attackStart = now;
         }
       } else {
         this.playAnimation(this.images_boss_attack, 160);
-        if (time >= 3000) {
+        if (time >= 2000) {
           attackPhase = false;
           attackStart = now;
         }

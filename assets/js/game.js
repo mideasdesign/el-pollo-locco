@@ -93,10 +93,10 @@ function showGameUI() {
  * Stops all sounds before reloading the page.
  */
 function quitGame() {
-    // Stoppe alle Sounds vor dem Quit
+    // Stop all sounds before quitting
     AudioHub.stopAll();
     
-    // Seite neu laden (zurück zum Hauptmenü)
+    // Reload page (return to main menu)
     location.reload();
 }
 
@@ -105,17 +105,17 @@ function quitGame() {
  * Stops all audio except endgame sounds, plays game over sound, and shows overlay.
  */
 function gameLoose() {
-    // Stoppe alle Sounds außer Endgame-Sounds
+    // Stop all sounds except endgame sounds
     AudioHub.stopAllExceptEndgame();
     
-    // Spiele Game-Over-Sound direkt
+    // Play game over sound directly
     AudioHub.playOne(AudioHub.gameoverSound);
     
-    // Zeige Game-Over-Overlay
+    // Show game over overlay
     document.getElementById('game-overlay').classList.remove('hide');
     document.getElementById('game-result-text').textContent = 'Game over!';
     
-    // Stoppe alle Spiel-Intervalle
+    // Stop all game intervals
     intervalIds.forEach(clearInterval);
 }
 
@@ -124,17 +124,17 @@ function gameLoose() {
  * Stops all audio except endgame sounds, plays victory sound, and shows overlay.
  */
 function gameWon() {
-    // Stoppe alle Sounds außer Endgame-Sounds
+    // Stop all sounds except endgame sounds
     AudioHub.stopAllExceptEndgame();
     
-    // Spiele Gewinn-Sound direkt
+    // Play victory sound directly
     AudioHub.playOne(AudioHub.gamewinSound);
     
-    // Zeige Gewinn-Overlay
+    // Show victory overlay
     document.getElementById('game-overlay').classList.remove('hide');
     document.getElementById('game-result-text').textContent = 'You win!';
     
-    // Stoppe alle Spiel-Intervalle
+    // Stop all game intervals
     intervalIds.forEach(clearInterval);
 }
 
@@ -144,7 +144,7 @@ function gameWon() {
  * Preserves user's mute preference during restart.
  */
 function restartGame() {
-    // Stoppe alle aktuell spielenden Sounds vor Neustart
+    // Stop all currently playing sounds before restart
     AudioHub.allSounds.forEach(sound => {
         if (!sound.paused) {
             sound.pause();
@@ -174,7 +174,7 @@ function resetGameState() {
     document.getElementById('game-overlay').classList.add('hide');    
     world = null;
     
-    // Intervalle zurücksetzen für sauberen Neustart
+    // Reset intervals for clean restart
     intervalIds.forEach(clearInterval);
     intervalIds = [];
 }
@@ -216,17 +216,23 @@ function closeFullscreen() {
 }
 
 function allSounds() {
+    // Toggle mute state
     const isMuted = JSON.parse(localStorage.getItem('mute')) === 'on';
     const btn = document.getElementById('btn-mute');
 
     if (isMuted) {
-        btn.innerHTML = `<img src="./assets/images/btn_mute_off.svg" alt="mute button">`;
-        AudioHub.startAll();
+        console.log('[Mute-DEBUG] Unmute triggered');
+        AudioHub.isMuted = false;
         localStorage.setItem('mute', JSON.stringify('off'));
+    AudioHub.startAll();
+    initializeMuteState();
     } else {
-        btn.innerHTML = `<img src="./assets/images/btn_mute_on.svg" alt="mute button">`;
-        AudioHub.stopAll();
+        console.log('[Mute-DEBUG] Mute triggered');
+        AudioHub.isMuted = true;
         localStorage.setItem('mute', JSON.stringify('on'));
+        // explizit mit setMute=true aufrufen
+    AudioHub.stopAll([], true);
+    initializeMuteState();
     }
 }
 
@@ -273,10 +279,10 @@ function handleFullscreenChange() {
     }
 }
 
-// Initialisiere Mute-Status beim Laden der Seite
+// Initialize mute status when page loads
 document.addEventListener('DOMContentLoaded', initializeMuteState);
 
-// Überwache Fullscreen-Änderungen (inkl. ESC-Taste)
+// Monitor fullscreen changes (including ESC key)
 document.addEventListener('fullscreenchange', handleFullscreenChange);
 document.addEventListener('webkitfullscreenchange', handleFullscreenChange); // Safari
 document.addEventListener('mozfullscreenchange', handleFullscreenChange);    // Firefox
@@ -314,7 +320,7 @@ function setupIOSAudioUnlock() {
     document.addEventListener('touchstart', unlockAudio, { once: true, passive: true });
     document.addEventListener('touchend', unlockAudio, { once: true, passive: true });
     document.addEventListener('click', unlockAudio, { once: true, passive: true });
-    document.addEventListener('keydown', unlockAudio, { once: true, passive: true });
+    document.addEventListener('keyboard.m', unlockAudio, { once: true, passive: true });
 }
 
 // Initialize iOS audio unlock on page load
@@ -328,6 +334,8 @@ document.addEventListener('DOMContentLoaded', setupIOSAudioUnlock);
         if (e.keyCode == 40) keyboard.down = true;
         if (e.keyCode == 32) keyboard.space = true;
         if (e.keyCode == 84) keyboard.t = true;
+        if (e.keyCode == 74) keyboard.j = true;
+        if (e.keyCode == 77) keyboard.m = true;  // M-Key for Mute
     });
 
     window.addEventListener('keyup', (e) => {
@@ -336,8 +344,11 @@ document.addEventListener('DOMContentLoaded', setupIOSAudioUnlock);
         if (e.keyCode == 38) keyboard.up = false;
         if (e.keyCode == 40) keyboard.down = false;
         if (e.keyCode == 32) keyboard.space = false;
+        if (e.keyCode == 74) keyboard.j = false;
         if (e.keyCode == 84) keyboard.t = false;
-
+        if (e.keyCode == 77) {keyboard.m = false;
+            allSounds(); // Trigger mute toggle when M key is released
+        }
     });
 
     // Legacy touch function - now replaced by touchDetection.js

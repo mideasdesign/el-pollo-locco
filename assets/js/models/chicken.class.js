@@ -17,7 +17,7 @@ class Chicken extends MovableObject{
      */
     offset = {
         top: 7,
-        right: 5,    // Vertausche left/right für nach links schauende Sprites
+        right: 5,    // Swap left/right for left-facing sprites
         bottom: 6,
         left: 10
     };
@@ -48,7 +48,7 @@ class Chicken extends MovableObject{
         super().loadImage('assets/images/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.x = 1500 + Math.random() * 1700;
         this.y = 430 - this.height;
-        this.otherDirection = false; // Hühner-Sprites schauen bereits nach links
+        this.otherDirection = false; // Chicken sprites already face left
         this.getRealFrame();
         this.loadImages(this.images_walking);
         this.loadImages(this.images_dead); // Lade auch das tote Bild
@@ -86,7 +86,7 @@ class Chicken extends MovableObject{
         clearInterval(this.wakingInterval);
         // Direkte und sichere Bildladung
         this.loadImage('assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png');
-        // Zusätzlich: Stelle sicher, dass das Bild sofort gesetzt wird
+        // Additionally: Make sure the image is set immediately
         if (this.imageCache['assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png']) {
             this.img = this.imageCache['assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png'];
         }

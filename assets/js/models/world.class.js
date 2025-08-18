@@ -103,7 +103,6 @@ class World {
       this.checkCollisionsBossPepe();
       this.checkCollisionsChicksPepe();
       this.checkBossAttack();
-      this.moveCoins();
     }, 100);
   };
 
@@ -119,14 +118,14 @@ class World {
         if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(enemy) && !enemy.dead) {
           enemy.deadChicken();
           AudioHub.playOne(AudioHub.chickenSound);
-          // Verzögerung für die Darstellung des toten Huhns
+          // Delay for displaying the dead chicken
           setTimeout(() => {
             const currentIndex = this.level.enemies.indexOf(enemy);
             if (currentIndex > -1) {
               this.level.enemies.splice(currentIndex, 1);
             }
 
-          }, 1000); // 1 Sekunde Verzögerung
+          }, 1000); // 1 second delay
         }
 
       });

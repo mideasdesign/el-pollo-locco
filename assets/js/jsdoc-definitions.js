@@ -8,46 +8,46 @@
 
 /**
  * @namespace Game
- * @description Hauptnamespace für alle Spielfunktionen und globale Variablen
+ * @description Main namespace for all game functions and global variables
  */
 
 /**
  * @namespace Classes
- * @description Alle Spielklassen für Charaktere, Objekte, UI-Elemente und Spiellogik
+ * @description All game classes for characters, objects, UI elements and game logic
  */
 
 /**
  * @namespace AudioSystem
- * @description Audio-Management-System mit iOS-Kompatibilität und Mute-Funktionalität
+ * @description Audio management system with iOS compatibility and mute functionality
  */
 
 /**
  * @typedef {Object} Keyboard
- * @description Tastatur- und Touch-Input Handler für Spielsteuerung
- * @property {boolean} left - Linke Pfeiltaste/Touch-Button gedrückt
- * @property {boolean} right - Rechte Pfeiltaste/Touch-Button gedrückt  
- * @property {boolean} up - Obere Pfeiltaste gedrückt
- * @property {boolean} down - Untere Pfeiltaste gedrückt
- * @property {boolean} space - Leertaste (Sprung)/Touch-Jump gedrückt
- * @property {boolean} t - T-Taste (Werfen)/Touch-Throw gedrückt
+ * @description Keyboard and touch input handler for game controls
+ * @property {boolean} left - Left arrow key/touch button pressed
+ * @property {boolean} right - Right arrow key/touch button pressed  
+ * @property {boolean} up - Up arrow key pressed
+ * @property {boolean} down - Down arrow key pressed
+ * @property {boolean} space - Space key (jump)/touch jump pressed
+ * @property {boolean} t - T key (throw)/touch throw pressed
  */
 
 /**
  * @typedef {Object} Level
- * @description Spiel-Level Datenstruktur mit allen Entitäten
- * @property {Chicken[]} enemies - Array der Hühner-Feinde im Level
- * @property {Chicks[]} chicks - Array der kleinen Küken-Feinde
- * @property {Endboss} endboss - Der finale Boss-Gegner
- * @property {Cloud[]} clouds - Array der beweglichen Wolken
- * @property {BackgroundObject[]} backgroundObjects - Statische Hintergrundobjekte
- * @property {Coins[]} coins - Sammelbare Münzen für Punkte
- * @property {Bottles[]} bottles - Sammelbare Flaschen als Wurfgeschosse
- * @property {number} level_end_x - X-Position des Level-Endes (Boss-Bereich)
+ * @description Game level data structure with all entities
+ * @property {Chicken[]} enemies - Array of chicken enemies in the level
+ * @property {Chicks[]} chicks - Array of small chick enemies
+ * @property {Endboss} endboss - The final boss enemy
+ * @property {Cloud[]} clouds - Array of moving clouds
+ * @property {BackgroundObject[]} backgroundObjects - Static background objects
+ * @property {Coins[]} coins - Collectible coins for points
+ * @property {Bottles[]} bottles - Collectible bottles as throwing projectiles
+ * @property {number} level_end_x - X-position of level end (boss area)
  */
 
 /**
  * @typedef {Object} CollisionBox
- * @description Präzise Kollisionsbox für Objekt-Interaktionen
+ * @description Precise collision box for object interactions
  * @property {number} top - Oberer Offset von der Objekt-Grenze
  * @property {number} right - Rechter Offset von der Objekt-Grenze
  * @property {number} bottom - Unterer Offset von der Objekt-Grenze
@@ -56,66 +56,66 @@
 
 /**
  * @typedef {Object} AnimationFrame
- * @description Frame-Daten für Sprite-Animationen
- * @property {string} src - Pfad zur Bild-Datei
- * @property {number} duration - Anzeigedauer des Frames in Millisekunden
- * @property {boolean} [loop] - Ob die Animation in Schleife läuft
+ * @description Frame data for sprite animations
+ * @property {string} src - Path to image file
+ * @property {number} duration - Display duration of frame in milliseconds
+ * @property {boolean} [loop] - Whether the animation loops
  */
 
 /**
  * @typedef {Object} AudioTrack
- * @description Audio-Track-Definition für Sound-Management
- * @property {Audio} audio - HTML5 Audio-Element
- * @property {string} src - Pfad zur Audio-Datei
- * @property {number} volume - Lautstärke (0.0 - 1.0)
- * @property {boolean} loop - Ob Audio geloopt wird
- * @property {string} type - Audio-Typ (background|effect|voice|endgame)
+ * @description Audio track definition for sound management
+ * @property {Audio} audio - HTML5 Audio element
+ * @property {string} src - Path to audio file
+ * @property {number} volume - Volume level (0.0 - 1.0)
+ * @property {boolean} loop - Whether audio is looped
+ * @property {string} type - Audio type (background|effect|voice|endgame)
  */
 
 /**
  * @typedef {Object} GameState
- * @description Aktueller Spielzustand
- * @property {boolean} isRunning - Ob das Spiel aktiv läuft
- * @property {boolean} isPaused - Ob das Spiel pausiert ist
- * @property {boolean} isGameOver - Ob das Spiel beendet ist
- * @property {boolean} isWon - Ob der Spieler gewonnen hat
- * @property {number} score - Aktuelle Punktzahl
- * @property {number} lives - Verbleibende Leben
- * @property {number} coins - Gesammelte Münzen
- * @property {number} bottles - Verfügbare Wurfflaschen
+ * @description Current game state
+ * @property {boolean} isRunning - Whether the game is actively running
+ * @property {boolean} isPaused - Whether the game is paused
+ * @property {boolean} isGameOver - Whether the game is finished
+ * @property {boolean} isWon - Whether the player has won
+ * @property {number} score - Current score
+ * @property {number} lives - Remaining lives
+ * @property {number} coins - Collected coins
+ * @property {number} bottles - Available throwing bottles
  */
 
 /**
  * @typedef {Object} TouchControls
- * @description Touch-Button Konfiguration für Mobile
- * @property {string} buttonId - HTML-Element ID des Touch-Buttons
- * @property {string} keyboardProperty - Entsprechende Keyboard-Eigenschaft
- * @property {HTMLElement} element - DOM-Element des Buttons
- * @property {boolean} isPressed - Ob der Button aktuell gedrückt ist
+ * @description Touch button configuration for mobile
+ * @property {string} buttonId - HTML element ID of touch button
+ * @property {string} keyboardProperty - Corresponding keyboard property
+ * @property {HTMLElement} element - DOM element of the button
+ * @property {boolean} isPressed - Whether the button is currently pressed
  */
 
 /**
  * @typedef {Object} CanvasContext
- * @description Canvas-Rendering-Kontext mit Hilfsfunktionen
- * @property {HTMLCanvasElement} canvas - Das Canvas-Element
- * @property {CanvasRenderingContext2D} ctx - 2D-Rendering-Kontext
- * @property {number} width - Canvas-Breite
- * @property {number} height - Canvas-Höhe
- * @property {number} cameraX - Kamera X-Position für Scrolling
+ * @description Canvas rendering context with helper functions
+ * @property {HTMLCanvasElement} canvas - The canvas element
+ * @property {CanvasRenderingContext2D} ctx - 2D rendering context
+ * @property {number} width - Canvas width
+ * @property {number} height - Canvas height
+ * @property {number} cameraX - Camera X position for scrolling
  */
 
 /**
  * @typedef {Object} IOSAudioConfig
- * @description iOS-spezifische Audio-Konfiguration
- * @property {AudioContext} audioContext - WebAudio API Kontext
- * @property {boolean} audioUnlocked - Ob Audio entsperrt ist
- * @property {Audio[]} pendingAudioQueue - Warteschlange für iOS-Audio
- * @property {boolean} isIOSDevice - iOS-Gerät erkannt
+ * @description iOS-specific audio configuration
+ * @property {AudioContext} audioContext - WebAudio API context
+ * @property {boolean} audioUnlocked - Whether audio is unlocked
+ * @property {Audio[]} pendingAudioQueue - Queue for iOS audio
+ * @property {boolean} isIOSDevice - iOS device detected
  */
 
 /**
  * @enum {string}
- * @description Spieler-Animations-Zustände
+ * @description Player animation states
  * @readonly
  */
 const AnimationState = {
@@ -129,7 +129,7 @@ const AnimationState = {
 
 /**
  * @enum {string}
- * @description Gegner-Typen und -Zustände
+ * @description Enemy types and states
  * @readonly
  */
 const EnemyType = {
@@ -141,7 +141,7 @@ const EnemyType = {
 
 /**
  * @enum {string}
- * @description Audio-Kategorien für Sound-Management
+ * @description Audio categories for sound management
  * @readonly
  */
 const AudioType = {
@@ -153,7 +153,7 @@ const AudioType = {
 
 /**
  * @enum {string}
- * @description Kollisions-Typen für Gameplay-Logik
+ * @description Collision types for gameplay logic
  * @readonly
  */
 const CollisionType = {
@@ -183,7 +183,7 @@ const GameConstants = {
 
 /**
  * @enum {string}
- * @description UI-Element-IDs für DOM-Manipulation
+ * @description UI element IDs for DOM manipulation
  * @readonly
  */
 const UIElements = {
@@ -201,33 +201,33 @@ const UIElements = {
 
 /**
  * @typedef {Object} MovableObjectConfig
- * @description Konfiguration für bewegliche Objekte
- * @property {number} x - X-Position
- * @property {number} y - Y-Position
- * @property {number} width - Objekt-Breite
- * @property {number} height - Objekt-Höhe
- * @property {number} speed - Bewegungsgeschwindigkeit
- * @property {number} [speedY] - Vertikale Geschwindigkeit (für Sprünge/Fallen)
- * @property {boolean} [otherDirection] - Ob Objekt gespiegelt gezeichnet wird
- * @property {string[]} images - Array der Animations-Bild-Pfade
- * @property {CollisionBox} [offset] - Kollisionsbox-Offsets
+ * @description Configuration for movable objects
+ * @property {number} x - X position
+ * @property {number} y - Y position
+ * @property {number} width - Object width
+ * @property {number} height - Object height
+ * @property {number} speed - Movement speed
+ * @property {number} [speedY] - Vertical speed (for jumps/falling)
+ * @property {boolean} [otherDirection] - Whether object is drawn mirrored
+ * @property {string[]} images - Array of animation image paths
+ * @property {CollisionBox} [offset] - Collision box offsets
  */
 
 /**
  * @typedef {Object} StatusBarConfig
- * @description Konfiguration für UI-Status-Balken
- * @property {number} x - X-Position auf Canvas
- * @property {number} y - Y-Position auf Canvas
- * @property {number} width - Balken-Breite
- * @property {number} height - Balken-Höhe
- * @property {number} percentage - Aktueller Füllstand (0-100)
- * @property {string[]} images - Bild-Array für verschiedene Füllstände
- * @property {string} type - Balken-Typ (health|coins|bottles|boss)
+ * @description Configuration for UI status bars
+ * @property {number} x - X position on canvas
+ * @property {number} y - Y position on canvas
+ * @property {number} width - Bar width
+ * @property {number} height - Bar height
+ * @property {number} percentage - Current fill level (0-100)
+ * @property {string[]} images - Image array for different fill levels
+ * @property {string} type - Bar type (health|coins|bottles|boss)
  */
 
 /**
  * @typedef {Object} ThrowableObjectConfig
- * @description Konfiguration für Wurfgeschosse
+ * @description Configuration for projectiles
  * @property {number} x - Start X-Position
  * @property {number} y - Start Y-Position
  * @property {number} speedX - Horizontale Wurfgeschwindigkeit
@@ -260,6 +260,6 @@ let canvas;
 /**
  * @global
  * @type {number[]}
- * @description Array aller Spiel-Intervalle für Cleanup
+ * @description Array of all game intervals for cleanup
  */
 let intervalIds;

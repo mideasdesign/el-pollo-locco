@@ -183,11 +183,11 @@ class AudioHub {
         AudioHub.isMuted = true;
         AudioHub.allSounds.forEach(sound => {
             if (!sound.paused) {
-                // Speichere Position nur wenn Sound aktiv läuft
+                // Save position only if sound is actively playing
                 AudioHub.pausedSounds.set(sound, sound.currentTime);
                 sound.pause();
             } else if (sound === AudioHub.background && sound.currentTime > 0) {
-                // Spezielle Behandlung für pausierte Hintergrundmusik
+                // Special handling for paused background music
                 AudioHub.pausedSounds.set(sound, sound.currentTime);
             }
         });
@@ -197,18 +197,18 @@ class AudioHub {
         AudioHub.isMuted = false;
         AudioHub.pausedSounds.forEach((position, sound) => {
             if (sound.readyState == 4) {
-                sound.currentTime = position; // Setze auf gespeicherte Position
+                sound.currentTime = position; // Set to saved position
                 sound.play().catch(error => {
-                    // Wenn normaler Start fehlschlägt, versuche von vorne
+                    // If normal start fails, try from beginning
                     sound.currentTime = 0;
                     sound.play().catch(e => {
-                        // Auch Neustart fehlgeschlagen
+                        // Restart also failed
                     });
                 });
             }
         });
         
-        // Spezielle Behandlung für Hintergrundmusik falls sie nicht in pausedSounds war
+        // Special handling for background music if it wasn't in pausedSounds
         if (!AudioHub.pausedSounds.has(AudioHub.background) && 
             AudioHub.background.paused && 
             AudioHub.background.readyState == 4) {
@@ -216,38 +216,38 @@ class AudioHub {
             AudioHub.background.loop = true;
             AudioHub.background.volume = 0.3;
             AudioHub.background.play().catch(error => {
-                // Hintergrundmusik Start fehlgeschlagen
+                // Background music start failed
             });
         }
-        
-        // Lösche gespeicherte Positionen nach dem Fortsetzen
+
+        // Clear saved positions after resuming
         AudioHub.pausedSounds.clear();
     }
     
     /**
-     * Stoppt alle laufenden Sounds und setzt sie auf Anfang zurück.
-     * Ideal für Spielende (Gewinn/Verlust) um alle Audio-Wiedergabe zu beenden.
-     * @param {Audio[]} exceptions - Optional: Sounds die nicht gestoppt werden sollen
+     * Stops all running sounds and resets them to the beginning.
+     * Ideal for game end (win/loss) to stop all audio playback.
+     * @param {Audio[]} exceptions - Optional: Sounds that should not be stopped
      */
     static stopAll(exceptions = []) {
         AudioHub.allSounds.forEach((sound) => {
-            // Überspringe Sounds in der Ausnahmeliste
+            // Skip sounds in exception list
             if (!exceptions.includes(sound)) {
                 sound.pause();
-                sound.currentTime = 0; // Alle Sounds auf Anfang zurücksetzen
+                sound.currentTime = 0; // Reset all sounds to beginning
             }
         });
         
-        // Leere die Warteschlange für iOS
+        // Clear the queue for iOS
         AudioHub.pendingAudioQueue = [];
         
-        // Leere pausierte Sounds
+        // Clear paused sounds
         AudioHub.pausedSounds.clear();
     }
 
     /**
-     * Stoppt alle Sounds außer Game-Over- und Gewinn-Sounds.
-     * Spezielle Methode für Spielende.
+     * Stops all sounds except game-over and win sounds.
+     * Special method for game end.
      */
     static stopAllExceptEndgame() {
         const endgameSounds = [AudioHub.gameoverSound, AudioHub.gamewinSound, AudioHub.youwinSound, AudioHub.youlooseSound];

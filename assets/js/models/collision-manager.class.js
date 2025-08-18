@@ -25,13 +25,13 @@ class CollisionManager {
         if (world.character.isAboveGround() && world.character.speedY < 0 && world.character.isColliding(enemy) && !enemy.dead) {
           enemy.deadChicken();
           AudioHub.playOne(AudioHub.chickenSound);
-          // Verzögerung für die Darstellung des toten Huhns
+          // Delay for displaying the dead chicken
           setTimeout(() => {
             const currentIndex = world.level.enemies.indexOf(enemy);
             if (currentIndex > -1) {
               world.level.enemies.splice(currentIndex, 1);
             }
-          }, 1000); // 1 Sekunde Verzögerung
+          }, 1000); // 1 second delay
         }
       });
     }, 30);

@@ -18,7 +18,7 @@ class Chicks extends MovableObject{
      */
     offset = {
         top: 7,
-        right: 5,    // Vertausche left/right für nach links schauende Sprites
+        right: 5,    // Swap left/right for left-facing sprites
         bottom: 6,
         left: 10
     };
@@ -42,7 +42,7 @@ class Chicks extends MovableObject{
         super().loadImage('assets/images/3_enemies_chicken/chicken_small/1_walk/1_w.png');
         this.x = 1400 + Math.random() * 2000;  // Random position in later level area
         this.y = 430 - this.height;            // Ground level positioning
-        this.otherDirection = false; // Küken-Sprites schauen bereits nach links
+        this.otherDirection = false; // Chick sprites already face left
         this.getRealFrame();
         this.loadImages(this.images_walking);
         this.speed = 0.19 + Math.random() * 1.20;  // Variable speed (faster than chickens)

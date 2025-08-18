@@ -1,14 +1,14 @@
 /**
- * @fileoverview Touch Detection und Device Capabilities Utility
- * @description Erkennt Touch-Geräte und aktiviert entsprechende UI-Elemente
+ * @fileoverview Touch Detection and Device Capabilities Utility
+ * @description Detects touch devices and activates corresponding UI elements
  */
 
 /**
- * Erkennt ob das Gerät Touch-Fähigkeiten hat
- * @returns {boolean} True wenn Touch-Unterstützung vorhanden ist
+ * Detects if the device has touch capabilities
+ * @returns {boolean} True if touch support is available
  */
 function isTouchDevice() {
-    // Prüfe mehrere Touch-APIs für maximale Kompatibilität
+    // Check multiple touch APIs for maximum compatibility
     return (
         // Standard Touch Events API
         ('ontouchstart' in window) ||
@@ -20,19 +20,19 @@ function isTouchDevice() {
         // Pointer Events API
         ('onpointerdown' in window && navigator.maxTouchPoints > 0) ||
         
-        // DocumentTouch API (ältere Browser)
+        // DocumentTouch API (older browsers)
         (window.DocumentTouch && document instanceof DocumentTouch)
     );
 }
 
 /**
- * Erkennt ob das Gerät ein Tablet ist (iPad, Android Tablet, etc.)
- * @returns {boolean} True wenn es sich um ein Tablet handelt
+ * Detects if the device is a tablet (iPad, Android Tablet, etc.)
+ * @returns {boolean} True if it's a tablet device
  */
 function isTablet() {
     const userAgent = navigator.userAgent.toLowerCase();
     
-    // iPad Detection (alle Varianten)
+    // iPad Detection (all variants)
     if (/ipad/.test(userAgent) || 
         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
         return true;
@@ -48,7 +48,7 @@ function isTablet() {
         return true;
     }
     
-    // Fallback: Große Touch-Geräte
+    // Fallback: Large touch devices
     if (isTouchDevice() && window.innerWidth >= 768 && window.innerWidth <= 2732) {
         return true;
     }
@@ -57,36 +57,36 @@ function isTablet() {
 }
 
 /**
- * Erkennt primäre Eingabemethode basierend auf Device-Charakteristiken
- * @returns {string} 'touch', 'mouse', oder 'hybrid'
+ * Detects primary input method based on device characteristics
+ * @returns {string} 'touch', 'mouse', or 'hybrid'
  */
 function getPrimaryInputMethod() {
-    // Explizite iPad/Tablet-Erkennung (immer Touch)
+    // Explicit iPad/Tablet detection (always touch)
     if (isTablet()) {
         return 'touch';
     }
     
-    // Hybrid-Geräte (Touch-Laptops mit großem Bildschirm)
+    // Hybrid devices (touch laptops with large screens)
     if (isTouchDevice() && window.innerWidth > 1366 && navigator.maxTouchPoints > 1) {
         return 'hybrid';
     }
     
-    // Smartphones und kleine Touch-Geräte
+    // Smartphones and small touch devices
     if (isTouchDevice() && window.innerWidth < 768) {
         return 'touch';
     }
     
-    // Desktop ohne Touch
+    // Desktop without touch
     if (!isTouchDevice()) {
         return 'mouse';
     }
     
-    // Fallback für unbekannte Touch-Geräte
+    // Fallback for unknown touch devices
     return 'touch';
 }
 
 /**
- * Aktiviert/deaktiviert Touch-Controls basierend auf Device-Erkennung
+ * Activates/deactivates touch controls based on device detection
  */
 function setupInputControls() {
     const inputMethod = getPrimaryInputMethod();
@@ -122,7 +122,7 @@ function setupInputControls() {
 }
 
 /**
- * Initialisiert Touch-Event-Listener für die Spiel-Controls
+ * Initializes touch event listeners for game controls
  */
 function setupTouchControls() {
     const touchButtons = [
@@ -157,11 +157,11 @@ function setupTouchControls() {
             button.style.transform = 'scale(1)';
         };
         
-        // Event-Listener hinzufügen
+        // Add event listeners
         button.addEventListener('touchstart', button._touchStartHandler, { passive: false });
         button.addEventListener('touchend', button._touchEndHandler, { passive: false });
         
-        // Zusätzlich: Mouse-Events für Hybrid-Geräte
+        // Additionally: Mouse events for hybrid devices
         button.addEventListener('mousedown', button._touchStartHandler);
         button.addEventListener('mouseup', button._touchEndHandler);
         button.addEventListener('mouseleave', button._touchEndHandler);
@@ -169,7 +169,7 @@ function setupTouchControls() {
 }
 
 /**
- * Überwacht Änderungen der Bildschirmausrichtung und -größe
+ * Monitors changes in screen orientation and size
  */
 function setupResponsiveControls() {
     let resizeTimeout;
@@ -181,18 +181,18 @@ function setupResponsiveControls() {
         }, 250);
     }
     
-    // Überwache Größenänderungen
+    // Monitor size changes
     window.addEventListener('resize', handleResize);
     
-    // Überwache Orientierungsänderungen (Mobile)
+    // Monitor orientation changes (mobile)
     if ('onorientationchange' in window) {
         window.addEventListener('orientationchange', () => {
-            setTimeout(handleResize, 500); // Verzögerung für Orientierungsänderung
+            setTimeout(handleResize, 500); // Delay for orientation change
         });
     }
 }
 
-// Export für andere Module
+// Export for other modules
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         isTouchDevice,

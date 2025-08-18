@@ -1,4 +1,4 @@
-class World {
+/* class World {
   character = new Character();
   enemies = [new Chicken(),];
   clouds = [new Clouds()];
@@ -112,3 +112,4 @@ class World {
     }
   }
 }
+ */
