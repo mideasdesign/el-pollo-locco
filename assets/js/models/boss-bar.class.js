@@ -29,9 +29,9 @@ class BossBar extends StatusBar {
     this.width = 120;  // Bar width
     this.height = 40;  // Bar height
     this.setPercentage(100);  // Initialize with full health
-   
+
   }
-  
+
   /**
    * Updates the boss health bar to reflect current health percentage.
    * Automatically selects the appropriate image based on health level.
@@ -42,7 +42,7 @@ class BossBar extends StatusBar {
     let path = this.images[this.resolveImageIndex()];
     this.img = this.imageCache[path];
   }
-  
+
   /**
    * Resolves which image index to use based on current health percentage.
    * Returns appropriate array index for the health bar image.

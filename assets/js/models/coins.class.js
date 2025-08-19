@@ -21,15 +21,15 @@ class Coins extends MovableObject {
     right: 60,
     bottom: 20,
     left: 20
-};
-/** @type {number} - Current coin level/state (unused) */
-coinsLevel = 0;
+  };
+  /** @type {number} - Current coin level/state (unused) */
+  coinsLevel = 0;
 
   /** @type {string[]} - Array of coin image frames for spinning animation */
   images_coins = [
-        'assets/images/8_coin/coin_1.png',  // Coin frame 1 (spinning animation)
-        'assets/images/8_coin/coin_2.png'   // Coin frame 2 (spinning animation)
-      ];
+    'assets/images/8_coin/coin_1.png',  // Coin frame 1 (spinning animation)
+    'assets/images/8_coin/coin_2.png'   // Coin frame 2 (spinning animation)
+  ];
 
   /**
    * Creates a new Coins instance at specified position.
@@ -38,35 +38,35 @@ coinsLevel = 0;
    * @param {number} y - Y position of the coin
    */
   constructor(x, y) {
-      super().loadImage('assets/images/8_coin/coin_1.png');
-      this.x = x;
-      this.y = y;
-      this.width = 70;
-      this.height = 70;
-      this.loadImages(this.images_coins);
-      this.getRealFrame();
-      this.animate();
-    }
-
-    /**
-     * Starts the coin's spinning animation.
-     * Creates an attractive visual effect by cycling through coin frames.
-     * Animation runs every 200ms for a smooth spinning effect.
-     */
-    animate() {
-      gameIntervals(() => {
-        this.playAnimation(this.images_coins);
-      }, 200);  // Spin every 200ms for attractive effect
-    }
-
-    /**
-     * Calculates collision frame for coins using original formula.
-     * Coins need larger collision boxes for easier collection.
-     */
-    getRealFrame() {
-      this.rX = this.x + this.offset.left;
-      this.rY = this.y + this.offset.top;
-      this.rW = this.width + this.offset.left - this.offset.right;
-      this.rH = this.height - this.offset.top - this.offset.bottom;
-    }
+    super().loadImage('assets/images/8_coin/coin_1.png');
+    this.x = x;
+    this.y = y;
+    this.width = 70;
+    this.height = 70;
+    this.loadImages(this.images_coins);
+    this.getRealFrame();
+    this.animate();
   }
+
+  /**
+   * Starts the coin's spinning animation.
+   * Creates an attractive visual effect by cycling through coin frames.
+   * Animation runs every 200ms for a smooth spinning effect.
+   */
+  animate() {
+    gameIntervals(() => {
+      this.playAnimation(this.images_coins);
+    }, 200);  // Spin every 200ms for attractive effect
+  }
+
+  /**
+   * Calculates collision frame for coins using original formula.
+   * Coins need larger collision boxes for easier collection.
+   */
+  getRealFrame() {
+    this.rX = this.x + this.offset.left;
+    this.rY = this.y + this.offset.top;
+    this.rW = this.width + this.offset.left - this.offset.right;
+    this.rH = this.height - this.offset.top - this.offset.bottom;
+  }
+}

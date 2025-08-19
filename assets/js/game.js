@@ -224,15 +224,14 @@ function allSounds() {
         console.log('[Mute-DEBUG] Unmute triggered');
         AudioHub.isMuted = false;
         localStorage.setItem('mute', JSON.stringify('off'));
-    AudioHub.startAll();
-    initializeMuteState();
+        AudioHub.startAll();
+        initializeMuteState();
     } else {
         console.log('[Mute-DEBUG] Mute triggered');
         AudioHub.isMuted = true;
         localStorage.setItem('mute', JSON.stringify('on'));
-        // explizit mit setMute=true aufrufen
-    AudioHub.stopAll([], true);
-    initializeMuteState();
+        AudioHub.stopAll([], true);
+        initializeMuteState();
     }
 }
 
@@ -330,9 +329,6 @@ document.addEventListener('DOMContentLoaded', setupIOSAudioUnlock);
         
         if (e.keyCode == 37) keyboard.left = true;
         if (e.keyCode == 39) keyboard.right = true;
-        if (e.keyCode == 38) keyboard.up = true;
-        if (e.keyCode == 40) keyboard.down = true;
-        if (e.keyCode == 32) keyboard.space = true;
         if (e.keyCode == 84) keyboard.t = true;
         if (e.keyCode == 74) keyboard.j = true;
         if (e.keyCode == 77) keyboard.m = true;  // M-Key for Mute
@@ -341,9 +337,6 @@ document.addEventListener('DOMContentLoaded', setupIOSAudioUnlock);
     window.addEventListener('keyup', (e) => {
         if (e.keyCode == 37) keyboard.left = false;
         if (e.keyCode == 39) keyboard.right = false;
-        if (e.keyCode == 38) keyboard.up = false;
-        if (e.keyCode == 40) keyboard.down = false;
-        if (e.keyCode == 32) keyboard.space = false;
         if (e.keyCode == 74) keyboard.j = false;
         if (e.keyCode == 84) keyboard.t = false;
         if (e.keyCode == 77) {keyboard.m = false;

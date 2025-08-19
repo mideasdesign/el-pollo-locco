@@ -187,9 +187,9 @@ class Character extends MovableObject {
       const inactive = this.wasInactive();
       const isMoving = k.right || k.left;
       const isThrowing = k.t; // Check if throw key is pressed
-      
+
       if (this.isDead() || this.ishurt() || this.isJumping) return;
-      
+
       if (isMoving) {
         this.lastMove = new Date().getTime();
         this.playAnimation(this.images_walking);
@@ -204,7 +204,7 @@ class Character extends MovableObject {
           this.playAnimation(this.images_long_idle, 160);
         }
       }
-    }, 120); 
+    }, 120);
   }
 
   /**

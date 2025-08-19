@@ -49,25 +49,25 @@ class MovableObject extends DrawableObject {
    * @returns {boolean} True if object is above ground level (y < 180)
    */
   isAboveGround() {
-    if (this instanceof ThrowableObject){ //ThowableOblject always fall!
+    if (this instanceof ThrowableObject) { //ThowableOblject always fall!
       return true;
-    }else{
+    } else {
       return this.y < 180;
     };
   }
 
-/**
- * Plays an animation by cycling through an array of images.
- * Automatically loops when reaching the end of the image array.
- * @param {string[]} images - Array of image paths for the animation
- */
-playAnimation(images) {
-  if (!images || images.length === 0) return;
-  let i = this.currentImage % images.length;
-  let path = images[i];
-  this.img = this.imageCache[path];
-  this.currentImage++;
-};
+  /**
+   * Plays an animation by cycling through an array of images.
+   * Automatically loops when reaching the end of the image array.
+   * @param {string[]} images - Array of image paths for the animation
+   */
+  playAnimation(images) {
+    if (!images || images.length === 0) return;
+    let i = this.currentImage % images.length;
+    let path = images[i];
+    this.img = this.imageCache[path];
+    this.currentImage++;
+  };
 
   /**
    * Flips the object horizontally for rendering in opposite direction.
@@ -99,11 +99,11 @@ playAnimation(images) {
   };
 
   isColliding(mo) {
-    return this.rX + this.rW > mo.rX && 
-    this.rY + this.rH > mo.rY && 
-    this.rX < mo.rX + mo.rW && 
-    this.rY < mo.rY + mo.rH;
-  }; 
+    return this.rX + this.rW > mo.rX &&
+      this.rY + this.rH > mo.rY &&
+      this.rX < mo.rX + mo.rW &&
+      this.rY < mo.rY + mo.rH;
+  };
 
   hitPepe() {
     this.healthPepe -= 4;
@@ -117,9 +117,9 @@ playAnimation(images) {
   hitBoss() {
     this.healthBoss -= 4;
     if (this.healthBoss < 0) {
-    this.healthBoss = 0;
+      this.healthBoss = 0;
     } else {
-    this.lastHit = new Date().getTime();
+      this.lastHit = new Date().getTime();
     }
   };
 

@@ -26,10 +26,10 @@ class Bottles extends MovableObject {
   bottlesLevel = 0;
   /** @type {string[]} - Array of bottle image variations for visual diversity */
   images_bottles = [
-        'assets/images/6_salsa_bottle/1_salsa_bottle_on_ground.png',  // Bottle variant 1
-        'assets/images/6_salsa_bottle/2_salsa_bottle_on_ground.png'   // Bottle variant 2
-      ];  
-      
+    'assets/images/6_salsa_bottle/1_salsa_bottle_on_ground.png',  // Bottle variant 1
+    'assets/images/6_salsa_bottle/2_salsa_bottle_on_ground.png'   // Bottle variant 2
+  ];
+
   /**
    * Creates a new Bottles instance at specified position.
    * Loads bottle images and sets up collision detection.
@@ -37,23 +37,23 @@ class Bottles extends MovableObject {
    * @param {number} y - Y position of the bottle
    */
   constructor(x, y) {
-      super().loadImage('assets/images/6_salsa_bottle/1_salsa_bottle_on_ground.png');
-      this.x = x;
-      this.y = y;
-      this.width = 70;
-      this.height = 90;
-      this.getRealFrame();
-      this.loadImages(this.images_bottles);
-    }
-
-    /**
-     * Calculates collision frame for bottles using original formula.
-     * Bottles need larger collision boxes for easier collection.
-     */
-    getRealFrame() {
-      this.rX = this.x + this.offset.left;
-      this.rY = this.y + this.offset.top;
-      this.rW = this.width + this.offset.left - this.offset.right;
-      this.rH = this.height - this.offset.top - this.offset.bottom;
-    }
+    super().loadImage('assets/images/6_salsa_bottle/1_salsa_bottle_on_ground.png');
+    this.x = x;
+    this.y = y;
+    this.width = 70;
+    this.height = 90;
+    this.getRealFrame();
+    this.loadImages(this.images_bottles);
   }
+
+  /**
+   * Calculates collision frame for bottles using original formula.
+   * Bottles need larger collision boxes for easier collection.
+   */
+  getRealFrame() {
+    this.rX = this.x + this.offset.left;
+    this.rY = this.y + this.offset.top;
+    this.rW = this.width + this.offset.left - this.offset.right;
+    this.rH = this.height - this.offset.top - this.offset.bottom;
+  }
+}

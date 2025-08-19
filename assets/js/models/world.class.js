@@ -88,7 +88,7 @@ class World {
    */
   setWorld() {
     this.character.world = this;
- this.character.startAnimation();
+    this.character.startAnimation();
   };
 
   /**
@@ -150,7 +150,7 @@ class World {
           this.level.chicks.splice(index, 1);
         }
       });
-      
+
     }, 30);
   };
 
@@ -240,20 +240,20 @@ class World {
   checkThrowableObject() {
     const currentTime = new Date().getTime();
     const timeSinceLastThrow = currentTime - this.lastThrowTime;
-    
-    if (this.keyboard.t && 
-        this.bottlesBar.percentage > 0 && 
-        timeSinceLastThrow >= this.throwCooldown) {
-      
+
+    if (this.keyboard.t &&
+      this.bottlesBar.percentage > 0 &&
+      timeSinceLastThrow >= this.throwCooldown) {
+
       let x = this.character.rX + this.character.rW / 2.6;
       let y = this.character.rY + this.character.rH / 2.6;
       let bottle = new ThrowableObject(x, y);
       this.throwableObject.push(bottle);
       this.bottlesBar.setPercentage(this.bottlesBar.percentage - 10);
-      
+
       // Update last throw time to start cooldown
       this.lastThrowTime = currentTime;
-      
+
       // Register throw action to prevent idle animation
       this.character.registerThrowAction();
     }

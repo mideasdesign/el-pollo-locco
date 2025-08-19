@@ -4,7 +4,7 @@
  * They move left automatically and can be defeated by jumping on them.
  * @extends MovableObject
  */
-class Chicks extends MovableObject{ 
+class Chicks extends MovableObject {
     /** @type {number} - Width of the chick sprite (smaller than regular chickens) */
     width = 40;
     /** @type {number} - Height of the chick sprite (smaller than regular chickens) */
@@ -32,7 +32,7 @@ class Chicks extends MovableObject{
 
     /** @type {number} - Current frame index for animations */
     currentImage = 0;
-    
+
     /**
      * Creates a new Chicks instance with random positioning and speed.
      * Spawns in the later part of the level with variable movement speed.

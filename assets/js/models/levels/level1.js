@@ -26,11 +26,11 @@ function initLevel() {
   level1 = new Level(
     // Enemies - Array of normal chickens (primary threats)
     [new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken(), new Chicken()],
-    
+
     // Small enemies - Mix of chicks and chickens (secondary threats)
     // Small enemies - Mix of chicks and chickens (secondary threats)
     [new Chicks(), new Chicks(), new Chicks(), new Chicken(), new Chicks(), new Chicks(), new Chicks(), new Chicks(), new Chicken(), new Chicks(), new Chicks(), new Chicks(), new Chicks(), new Chicken(), new Chicks()],
-    
+
     // Clouds - Atmospheric background elements positioned across the level
     [
       new Clouds('assets/images/5_background/layers/4_clouds/1.png', 0),
@@ -38,11 +38,11 @@ function initLevel() {
       new Clouds('assets/images/5_background/layers/4_clouds/1.png', 1000),
       new Clouds('assets/images/5_background/layers/4_clouds/2.png', 1600),
       new Clouds('assets/images/5_background/layers/4_clouds/1.png', 2000),
-      new Clouds('assets/images/5_background/layers/4_clouds/2.png',2250),
+      new Clouds('assets/images/5_background/layers/4_clouds/2.png', 2250),
       new Clouds('assets/images/5_background/layers/4_clouds/2.png', 2800),
-      new Clouds('assets/images/5_background/layers/4_clouds/1.png',3100),
+      new Clouds('assets/images/5_background/layers/4_clouds/1.png', 3100),
     ],
-    
+
     // Background objects - Multi-layer parallax scrolling background
     // Creates seamless desert landscape with 4 layers (air, third, second, first) 
     // Each section is 719px wide, repeated 5 times for total level width
@@ -52,38 +52,38 @@ function initLevel() {
       new BackgroundObject('assets/images/5_background/layers/3_third_layer/1.png', 0),
       new BackgroundObject('assets/images/5_background/layers/2_second_layer/1.png', 0),
       new BackgroundObject('assets/images/5_background/layers/1_first_layer/1.png', 0),
-      
+
       // Section 2 (719px)
       new BackgroundObject('assets/images/5_background/layers/air.png', 719),
       new BackgroundObject('assets/images/5_background/layers/3_third_layer/2.png', 719),
       new BackgroundObject('assets/images/5_background/layers/2_second_layer/2.png', 719),
       new BackgroundObject('assets/images/5_background/layers/1_first_layer/2.png', 719),
-      
+
       // Section 3 (1438px)
       new BackgroundObject('assets/images/5_background/layers/air.png', 719 * 2),
       new BackgroundObject('assets/images/5_background/layers/3_third_layer/1.png', 719 * 2),
       new BackgroundObject('assets/images/5_background/layers/2_second_layer/1.png', 719 * 2),
       new BackgroundObject('assets/images/5_background/layers/1_first_layer/1.png', 719 * 2),
-      
+
       // Section 4 (2157px)
       new BackgroundObject('assets/images/5_background/layers/air.png', 719 * 3),
       new BackgroundObject('assets/images/5_background/layers/3_third_layer/2.png', 719 * 3),
       new BackgroundObject('assets/images/5_background/layers/2_second_layer/2.png', 719 * 3),
       new BackgroundObject('assets/images/5_background/layers/1_first_layer/2.png', 719 * 3),
-      
+
       // Section 5 (2876px) - Level end area
       new BackgroundObject('assets/images/5_background/layers/air.png', 719 * 4),
       new BackgroundObject('assets/images/5_background/layers/3_third_layer/1.png', 719 * 4),
       new BackgroundObject('assets/images/5_background/layers/2_second_layer/1.png', 719 * 4),
       new BackgroundObject('assets/images/5_background/layers/1_first_layer/1.png', 719 * 4),
-      
+
       // Section 6 (3595px) - Extended area for boss fight
       new BackgroundObject('assets/images/5_background/layers/air.png', 719 * 5),
       new BackgroundObject('assets/images/5_background/layers/3_third_layer/2.png', 719 * 5),
       new BackgroundObject('assets/images/5_background/layers/2_second_layer/2.png', 719 * 5),
       new BackgroundObject('assets/images/5_background/layers/1_first_layer/2.png', 719 * 5),
     ],
-    
+
     // Collectible coins - Strategic placement for encouraging exploration
     // Positioned at varying heights to require jumping and skillful movement
     [

@@ -11,7 +11,7 @@ class Clouds extends MovableObject {
   height = 450;
   /** @type {number} - Slow movement speed for realistic cloud drift */
   speed = 0.35;
-  
+
   /**
    * Creates a new Clouds instance at specified position.
    * Positions cloud in the sky area and starts drifting animation.
@@ -31,7 +31,7 @@ class Clouds extends MovableObject {
    */
   animate() {
     gameIntervals(() => {
-        this.moveLeft();
+      this.moveLeft();
     }, 1000 / 30);  // 30 FPS for smooth cloud movement
   }
 }

@@ -29,20 +29,20 @@ class AudioHub {
     static attackSound = new Audio('./assets/sound/chase-8-bit-73312.mp3');
     /** @type {Audio} - Boss hurt sound effect */
     static endbossHurtSound = new Audio('./assets/sound/endboss-hurt.mp3');
-    
+
     /** @type {Audio[]} - Array containing all audio objects for bulk operations */
     static allSounds = [
-        AudioHub.background, AudioHub.coinSound, AudioHub.bottleSound, 
+        AudioHub.background, AudioHub.coinSound, AudioHub.bottleSound,
         AudioHub.chickenSound, AudioHub.chicksSound, AudioHub.pepeSound,
         AudioHub.gameoverSound, AudioHub.youwinSound, AudioHub.youlooseSound,
         AudioHub.gamewinSound, AudioHub.attackSound, AudioHub.endbossHurtSound
     ];
-    
+
     /** @type {Map<Audio, number>} - Stores paused sounds and their playback positions */
     static pausedSounds = new Map();
     /** @type {boolean} - Global mute state flag (initialized from localStorage) */
     static isMuted = AudioHub.loadMuteState();
-    
+
     /** @type {AudioContext|null} - WebAudio context for iOS compatibility */
     static audioContext = null;
     /** @type {boolean} - Flag indicating if audio system is unlocked for iOS */
@@ -71,14 +71,14 @@ class AudioHub {
     static async initializeIOSAudio() {
         try {
             // Check if we're on iOS
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-            
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
             if (!isIOS) {
                 AudioHub.audioUnlocked = true;
                 return true;
             }
-            
+
             // Create AudioContext for iOS
             const AudioContextClass = window.AudioContext || window.webkitAudioContext;
             if (AudioContextClass && !AudioHub.audioContext) {
@@ -99,20 +99,20 @@ class AudioHub {
 
             // Test audio with a silent sound
             const testAudio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmMZBjWH1/LNeCwFJHPD8N2QQAoUXrXp66hVFApGnt/yv2UaB');
-            
+
             try {
                 await testAudio.play();
                 testAudio.pause();
                 testAudio.currentTime = 0;
                 AudioHub.audioUnlocked = true;
-                
+
                 // Process any queued audio
                 AudioHub.processAudioQueue();
                 return true;
             } catch (error) {
                 return false;
             }
-            
+
         } catch (error) {
             return false;
         }
@@ -135,9 +135,9 @@ class AudioHub {
      * Queues audio for later playback if iOS audio hasn't been unlocked yet.
      * @param {Audio} sound - The audio object to play
      */
-    static playOne(sound) { 
+    static playOne(sound) {
         if (AudioHub.isMuted) return;
-        
+
         // If iOS audio hasn't been unlocked yet, queue the sound
         if (!AudioHub.audioUnlocked) {
             if (!AudioHub.pendingAudioQueue.includes(sound)) {
@@ -145,17 +145,17 @@ class AudioHub {
             }
             return;
         }
-        
+
         try {
             // Prepare audio for playback
             sound.volume = 0.3;
             sound.currentTime = 0;
-            
+
             // Special handling for background music
             if (sound === AudioHub.background) {
                 sound.loop = true;
             }
-            
+
             // Play with promise handling for iOS
             const playPromise = sound.play();
             if (playPromise !== undefined) {
@@ -192,7 +192,7 @@ class AudioHub {
             }
         });
     }
-    
+
     static startAll() {
         AudioHub.isMuted = false;
         AudioHub.pausedSounds.forEach((position, sound) => {
@@ -207,10 +207,10 @@ class AudioHub {
                 });
             }
         });
-        
+
         // Special handling for background music if it wasn't in pausedSounds
-        if (!AudioHub.pausedSounds.has(AudioHub.background) && 
-            AudioHub.background.paused && 
+        if (!AudioHub.pausedSounds.has(AudioHub.background) &&
+            AudioHub.background.paused &&
             AudioHub.background.readyState == 4) {
             AudioHub.background.currentTime = 0;
             AudioHub.background.loop = true;
@@ -223,7 +223,7 @@ class AudioHub {
         // Clear saved positions after resuming
         AudioHub.pausedSounds.clear();
     }
-    
+
     /**
      * Stops all running sounds and resets them to the beginning.
      * Ideal for game end (win/loss) to stop all audio playback.
@@ -237,10 +237,10 @@ class AudioHub {
                 sound.currentTime = 0; // Reset all sounds to beginning
             }
         });
-        
+
         // Clear the queue for iOS
         AudioHub.pendingAudioQueue = [];
-        
+
         // Clear paused sounds
         AudioHub.pausedSounds.clear();
     }
@@ -253,7 +253,7 @@ class AudioHub {
         const endgameSounds = [AudioHub.gameoverSound, AudioHub.gamewinSound, AudioHub.youwinSound, AudioHub.youlooseSound];
         AudioHub.stopAll(endgameSounds);
     }
-    
+
     /**
      * Stoppt das Abspielen einer einzelnen Audiodatei.
      * @param {Audio} sound - Das zu stoppende Audio-Element

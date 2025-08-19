@@ -3,7 +3,7 @@
  * Chickens walk left automatically and can be defeated by jumping on them.
  * @extends MovableObject
  */
-class Chicken extends MovableObject{ 
+class Chicken extends MovableObject {
     /** @type {number} - Width of the chicken sprite */
     width = 40;
     /** @type {number} - Height of the chicken sprite */
@@ -44,7 +44,7 @@ class Chicken extends MovableObject{
      * Randomly positions the chicken and sets movement speed.
      * @constructor
      */
-    constructor(){
+    constructor() {
         super().loadImage('assets/images/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.x = 1500 + Math.random() * 1700;
         this.y = 430 - this.height;
@@ -55,7 +55,7 @@ class Chicken extends MovableObject{
         this.speed = 0.15 + Math.random() * 0.40;
         this.animate();
     };
-    
+
     /**
      * Starts the chicken's movement and animation loops.
      * Handles continuous left movement and walking animation.

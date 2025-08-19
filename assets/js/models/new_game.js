@@ -39,24 +39,32 @@ function startGame() {
             document.getElementById('loading-screen').style.display = 'none';
             document.getElementById('canvas').style.display = 'block';
         }, 1000); // simuliertes kurzes Laden
-        
+
     }, 1000);
 }
 
 window.addEventListener('keydown', (e) => {
+
     if (e.keyCode == 37) keyboard.left = true;
     if (e.keyCode == 39) keyboard.right = true;
-    if (e.keyCode == 38) keyboard.up = true;
-    if (e.keyCode == 40) keyboard.down = true;
-    if (e.keyCode == 32) keyboard.space = true;
     if (e.keyCode == 84) keyboard.t = true;
+    if (e.keyCode == 74) keyboard.j = true;
+    if (e.keyCode == 77) keyboard.m = true;  // M-Key for Mute
 });
 
 window.addEventListener('keyup', (e) => {
     if (e.keyCode == 37) keyboard.left = false;
     if (e.keyCode == 39) keyboard.right = false;
-    if (e.keyCode == 38) keyboard.up = false;
-    if (e.keyCode == 40) keyboard.down = false;
-    if (e.keyCode == 32) keyboard.space = false;
+    if (e.keyCode == 74) keyboard.j = false;
     if (e.keyCode == 84) keyboard.t = false;
+    if (e.keyCode == 77) {
+        keyboard.m = false;
+        allSounds(); // Trigger mute toggle when M key is released
+    }
 });
+
+// Legacy touch function - now replaced by touchDetection.js
+// Kept for compatibility but functionality moved to setupTouchControls()
+function touchBtn() {
+    // This function is now handled by setupInputControls() in touchDetection.js
+}
