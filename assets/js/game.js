@@ -221,13 +221,11 @@ function allSounds() {
     const btn = document.getElementById('btn-mute');
 
     if (isMuted) {
-        console.log('[Mute-DEBUG] Unmute triggered');
         AudioHub.isMuted = false;
         localStorage.setItem('mute', JSON.stringify('off'));
         AudioHub.startAll();
         initializeMuteState();
     } else {
-        console.log('[Mute-DEBUG] Mute triggered');
         AudioHub.isMuted = true;
         localStorage.setItem('mute', JSON.stringify('on'));
         AudioHub.stopAll([], true);
