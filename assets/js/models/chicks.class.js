@@ -18,16 +18,16 @@ class Chicks extends MovableObject {
      */
     offset = {
         top: 7,
-        right: 5,    // Swap left/right for left-facing sprites
+        right: 5,
         bottom: 6,
         left: 10
     };
 
     /** @type {string[]} - Array of image paths for walking animation */
     images_walking = [
-        'assets/images/3_enemies_chicken/chicken_small/1_walk/1_w.png',  // Walk frame 1
-        'assets/images/3_enemies_chicken/chicken_small/1_walk/2_w.png',  // Walk frame 2
-        'assets/images/3_enemies_chicken/chicken_small/1_walk/3_w.png'   // Walk frame 3
+        'assets/images/3_enemies_chicken/chicken_small/1_walk/1_w.png',
+        'assets/images/3_enemies_chicken/chicken_small/1_walk/2_w.png',
+        'assets/images/3_enemies_chicken/chicken_small/1_walk/3_w.png'
     ];
 
     /** @type {number} - Current frame index for animations */
@@ -40,12 +40,12 @@ class Chicks extends MovableObject {
      */
     constructor() {
         super().loadImage('assets/images/3_enemies_chicken/chicken_small/1_walk/1_w.png');
-        this.x = 1400 + Math.random() * 2000;  // Random position in later level area
-        this.y = 430 - this.height;            // Ground level positioning
-        this.otherDirection = false; // Chick sprites already face left
+        this.x = 1400 + Math.random() * 2000;
+        this.y = 430 - this.height;
+        this.otherDirection = false;
         this.getRealFrame();
         this.loadImages(this.images_walking);
-        this.speed = 0.19 + Math.random() * 1.20;  // Variable speed (faster than chickens)
+        this.speed = 0.19 + Math.random() * 1.20;
         this.animate();
     }
 
@@ -55,12 +55,12 @@ class Chicks extends MovableObject {
      * Chicks move faster than regular chickens for increased challenge.
      */
     animate() {
-        // Movement loop - moves left continuously at 40 FPS
+
         gameIntervals(() => {
             this.moveLeft();
         }, 1000 / 25);
 
-        // Animation loop - cycles through walking frames every 100ms
+
         gameIntervals(() => {
             this.playAnimation(this.images_walking);
         }, 100);

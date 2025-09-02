@@ -25,9 +25,9 @@ class Character extends MovableObject {
    */
   offset = {
     top: 110,
-    right: 28,    // Increase both values to shrink the hitbox
+    right: 28,
     bottom: 15,
-    left: 28,     // Same value for symmetry
+    left: 28,
   };
 
   /** @type {number} - Character's health points */
@@ -152,13 +152,13 @@ class Character extends MovableObject {
    */
   getRealFrame() {
     if (this.otherDirection) {
-      // When facing left, adjust collision box accordingly
+
       this.rX = this.x + this.offset.right;
       this.rY = this.y + this.offset.top;
       this.rW = this.width - this.offset.right - this.offset.left;
       this.rH = this.height - this.offset.top - this.offset.bottom;
     } else {
-      // Normal calculation when facing right
+
       this.rX = this.x + this.offset.left;
       this.rY = this.y + this.offset.top;
       this.rW = this.width - this.offset.left - this.offset.right;
@@ -186,7 +186,7 @@ class Character extends MovableObject {
       const k = this.world.keyboard;
       const inactive = this.wasInactive();
       const isMoving = k.right || k.left;
-      const isThrowing = k.t; // Check if throw key is pressed
+      const isThrowing = k.t;
 
       if (this.isDead() || this.ishurt() || this.isJumping) return;
 
@@ -194,9 +194,9 @@ class Character extends MovableObject {
         this.lastMove = new Date().getTime();
         this.playAnimation(this.images_walking);
       } else if (isThrowing) {
-        // Keep character active while throwing (no idle animation)
+
         this.lastMove = new Date().getTime();
-        this.playAnimation(this.images_idle, 160); // Show basic idle, not long idle
+        this.playAnimation(this.images_idle, 160);
       } else {
         if (inactive < 6) {
           this.playAnimation(this.images_idle, 160);
@@ -271,7 +271,7 @@ class Character extends MovableObject {
       }
     }
     if (!this.isAboveGround()) {
-      this.isJumping = false; // Sprung beendet
+      this.isJumping = false;
       this.isAnimating = false;
     }
   }

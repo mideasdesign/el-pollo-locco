@@ -27,8 +27,8 @@ class Coins extends MovableObject {
 
   /** @type {string[]} - Array of coin image frames for spinning animation */
   images_coins = [
-    'assets/images/8_coin/coin_1.png',  // Coin frame 1 (spinning animation)
-    'assets/images/8_coin/coin_2.png'   // Coin frame 2 (spinning animation)
+    'assets/images/8_coin/coin_1.png',
+    'assets/images/8_coin/coin_2.png'
   ];
 
   /**
@@ -56,7 +56,7 @@ class Coins extends MovableObject {
   animate() {
     gameIntervals(() => {
       this.playAnimation(this.images_coins);
-    }, 200);  // Spin every 200ms for attractive effect
+    }, 200);
   }
 
   /**

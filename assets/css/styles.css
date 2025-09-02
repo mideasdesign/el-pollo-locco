@@ -305,7 +305,6 @@ button img {
     }
   }
 }
-/* Touch Control Styles - Hidden by default, shown only on touch devices */
 #controls-box {
   position: fixed;
   bottom: 0;
@@ -317,7 +316,7 @@ button img {
   z-index: 1000;
 }
 
-/* Show touch controls when touch device is detected */
+
 #controls-box.show-touch-controls {
   display: flex;
 }
@@ -359,7 +358,7 @@ button img {
     flex-direction: column;
     justify-content: center;
   }
-  /* Note: .desktop-keys and .mobile-keys visibility now controlled by touchDetection.js */
+
   .mobile-keys {
     margin-top: 2rem;
     justify-content: center;

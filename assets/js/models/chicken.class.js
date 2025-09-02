@@ -17,7 +17,7 @@ class Chicken extends MovableObject {
      */
     offset = {
         top: 7,
-        right: 5,    // Swap left/right for left-facing sprites
+        right: 5,
         bottom: 6,
         left: 10
     };
@@ -48,10 +48,10 @@ class Chicken extends MovableObject {
         super().loadImage('assets/images/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.x = 1500 + Math.random() * 1700;
         this.y = 430 - this.height;
-        this.otherDirection = false; // Chicken sprites already face left
+        this.otherDirection = false;
         this.getRealFrame();
         this.loadImages(this.images_walking);
-        this.loadImages(this.images_dead); // Lade auch das tote Bild
+        this.loadImages(this.images_dead);
         this.speed = 0.15 + Math.random() * 0.40;
         this.animate();
     };
@@ -63,12 +63,12 @@ class Chicken extends MovableObject {
      */
     animate() {
         this.moveLeftInterval = gameIntervals(() => {
-            if (!this.dead) { // Nur bewegen wenn nicht tot
+            if (!this.dead) {
                 this.moveLeft();
             }
         }, 1000 / 25);
         this.wakingInterval = gameIntervals(() => {
-            if (!this.dead) { // Nur animieren wenn nicht tot
+            if (!this.dead) {
                 this.playAnimation(this.images_walking);
             }
         }, 100);
@@ -81,12 +81,12 @@ class Chicken extends MovableObject {
      */
     deadChicken() {
         this.dead = true;
-        this.speed = 0; // Stoppe Bewegung
+        this.speed = 0;
         clearInterval(this.moveLeftInterval);
         clearInterval(this.wakingInterval);
-        // Direkte und sichere Bildladung
+
         this.loadImage('assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png');
-        // Additionally: Make sure the image is set immediately
+
         if (this.imageCache['assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png']) {
             this.img = this.imageCache['assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png'];
         }

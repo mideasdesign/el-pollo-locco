@@ -10,12 +10,12 @@ class StatusBar extends DrawableObject {
 
   /** @type {string[]} - Array of health bar images for different health levels */
   images = [
-    'assets/images/7_statusbars/1_statusbar/2_statusbar_health/orange/0.png',    // 0% health (empty)
-    'assets/images/7_statusbars/1_statusbar/2_statusbar_health/orange/20.png',   // 20% health
-    'assets/images/7_statusbars/1_statusbar/2_statusbar_health/orange/40.png',   // 40% health
-    'assets/images/7_statusbars/1_statusbar/2_statusbar_health/orange/60.png',   // 60% health
-    'assets/images/7_statusbars/1_statusbar/2_statusbar_health/orange/80.png',   // 80% health
-    'assets/images/7_statusbars/1_statusbar/2_statusbar_health/orange/100.png',  // 100% health (full)
+    'assets/images/7_statusbars/1_statusbar/2_statusbar_health/orange/0.png',
+    'assets/images/7_statusbars/1_statusbar/2_statusbar_health/orange/20.png',
+    'assets/images/7_statusbars/1_statusbar/2_statusbar_health/orange/40.png',
+    'assets/images/7_statusbars/1_statusbar/2_statusbar_health/orange/60.png',
+    'assets/images/7_statusbars/1_statusbar/2_statusbar_health/orange/80.png',
+    'assets/images/7_statusbars/1_statusbar/2_statusbar_health/orange/100.png',
   ];
 
   /**
@@ -26,19 +26,29 @@ class StatusBar extends DrawableObject {
   constructor() {
     super();
     this.loadImages(this.images);
-    this.x = 40;       // Top-left position
-    this.y = 10;        // Top margin
-    this.width = 120;   // Bar width
-    this.height = 40;   // Bar height
-    this.setPercentage(100);  // Start with full health
+    this.x = 40;
+    this.y = 10;
+    this.width = 120;
+    this.height = 40;
+    this.setPercentage(100);
   }
 
+  /**
+   * Updates the status bar percentage and changes the displayed image.
+   * Automatically selects the appropriate image based on the percentage value.
+   * @param {number} percentage - The new percentage value (0-100)
+   */
   setPercentage(percentage) {
     this.percentage = percentage;
     let path = this.images[this.resolveImageIndex()];
     this.img = this.imageCache[path];
   }
 
+  /**
+   * Determines which image index to use based on current percentage.
+   * Maps percentage ranges to specific image indices for visual feedback.
+   * @returns {number} Image array index (0-5) corresponding to percentage range
+   */
   resolveImageIndex() {
     if (this.percentage == 100) {
       return 5;

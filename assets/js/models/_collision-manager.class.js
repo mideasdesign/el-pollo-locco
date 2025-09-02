@@ -25,13 +25,12 @@ class CollisionManager {
         if (world.character.isAboveGround() && world.character.speedY < 0 && world.character.isColliding(enemy) && !enemy.dead) {
           enemy.deadChicken();
           AudioHub.playOne(AudioHub.chickenSound);
-          // Delay for displaying the dead chicken
           setTimeout(() => {
             const currentIndex = world.level.enemies.indexOf(enemy);
             if (currentIndex > -1) {
               world.level.enemies.splice(currentIndex, 1);
             }
-          }, 1000); // 1 second delay
+          }, 1000); 
         }
       });
     }, 30);
@@ -67,9 +66,8 @@ class CollisionManager {
       enemy.getRealFrame();
       if (world.character.isColliding(enemy) && !enemy.dead) {
         world.character.hitPepe();
-        // Only play hurt sound if enough time has passed since last hurt sound
         const currentTime = new Date().getTime();
-        if (currentTime - world.character.lastHurtSound > 400) { // 400ms cooldown for sound
+        if (currentTime - world.character.lastHurtSound > 400) { 
           AudioHub.playOne(AudioHub.pepeSound);
           world.character.lastHurtSound = currentTime;
         }
@@ -89,9 +87,8 @@ class CollisionManager {
       chick.getRealFrame();
       if (world.character.isColliding(chick)) {
         world.character.hitPepe();
-        // Only play hurt sound if enough time has passed since last hurt sound
         const currentTime = new Date().getTime();
-        if (currentTime - world.character.lastHurtSound > 400) { // 400ms cooldown for sound
+        if (currentTime - world.character.lastHurtSound > 400) { 
           AudioHub.playOne(AudioHub.pepeSound);
           world.character.lastHurtSound = currentTime;
         }
@@ -111,9 +108,8 @@ class CollisionManager {
       boss.getRealFrame();
       if (world.character.isColliding(boss)) {
         world.character.hitPepe();
-        // Only play hurt sound if enough time has passed since last hurt sound
         const currentTime = new Date().getTime();
-        if (currentTime - world.character.lastHurtSound > 400) { // 400ms cooldown for sound
+        if (currentTime - world.character.lastHurtSound > 400) { 
           AudioHub.playOne(AudioHub.pepeSound);
           world.character.lastHurtSound = currentTime;
         }
@@ -188,7 +184,6 @@ class CollisionManager {
       world.throwableObjects.push(bottle);
       world.character.bottles--;
       world.statusBarBottles.setPercentage(world.character.bottles);
-      // Register throwing action to prevent idle animation
       world.character.registerThrowAction();
       world.keyboard.THROW = false;
     }
@@ -202,7 +197,6 @@ class CollisionManager {
   static moveCoins(world) {
     if (world.level && world.level.coins) {
       world.level.coins.forEach((coin) => {
-        // Simple floating animation for coins
         coin.y += Math.sin(Date.now() * 0.002 + coin.x * 0.01) * 0.5;
       });
     }

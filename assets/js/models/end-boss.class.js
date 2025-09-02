@@ -32,6 +32,7 @@ class Endboss extends MovableObject {
   /** @type {boolean} - True when boss is currently attacking */
   isAttacking = false;
 
+  /** @type {string[]} - Animation frames for boss idle/alert state */
   images_idle = [
     "assets/images/4_enemie_boss_chicken/2_alert/G5.png",
     "assets/images/4_enemie_boss_chicken/2_alert/G6.png",
@@ -42,14 +43,18 @@ class Endboss extends MovableObject {
     "assets/images/4_enemie_boss_chicken/2_alert/G11.png",
     "assets/images/4_enemie_boss_chicken/2_alert/G12.png",
   ];
+  /** @type {string[]} - Animation frames for boss walking movement */
   images_boss_walking = [
     "assets/images/4_enemie_boss_chicken/1_walk/G1.png",
     "assets/images/4_enemie_boss_chicken/1_walk/G2.png",
     "assets/images/4_enemie_boss_chicken/1_walk/G3.png",
     "assets/images/4_enemie_boss_chicken/1_walk/G3.png",
   ];
+  /** @type {string[]} - Animation frames for boss taking damage */
   images_boss_hurt = ["assets/images/4_enemie_boss_chicken/4_hurt/G21.png", "assets/images/4_enemie_boss_chicken/4_hurt/G22.png", "assets/images/4_enemie_boss_chicken/4_hurt/G23.png"];
+  /** @type {string[]} - Animation frames for boss death sequence */
   images_boss_dead = ["assets/images/4_enemie_boss_chicken/5_dead/G24.png", "assets/images/4_enemie_boss_chicken/5_dead/G25.png", "assets/images/4_enemie_boss_chicken/5_dead/G26.png"];
+  /** @type {string[]} - Animation frames for boss attack sequence */
   images_boss_attack = [
     "assets/images/4_enemie_boss_chicken/3_attack/G13.png",
     "assets/images/4_enemie_boss_chicken/3_attack/G14.png",
@@ -60,7 +65,13 @@ class Endboss extends MovableObject {
     "assets/images/4_enemie_boss_chicken/3_attack/G19.png",
     "assets/images/4_enemie_boss_chicken/3_attack/G20.png",
   ];
+  /** @type {number} - Current frame index for animations */
   currentImage = 0;
+  
+  /**
+   * Creates a new Endboss instance.
+   * Initializes all animations and starts boss behavior patterns.
+   */
   constructor() {
     super().loadImage("assets/images/4_enemie_boss_chicken/2_alert/G5.png");
     this.loadImages(this.images_idle);
@@ -73,10 +84,18 @@ class Endboss extends MovableObject {
     this.startAttack();
   }
 
+  /**
+   * Calculates time elapsed since last attack.
+   * @returns {number} Time in seconds since last attack
+   */
   lastAttack() {
     return (new Date().getTime() - this.lastMove) / 1000;
   }
 
+  /**
+   * Controls boss animation states based on health and status.
+   * Plays appropriate animations for dead, hurt, or idle states.
+   */
   animate() {
     gameIntervals(() => {
       if (this.isDead()) {
@@ -92,6 +111,10 @@ class Endboss extends MovableObject {
     }, 300);
   }
 
+  /**
+   * Initiates boss attack pattern with alternating movement and attack phases.
+   * Creates a cycling pattern between walking towards player and attacking.
+   */
   startAttack() {
     let attackPhase = false;
     let attackStart = Date.now();
@@ -118,6 +141,10 @@ class Endboss extends MovableObject {
     }, 300);
   }
 
+  /**
+   * Stops boss movement by setting speed to zero.
+   * Used during attack phases when boss should remain stationary.
+   */
   stopMoving() {
     this.speed = 0;
   }

@@ -55,7 +55,6 @@ class World {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
-    // Touch controls are now initialized by touchDetection.js in startGame()
   };
 
   /**
@@ -118,18 +117,14 @@ class World {
         if (this.character.isAboveGround() && this.character.speedY < 0 && this.character.isColliding(enemy) && !enemy.dead) {
           enemy.deadChicken();
           AudioHub.playOne(AudioHub.chickenSound);
-          // Delay for displaying the dead chicken
           setTimeout(() => {
             const currentIndex = this.level.enemies.indexOf(enemy);
             if (currentIndex > -1) {
               this.level.enemies.splice(currentIndex, 1);
             }
-
-          }, 1000); // 1 second delay
+          }, 1000);
         }
-
       });
-
     }, 30);
 
   };
@@ -165,9 +160,9 @@ class World {
       enemy.getRealFrame();
       if (this.character.isColliding(enemy) && !enemy.dead) {
         this.character.hitPepe();
-        // Only play hurt sound if enough time has passed since last hurt sound
+
         const currentTime = new Date().getTime();
-        if (currentTime - this.character.lastHurtSound > 400) { // 400ms cooldown for sound
+        if (currentTime - this.character.lastHurtSound > 400) {
           AudioHub.playOne(AudioHub.pepeSound);
           this.character.lastHurtSound = currentTime;
         };
@@ -186,9 +181,9 @@ class World {
       chick.getRealFrame();
       if (this.character.isColliding(chick) && !chick.isDead()) {
         this.character.hitPepe();
-        // Only play hurt sound if enough time has passed since last hurt sound
+
         const currentTime = new Date().getTime();
-        if (currentTime - this.character.lastHurtSound > 400) { // 400ms cooldown for sound
+        if (currentTime - this.character.lastHurtSound > 400) {
           AudioHub.playOne(AudioHub.pepeSound);
           this.character.lastHurtSound = currentTime;
         };
@@ -207,9 +202,9 @@ class World {
     this.endboss.getRealFrame();
     if (this.character.isColliding(this.endboss)) {
       this.character.hitPepe();
-      // Only play hurt sound if enough time has passed since last hurt sound
+
       const currentTime = new Date().getTime();
-      if (currentTime - this.character.lastHurtSound > 400) { // 400ms cooldown for sound
+      if (currentTime - this.character.lastHurtSound > 400) {
         AudioHub.playOne(AudioHub.pepeSound);
         this.character.lastHurtSound = currentTime;
       }
@@ -224,7 +219,7 @@ class World {
    */
   checkBossAttack() {
     if (this.character.rX > 2500 && !this.bossAttackTriggered) {
-      this.bossAttackTriggered = true;  // Prevent multiple triggers
+      this.bossAttackTriggered = true;
       this.isAttacking = true;
       AudioHub.stopOne(AudioHub.background);
       AudioHub.playOne(AudioHub.attackSound);
@@ -244,17 +239,12 @@ class World {
     if (this.keyboard.t &&
       this.bottlesBar.percentage > 0 &&
       timeSinceLastThrow >= this.throwCooldown) {
-
       let x = this.character.rX + this.character.rW / 2.6;
       let y = this.character.rY + this.character.rH / 2.6;
       let bottle = new ThrowableObject(x, y);
       this.throwableObject.push(bottle);
       this.bottlesBar.setPercentage(this.bottlesBar.percentage - 10);
-
-      // Update last throw time to start cooldown
       this.lastThrowTime = currentTime;
-
-      // Register throw action to prevent idle animation
       this.character.registerThrowAction();
     }
   }

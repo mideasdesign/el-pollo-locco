@@ -25,10 +25,10 @@ function init() {
  */
 function startGame() {
     const startScreen = document.getElementById('start-screen');
-    // Entferne das Startbild und den Button mit einer Ausblend-Animation
+
     startScreen.style.animation = 'fadeOut 1s forwards';
 
-    // Nach der Animation das Startscreen-Element ausblenden und das Laden starten
+
     setTimeout(() => {
         startScreen.style.display = 'none';
         document.getElementById('loading-screen').style.display = 'block';
@@ -38,20 +38,32 @@ function startGame() {
             world = new World(canvas, keyboard);
             document.getElementById('loading-screen').style.display = 'none';
             document.getElementById('canvas').style.display = 'block';
-        }, 1000); // simuliertes kurzes Laden
+        }, 1000);
 
     }, 1000);
 }
 
+/**
+ * Handles keyboard key press events for game controls.
+ * Sets keyboard state flags for movement and action keys.
+ * Key mappings: 37=Left, 39=Right, 84=Throw, 74=Jump, 77=Mute
+ * @param {KeyboardEvent} e - The keyboard event object
+ */
 window.addEventListener('keydown', (e) => {
 
     if (e.keyCode == 37) keyboard.left = true;
     if (e.keyCode == 39) keyboard.right = true;
     if (e.keyCode == 84) keyboard.t = true;
     if (e.keyCode == 74) keyboard.j = true;
-    if (e.keyCode == 77) keyboard.m = true;  // M-Key for Mute
+    if (e.keyCode == 77) keyboard.m = true;
 });
 
+/**
+ * Handles keyboard key release events for game controls.
+ * Resets keyboard state flags when keys are released.
+ * Special handling for mute key (M) which toggles sound on release.
+ * @param {KeyboardEvent} e - The keyboard event object
+ */
 window.addEventListener('keyup', (e) => {
     if (e.keyCode == 37) keyboard.left = false;
     if (e.keyCode == 39) keyboard.right = false;
@@ -59,12 +71,16 @@ window.addEventListener('keyup', (e) => {
     if (e.keyCode == 84) keyboard.t = false;
     if (e.keyCode == 77) {
         keyboard.m = false;
-        allSounds(); // Trigger mute toggle when M key is released
+        allSounds();
     }
 });
 
-// Legacy touch function - now replaced by touchDetection.js
-// Kept for compatibility but functionality moved to setupTouchControls()
+
+
+/**
+ * Placeholder function for touch button controls.
+ * Currently empty - intended for mobile device touch input handling.
+ */
 function touchBtn() {
-    // This function is now handled by setupInputControls() in touchDetection.js
+
 }

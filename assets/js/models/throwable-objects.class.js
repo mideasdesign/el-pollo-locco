@@ -25,20 +25,20 @@ class ThrowableObject extends MovableObject {
 
   /** @type {string[]} - Array of bottle rotation images for flight animation */
   images_rotating_bottle = [
-    'assets/images/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',  // Rotation frame 1
-    'assets/images/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',  // Rotation frame 2
-    'assets/images/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',  // Rotation frame 3
-    'assets/images/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png'   // Rotation frame 4
+    'assets/images/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
+    'assets/images/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
+    'assets/images/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
+    'assets/images/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png'
   ];
 
   /** @type {string[]} - Array of splash images for impact animation */
   images_splash = [
-    'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',  // Splash frame 1
-    'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',  // Splash frame 2
-    'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',  // Splash frame 3
-    'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png',  // Splash frame 4
-    'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',  // Splash frame 5
-    'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'   // Splash frame 6
+    'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
+    'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
+    'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',
+    'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png',
+    'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
+    'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
 
   ];
 
@@ -56,6 +56,10 @@ class ThrowableObject extends MovableObject {
     this.animate();
   };
 
+  /**
+   * Animates the bottle rotation during flight.
+   * Moves the bottle horizontally and plays rotation animation at 80ms intervals.
+   */
   animate() {
     gameIntervals(() => {
       this.x += 20;
@@ -64,6 +68,12 @@ class ThrowableObject extends MovableObject {
 
   };
 
+  /**
+   * Initializes the throwing motion with physics properties.
+   * Sets position, dimensions, upward velocity and applies gravity.
+   * @param {number} x - Starting X coordinate for the throw
+   * @param {number} y - Starting Y coordinate for the throw
+   */
   throw(x, y) {
     this.x = x;
     this.y = y;
@@ -75,6 +85,11 @@ class ThrowableObject extends MovableObject {
     this.animate();
   };
 
+  /**
+   * Handles bottle impact animation and cleanup.
+   * Stops movement, plays splash animation, and removes bottle from world.
+   * Prevents multiple splash animations with hasHit flag.
+   */
   splash() {
     if (this.hasHit) return;
     this.hasHit = true;

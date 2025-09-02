@@ -21,7 +21,7 @@ class Clouds extends MovableObject {
   constructor(imagePath, x) {
     super().loadImage(imagePath);
     this.x = x;
-    this.y = 400 - this.height;  // Position in sky area (negative Y)
+    this.y = 400 - this.height;
     this.animate();
   }
 
@@ -32,6 +32,6 @@ class Clouds extends MovableObject {
   animate() {
     gameIntervals(() => {
       this.moveLeft();
-    }, 1000 / 30);  // 30 FPS for smooth cloud movement
+    }, 1000 / 30);
   }
 }

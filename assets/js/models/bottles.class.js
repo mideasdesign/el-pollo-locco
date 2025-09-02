@@ -26,8 +26,8 @@ class Bottles extends MovableObject {
   bottlesLevel = 0;
   /** @type {string[]} - Array of bottle image variations for visual diversity */
   images_bottles = [
-    'assets/images/6_salsa_bottle/1_salsa_bottle_on_ground.png',  // Bottle variant 1
-    'assets/images/6_salsa_bottle/2_salsa_bottle_on_ground.png'   // Bottle variant 2
+    'assets/images/6_salsa_bottle/1_salsa_bottle_on_ground.png',
+    'assets/images/6_salsa_bottle/2_salsa_bottle_on_ground.png'
   ];
 
   /**

@@ -50,15 +50,24 @@ class DrawableObject {
         this.rH = this.height - this.offset.top - this.offset.bottom;
     }
 
+    /**
+     * Draws the object on the canvas context.
+     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context
+     */
     draw(ctx) {
         try {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
         }
         catch (e) {
-            // Error loading image - using fallback
+
         }
     }
 
+    /**
+     * Draws a debug frame around the object's bounds.
+     * Only draws for specific game object types.
+     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context
+     */
     drawFrame(ctx) {
         if (this instanceof Character || this instanceof Chicken || this instanceof Chicks || this instanceof Endboss || this instanceof Coins || this instanceof Bottles || this instanceof ThrowableObject) {
             ctx.beginPath();
@@ -69,6 +78,11 @@ class DrawableObject {
         }
     }
 
+    /**
+     * Draws a debug frame around the object's real collision bounds.
+     * Shows the actual collision detection area after applying offsets.
+     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context
+     */
     drawRealFrame(ctx) {
         if (this instanceof Character || this instanceof Chicken || this instanceof Chicks || this instanceof Endboss || this instanceof Coins || this instanceof Bottles || this instanceof ThrowableObject) {
             ctx.beginPath();
@@ -91,6 +105,12 @@ class DrawableObject {
         });
     }
 
+    /**
+     * Plays an animation sequence once with specified frame rate.
+     * Prevents multiple simultaneous animations on the same object.
+     * @param {string[]} images - Array of image paths for the animation
+     * @param {number} frameRate - Time in milliseconds between frames (default: 100)
+     */
     playAnimationOnce(images, frameRate = 100) {
         if (this.isAnimating) return;
         this.isAnimating = true;

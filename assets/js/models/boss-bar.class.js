@@ -15,21 +15,20 @@ class BossBar extends StatusBar {
     super();
     /** @type {string[]} - Array of image paths for different health levels (0-100%) */
     this.images = [
-      'assets/images/7_statusbars/2_statusbar_endboss/orange/orange0.png',    // 0% health
-      'assets/images/7_statusbars/2_statusbar_endboss/orange/orange20.png',   // 20% health
-      'assets/images/7_statusbars/2_statusbar_endboss/orange/orange40.png',   // 40% health
-      'assets/images/7_statusbars/2_statusbar_endboss/orange/orange60.png',   // 60% health
-      'assets/images/7_statusbars/2_statusbar_endboss/orange/orange80.png',   // 80% health
-      'assets/images/7_statusbars/2_statusbar_endboss/orange/orange100.png'   // 100% health
+      'assets/images/7_statusbars/2_statusbar_endboss/orange/orange0.png',
+      'assets/images/7_statusbars/2_statusbar_endboss/orange/orange20.png',
+      'assets/images/7_statusbars/2_statusbar_endboss/orange/orange40.png',
+      'assets/images/7_statusbars/2_statusbar_endboss/orange/orange60.png',
+      'assets/images/7_statusbars/2_statusbar_endboss/orange/orange80.png',
+      'assets/images/7_statusbars/2_statusbar_endboss/orange/orange100.png'
     ];
     this.loadImages(this.images);
-    this.img = this.imageCache[this.images[5]];  // Start with full health
-    this.x = 510;      // Top-right position
-    this.y = 13;       // Top margin
-    this.width = 120;  // Bar width
-    this.height = 40;  // Bar height
-    this.setPercentage(100);  // Initialize with full health
-
+    this.img = this.imageCache[this.images[5]];
+    this.x = 510;
+    this.y = 13;
+    this.width = 120;
+    this.height = 40;
+    this.setPercentage(100);
   }
 
   /**
