@@ -21,8 +21,7 @@ class CollisionManager {
         CollisionManager.processTopCollision(world, enemy);
       });
     }, 30);
-  }
-
+  };
   /**
    * Processes collision between character and enemy from above
    * @param {World} world - The game world instance
@@ -35,8 +34,7 @@ class CollisionManager {
     if (CollisionManager.isValidTopCollision(world.character, enemy)) {
       CollisionManager.handleEnemyDefeat(world, enemy);
     }
-  }
-
+  };
   /**
    * Checks if collision from top is valid for defeating enemy
    * @param {Character} character - The player character
@@ -48,8 +46,7 @@ class CollisionManager {
            character.speedY < 0 && 
            character.isColliding(enemy) && 
            !enemy.dead;
-  }
-
+  };
   /**
    * Handles enemy defeat with sound and removal
    * @param {World} world - The game world instance
@@ -83,8 +80,7 @@ class CollisionManager {
         }
       });
     }, 30);
-  }
-
+  };
   /**
    * Checks for standard collisions between Pepe and enemies.
    * Handles damage to character when hit by enemies with sound cooldown.
@@ -104,8 +100,7 @@ class CollisionManager {
         world.statusBar.setPercentage(world.character.healthPepe);
       }
     });
-  }
-
+  };
   /**
    * Checks for collisions between Pepe and small chickens.
    * Handles damage when character collides with small enemies.
@@ -125,8 +120,7 @@ class CollisionManager {
         world.statusBar.setPercentage(world.character.healthPepe);
       }
     });
-  }
-
+  };
   /**
    * Checks for collisions between Pepe and the boss enemy.
    * Handles damage when character collides with the end boss.
@@ -146,8 +140,7 @@ class CollisionManager {
         world.statusBar.setPercentage(world.character.healthPepe);
       }
     });
-  }
-
+  };
   /**
    * Checks for boss attack patterns and proximity to character.
    * Triggers boss behavior when character approaches.
@@ -155,12 +148,11 @@ class CollisionManager {
    */
   static checkBossAttack(world) {
     world.level.endboss.forEach((boss) => {
-      if (world.character.x >= 1900) {
+      if (world.character.x >= 2000) {
         boss.endbossAttack();
       }
     });
-  }
-
+  };
   /**
    * Checks for collisions between bottles and boss enemies.
    * Handles boss damage and bottle removal on impact.
@@ -176,8 +168,7 @@ class CollisionManager {
         }
       });
     });
-  }
-
+  }:
   /**
    * Checks for collectible item interactions (coins and bottles).
    * Handles item collection and status bar updates.
@@ -186,8 +177,7 @@ class CollisionManager {
   static checkCollectibles(world) {
     CollisionManager.checkCoinCollection(world);
     CollisionManager.checkBottleCollection(world);
-  }
-
+  };
   /**
    * Handles coin collection interactions
    * @param {World} world - Reference to the game world instance
@@ -201,8 +191,7 @@ class CollisionManager {
         AudioHub.playOne(AudioHub.coinSound);
       }
     });
-  }
-
+  };
   /**
    * Handles bottle collection interactions
    * @param {World} world - Reference to the game world instance
@@ -216,8 +205,7 @@ class CollisionManager {
         AudioHub.playOne(AudioHub.bottleSound);
       }
     });
-  }
-
+  };
   /**
    * Checks for throwable object collisions and interactions.
    * Handles bottle throwing mechanics and character throw action registration.
@@ -228,8 +216,7 @@ class CollisionManager {
       CollisionManager.createAndThrowBottle(world);
       CollisionManager.updateThrowState(world);
     }
-  }
-
+  };
   /**
    * Creates and throws a new bottle object
    * @param {World} world - Reference to the game world instance
@@ -237,8 +224,7 @@ class CollisionManager {
   static createAndThrowBottle(world) {
     let bottle = new ThrowableObject(world.character.x + 100, world.character.y + 100);
     world.throwableObjects.push(bottle);
-  }
-
+  };
   /**
    * Updates character state after throwing
    * @param {World} world - Reference to the game world instance
@@ -248,8 +234,7 @@ class CollisionManager {
     world.statusBarBottles.setPercentage(world.character.bottles);
     world.character.registerThrowAction();
     world.keyboard.THROW = false;
-  }
-
+  };
   /**
    * Animates coin objects with floating movement.
    * Provides visual feedback and makes coins more noticeable.

@@ -122,7 +122,7 @@ function setupTouchControls() {
     const touchButtons = [
         { id: 'btn-left', key: 'left' },
         { id: 'btn-right', key: 'right' },
-        { id: 'btn-jump', key: 'space' },
+        { id: 'btn-jump', key: 'up' },
         { id: 'btn-throw', key: 't' }
     ];
     touchButtons.forEach(({ id, key }) => {

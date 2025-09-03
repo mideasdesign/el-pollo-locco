@@ -29,7 +29,6 @@ class BossBar extends StatusBar {
     this.height = 40;
     this.setPercentage(100);
   };
-
   /**
    * Updates the boss health bar to reflect current health percentage.
    * Automatically selects the appropriate image based on health level.
@@ -40,7 +39,6 @@ class BossBar extends StatusBar {
     let path = this.images[this.resolveImageIndex()];
     this.img = this.imageCache[path];
   };
-
   /**
    * Resolves which image index to use based on current health percentage.
    * Returns appropriate array index for the health bar image.
@@ -49,13 +47,13 @@ class BossBar extends StatusBar {
   resolveImageIndex() {
     if (this.percentage == 100) {
       return 5;
-    } else if (this.percentage > 80) {
+    } else if (this.percentage > 79) {
       return 4;
-    } else if (this.percentage > 60) {
+    } else if (this.percentage > 50) {
       return 3;
-    } else if (this.percentage > 40) {
+    } else if (this.percentage > 30) {
       return 2;
-    } else if (this.percentage > 20) {
+    } else if (this.percentage > 6) {
       return 1;
     } else {
       return 0;

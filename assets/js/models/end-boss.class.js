@@ -26,12 +26,10 @@ class Endboss extends MovableObject {
     bottom: 40,
     left: 16,
   };
-
   /** @type {number} - Boss health points (much higher than regular enemies) */
-  healthBoss = 110;
+  healthBoss = 95;
   /** @type {boolean} - True when boss is currently attacking */
   isAttacking = false;
-
   /** @type {string[]} - Animation frames for boss idle/alert state */
   images_idle = [
     "assets/images/4_enemie_boss_chicken/2_alert/G5.png",
@@ -67,7 +65,7 @@ class Endboss extends MovableObject {
   ];
   /** @type {number} - Current frame index for animations */
   currentImage = 0;
-  
+
   /**
    * Creates a new Endboss instance.
    * Initializes all animations and starts boss behavior patterns.
@@ -83,7 +81,6 @@ class Endboss extends MovableObject {
     this.animate();
     this.startAttack();
   };
-
   /**
    * Calculates time elapsed since last attack.
    * @returns {number} Time in seconds since last attack
@@ -91,7 +88,6 @@ class Endboss extends MovableObject {
   lastAttack() {
     return (new Date().getTime() - this.lastMove) / 1000;
   };
-
   /**
    * Controls boss animation states based on health and status.
    * Plays appropriate animations for dead, hurt, or idle states.
@@ -110,7 +106,6 @@ class Endboss extends MovableObject {
       }
     }, 300);
   };
-
   /**
    * Initiates boss attack pattern with alternating movement and attack phases.
    * Creates a cycling pattern between walking towards player and attacking.
@@ -126,8 +121,7 @@ class Endboss extends MovableObject {
       attackPhase = result.attackPhase;
       attackStart = result.attackStart;
     }, 300);
-  }
-
+  };
   /**
    * Handles the current attack phase logic.
    * Switches between movement and attack phases based on timing.
@@ -142,8 +136,7 @@ class Endboss extends MovableObject {
     } else {
       return this.handleAttackingPhase(time, now);
     }
-  }
-
+  };
   /**
    * Handles the movement phase where boss walks towards player.
    * @param {number} time - Time elapsed in current phase
@@ -159,8 +152,7 @@ class Endboss extends MovableObject {
       return { attackPhase: true, attackStart: now };
     }
     return { attackPhase: false, attackStart: now - time };
-  }
-
+  };
   /**
    * Handles the attacking phase where boss performs attack animation.
    * @param {number} time - Time elapsed in current phase
@@ -173,8 +165,7 @@ class Endboss extends MovableObject {
       return { attackPhase: false, attackStart: now };
     }
     return { attackPhase: true, attackStart: now - time };
-  }
-
+  };
   /**
    * Stops boss movement by setting speed to zero.
    * Used during attack phases when boss should remain stationary.
@@ -182,4 +173,4 @@ class Endboss extends MovableObject {
   stopMoving() {
     this.speed = 0;
   }
-}
+};

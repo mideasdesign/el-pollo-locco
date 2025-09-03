@@ -36,8 +36,7 @@ async function startGame() {
     } catch (error) {
         startGameplayFallback();
     }
-}
-
+};
 /**
  * Initializes audio system and input controls.
  */
@@ -46,23 +45,20 @@ async function initializeAudioAndControls() {
     await AudioHub.initializeIOSAudio();
     setupInputControls();
     setupResponsiveControls();
-}
-
+};
 /**
  * Attempts to lock screen orientation to landscape.
  */
 async function lockScreenOrientation() {
     await screen.orientation.lock('landscape').catch((err) => {});
-}
-
+};
 /**
  * Starts the main gameplay sequence.
  */
 function startGameplay() {
     initializeGame();
     showGameUI();
-}
-
+};
 /**
  * Fallback gameplay start when audio initialization fails.
  */
@@ -149,8 +145,7 @@ function restartGame() {
     clearCanvas();
     resetGameState();
     startGame();
-}
-
+};
 /**
  * Stops all currently playing game audio.
  */
@@ -257,8 +252,7 @@ function initializeMuteState() {
     const btn = document.getElementById('btn-mute');
     AudioHub.isMuted = isMuted;
     updateMuteButtonIcon(btn, isMuted);
-}
-
+};
 /**
  * Updates the mute button icon based on mute state.
  * @param {HTMLElement} btn - The mute button element
@@ -333,8 +327,7 @@ function setupIOSAudioUnlock() {
         }
     };
     attachAudioUnlockListeners(unlockAudio);
-}
-
+};
 /**
  * Attaches audio unlock event listeners to various user interactions.
  * @param {Function} unlockAudio - The audio unlock function
@@ -350,14 +343,14 @@ document.addEventListener('DOMContentLoaded', setupIOSAudioUnlock);
 /**
  * Handles keyboard key press events for game controls.
  * Sets keyboard state flags for movement and action keys.
- * Key mappings: 37=Left, 39=Right, 84=Throw, 74=Jump, 77=Mute
+ * Key mappings: 37=Left, 39=Right, 84=Throw, 32=Jump, 77=Mute
  * @param {KeyboardEvent} e - The keyboard event object
  */
 window.addEventListener('keydown', (e) => {
     if (e.keyCode == 37) keyboard.left = true;
     if (e.keyCode == 39) keyboard.right = true;
+    if (e.keyCode == 38) keyboard.up = true;
     if (e.keyCode == 84) keyboard.t = true;
-    if (e.keyCode == 74) keyboard.j = true;
     if (e.keyCode == 77) keyboard.m = true;
 });
 /**
@@ -369,7 +362,7 @@ window.addEventListener('keydown', (e) => {
 window.addEventListener('keyup', (e) => {
     if (e.keyCode == 37) keyboard.left = false;
     if (e.keyCode == 39) keyboard.right = false;
-    if (e.keyCode == 74) keyboard.j = false;
+    if (e.keyCode == 38) keyboard.up = false;
     if (e.keyCode == 84) keyboard.t = false;
     if (e.keyCode == 77) {
         keyboard.m = false;
