@@ -3,7 +3,7 @@
  * Handles canvas drawing, background layers, UI elements, and game objects.
  * Coordinates the visual presentation of the entire game.
  */
-class RenderingManager {
+class RenderingManager {del _collision
   /** @type {CanvasRenderingContext2D} - Canvas 2D rendering context */
   ctx;
   /** @type {HTMLCanvasElement} - The game canvas */
