@@ -58,9 +58,7 @@ class DrawableObject {
         try {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
         }
-        catch (e) {
-
-        }
+        catch (e) {}
     }
 
     /**
@@ -124,7 +122,6 @@ class DrawableObject {
                 this.isAnimating = false;
             }
         };
-
         step();
     }
 }

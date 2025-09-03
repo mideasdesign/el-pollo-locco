@@ -44,7 +44,7 @@ class Bottles extends MovableObject {
     this.height = 90;
     this.getRealFrame();
     this.loadImages(this.images_bottles);
-  }
+  };
 
   /**
    * Calculates collision frame for bottles using original formula.
@@ -55,5 +55,5 @@ class Bottles extends MovableObject {
     this.rY = this.y + this.offset.top;
     this.rW = this.width + this.offset.left - this.offset.right;
     this.rH = this.height - this.offset.top - this.offset.bottom;
-  }
-}
+  };
+};

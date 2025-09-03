@@ -40,13 +40,16 @@ class AudioHub {
 
     /** @type {Map<Audio, number>} - Stores paused sounds and their playback positions */
     static pausedSounds = new Map();
+
     /** @type {boolean} - Global mute state flag (initialized from localStorage) */
     static isMuted = AudioHub.loadMuteState();
 
     /** @type {AudioContext|null} - WebAudio context for iOS compatibility */
     static audioContext = null;
+
     /** @type {boolean} - Flag indicating if audio system is unlocked for iOS */
     static audioUnlocked = false;
+
     /** @type {Audio[]} - Queue of sounds waiting to be played after iOS unlock */
     static pendingAudioQueue = [];
 
@@ -61,63 +64,85 @@ class AudioHub {
         } catch (error) {
             return false; 
         }
-    }
+    };
 
     /**
-     * Initializes iOS-compatible audio system.
-     * Must be called after user interaction to unlock audio on iOS.
-     * @returns {Promise<boolean>} Promise resolving to true if audio was successfully initialized
+     * Initializes audio for iOS devices with required user interaction.
+     * Handles iOS audio unlock requirements and context creation.
+     * @returns {Promise<boolean>} True if audio was successfully initialized
      */
     static async initializeIOSAudio() {
         try {
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-
-            if (!isIOS) {
+            if (!AudioHub.isIOSDevice()) {
                 AudioHub.audioUnlocked = true;
                 return true;
             }
-
-
-            const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-            if (AudioContextClass && !AudioHub.audioContext) {
-                AudioHub.audioContext = new AudioContextClass();
-            }
-
-
-            AudioHub.allSounds.forEach(sound => {
-                sound.preload = 'auto';
-                sound.muted = false;
-                sound.load();
-            });
-
-
-            if (AudioHub.audioContext && AudioHub.audioContext.state === 'suspended') {
-                await AudioHub.audioContext.resume();
-            }
-
-
-            const testAudio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmMZBjWH1/LNeCwFJHPD8N2QQAoUXrXp66hVFApGnt/yv2UaB');
-
-            try {
-                await testAudio.play();
-                testAudio.pause();
-                testAudio.currentTime = 0;
-                AudioHub.audioUnlocked = true;
-
-
-                AudioHub.processAudioQueue();
-                return true;
-            } catch (error) {
-                return false;
-            }
-
+            AudioHub.createAudioContext();
+            AudioHub.prepareAudioElements();
+            await AudioHub.resumeAudioContext();
+            return await AudioHub.testAudioPlayback();
         } catch (error) {
             return false;
+        }
+    };
+
+    /**
+     * Checks if the current device is iOS
+     * @returns {boolean} True if device is iOS
+     */
+    static isIOSDevice() {
+        return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+            (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    };
+
+    /**
+     * Creates audio context for iOS devices
+     */
+    static createAudioContext() {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass && !AudioHub.audioContext) {
+            AudioHub.audioContext = new AudioContextClass();
         }
     }
 
     /**
+     * Prepares all audio elements for playback
+     */
+    static prepareAudioElements() {
+        AudioHub.allSounds.forEach(sound => {
+            sound.preload = 'auto';
+            sound.muted = false;
+            sound.load();
+        });
+    }
+
+    /**
+     * Resumes suspended audio context
+     */
+    static async resumeAudioContext() {
+        if (AudioHub.audioContext && AudioHub.audioContext.state === 'suspended') {
+            await AudioHub.audioContext.resume();
+        }
+    }
+
+    /**
+     * Tests audio playback capability
+     * @returns {Promise<boolean>} True if test audio played successfully
+     */
+    static async testAudioPlayback() {
+        const testAudio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmMZBjWH1/LNeCwFJHPD8N2QQAoUXrXp66hVFApGnt/yv2UaB');
+
+        try {
+            await testAudio.play();
+            testAudio.pause();
+            testAudio.currentTime = 0;
+            AudioHub.audioUnlocked = true;
+            AudioHub.processAudioQueue();
+            return true;
+        } catch (error) {
+            return false;
+        }
+    }    /**
      * Processes queued audio that was waiting for iOS unlock.
      */
     static processAudioQueue() {
@@ -137,41 +162,75 @@ class AudioHub {
     static playOne(sound) {
         if (AudioHub.isMuted) return;
 
-
         if (!AudioHub.audioUnlocked) {
-            if (!AudioHub.pendingAudioQueue.includes(sound)) {
-                AudioHub.pendingAudioQueue.push(sound);
-            }
+            AudioHub.queueAudioForLater(sound);
             return;
         }
 
-        try {
+        AudioHub.attemptAudioPlayback(sound);
+    }
 
-            sound.volume = 0.3;
-            sound.currentTime = 0;
-
-
-            if (sound === AudioHub.background) {
-                sound.loop = true;
-            }
-
-
-            const playPromise = sound.play();
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-
-                }).catch(error => {
-
-                    setTimeout(() => {
-                        sound.play().catch(e => {
-
-                        });
-                    }, 100);
-                });
-            }
-        } catch (error) {
-
+    /**
+     * Queues audio for later playback when iOS audio becomes available
+     * @param {Audio} sound - The audio object to queue
+     */
+    static queueAudioForLater(sound) {
+        if (!AudioHub.pendingAudioQueue.includes(sound)) {
+            AudioHub.pendingAudioQueue.push(sound);
         }
+    }
+
+    /**
+     * Attempts to play audio with error handling and retry logic
+     * @param {Audio} sound - The audio object to play
+     */
+    static attemptAudioPlayback(sound) {
+        try {
+            AudioHub.configureAudioSettings(sound);
+            AudioHub.executePlayback(sound);
+        } catch (error) {
+            // Silent error handling for audio playback issues
+        }
+    }
+
+    /**
+     * Configures audio settings before playback
+     * @param {Audio} sound - The audio object to configure
+     */
+    static configureAudioSettings(sound) {
+        sound.volume = 0.3;
+        sound.currentTime = 0;
+
+        if (sound === AudioHub.background) {
+            sound.loop = true;
+        }
+    }
+
+    /**
+     * Executes audio playback with promise handling
+     * @param {Audio} sound - The audio object to play
+     */
+    static executePlayback(sound) {
+        const playPromise = sound.play();
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                // Playback succeeded
+            }).catch(error => {
+                AudioHub.retryPlayback(sound);
+            });
+        }
+    }
+
+    /**
+     * Retries audio playback after a short delay
+     * @param {Audio} sound - The audio object to retry
+     */
+    static retryPlayback(sound) {
+        setTimeout(() => {
+            sound.play().catch(e => {
+                // Final retry failed, silent handling
+            });
+        }, 100);
     }
 
     /**
@@ -194,33 +253,58 @@ class AudioHub {
 
     static startAll() {
         AudioHub.isMuted = false;
+        AudioHub.resumePausedSounds();
+        AudioHub.handleBackgroundMusic();
+        AudioHub.pausedSounds.clear();
+    }
+
+    /**
+     * Resumes all previously paused sounds from their saved positions
+     */
+    static resumePausedSounds() {
         AudioHub.pausedSounds.forEach((position, sound) => {
             if (sound.readyState == 4) {
-                sound.currentTime = position;
-                sound.play().catch(error => {
-
-                    sound.currentTime = 0;
-                    sound.play().catch(e => {
-
-                    });
-                });
+                AudioHub.resumeSoundAtPosition(sound, position);
             }
         });
+    }
 
+    /**
+     * Resumes a specific sound at the given position with fallback
+     * @param {Audio} sound - The audio object to resume
+     * @param {number} position - The position to resume from
+     */
+    static resumeSoundAtPosition(sound, position) {
+        sound.currentTime = position;
+        sound.play().catch(error => {
+            sound.currentTime = 0;
+            sound.play().catch(e => {
+                // Final retry failed, silent handling
+            });
+        });
+    }
 
+    /**
+     * Handles background music resumption when not in paused sounds
+     */
+    static handleBackgroundMusic() {
         if (!AudioHub.pausedSounds.has(AudioHub.background) &&
             AudioHub.background.paused &&
             AudioHub.background.readyState == 4) {
-            AudioHub.background.currentTime = 0;
-            AudioHub.background.loop = true;
-            AudioHub.background.volume = 0.3;
-            AudioHub.background.play().catch(error => {
-
-            });
+            AudioHub.startBackgroundMusic();
         }
+    }
 
-
-        AudioHub.pausedSounds.clear();
+    /**
+     * Starts background music from the beginning
+     */
+    static startBackgroundMusic() {
+        AudioHub.background.currentTime = 0;
+        AudioHub.background.loop = true;
+        AudioHub.background.volume = 0.3;
+        AudioHub.background.play().catch(error => {
+            // Silent error handling for background music
+        });
     }
 
     /**

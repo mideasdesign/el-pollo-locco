@@ -124,7 +124,7 @@ class Character extends MovableObject {
     this.getRealFrame();
     this.applyGravity();
     this.animate();
-  }
+  };
 
   /**
    * Calculates how long the character has been inactive.
@@ -136,7 +136,7 @@ class Character extends MovableObject {
     const timeSinceThrow = new Date().getTime() - this.lastThrow;
     const lastActivity = Math.max(this.lastMove, this.lastThrow);
     return (new Date().getTime() - lastActivity) / 1000;
-  }
+  };
 
   /**
    * Registers a throw action to prevent idle animation during throwing.
@@ -144,7 +144,7 @@ class Character extends MovableObject {
    */
   registerThrowAction() {
     this.lastThrow = new Date().getTime();
-  }
+  };
 
   /**
    * Calculates the real collision frame based on character position and direction.
@@ -163,8 +163,8 @@ class Character extends MovableObject {
       this.rY = this.y + this.offset.top;
       this.rW = this.width - this.offset.left - this.offset.right;
       this.rH = this.height - this.offset.top - this.offset.bottom;
-    }
-  }
+    };
+  };
 
   /**
    * Main animation controller that starts all animation loops.
@@ -174,7 +174,7 @@ class Character extends MovableObject {
     this.animateVisuals();
     this.animateMovement();
     this.animateStates();
-  }
+  };
 
   /**
    * Handles visual sprite animations based on character state.
@@ -183,29 +183,55 @@ class Character extends MovableObject {
    */
   animateVisuals() {
     gameIntervals(() => {
-      const k = this.world.keyboard;
-      const inactive = this.wasInactive();
-      const isMoving = k.right || k.left;
-      const isThrowing = k.t;
-
       if (this.isDead() || this.ishurt() || this.isJumping) return;
-
-      if (isMoving) {
-        this.lastMove = new Date().getTime();
-        this.playAnimation(this.images_walking);
-      } else if (isThrowing) {
-
-        this.lastMove = new Date().getTime();
-        this.playAnimation(this.images_idle, 160);
-      } else {
-        if (inactive < 6) {
-          this.playAnimation(this.images_idle, 160);
-        } else {
-          this.playAnimation(this.images_long_idle, 160);
-        }
-      }
+      this.handleCharacterAnimations();
     }, 120);
+  };
+
+  /**
+   * Determines and plays appropriate character animations
+   */
+  handleCharacterAnimations() {
+    const k = this.world.keyboard;
+    const inactive = this.wasInactive();
+    const isMoving = k.right || k.left;
+    const isThrowing = k.t;
+    if (isMoving) {
+      this.playMovementAnimation();
+    } else if (isThrowing) {
+      this.playThrowingAnimation();
+    } else {
+      this.playIdleAnimation(inactive);
+    };
+  };
+
+  /**
+   * Plays walking animation and updates last move time
+   */
+  playMovementAnimation() {
+    this.lastMove = new Date().getTime();
+    this.playAnimation(this.images_walking);
+  };
+
+  /**
+   * Plays throwing animation and updates last move time
+   */
+  playThrowingAnimation() {
+    this.lastMove = new Date().getTime();
+    this.playAnimation(this.images_idle, 160);
   }
+
+  /**
+   * Plays appropriate idle animation based on inactivity time
+   * @param {number} inactive - Time since last activity
+   */
+  playIdleAnimation(inactive) {
+    if (inactive < 6) {
+      this.playAnimation(this.images_idle, 160);
+    } else {
+      this.playAnimation(this.images_long_idle, 160);
+    }
+  };
 
   /**
    * Handles character movement and camera positioning.
@@ -227,7 +253,7 @@ class Character extends MovableObject {
       }
       this.world.cameraX = -this.x + 60;
     }, 1000 / 20);
-  }
+  };
 
   /**
    * Manages character state animations (dead, hurt, jumping).
@@ -244,7 +270,7 @@ class Character extends MovableObject {
         this.handleJumpAnimation();
       }
     }, 200);
-  }
+  };
 
   /**
    * Handles the character's death animation sequence.
@@ -256,7 +282,7 @@ class Character extends MovableObject {
     AudioHub.stopOne(AudioHub.pepeSound);
     AudioHub.playOne(AudioHub.youlooseSound);
     gameLoose();
-  }
+  };
 
   /**
    * Manages the jumping animation sequence.

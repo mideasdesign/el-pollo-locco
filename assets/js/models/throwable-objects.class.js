@@ -22,7 +22,6 @@ class ThrowableObject extends MovableObject {
     bottom: 6,
     left: 5,
   };
-
   /** @type {string[]} - Array of bottle rotation images for flight animation */
   images_rotating_bottle = [
     'assets/images/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
@@ -30,7 +29,6 @@ class ThrowableObject extends MovableObject {
     'assets/images/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
     'assets/images/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png'
   ];
-
   /** @type {string[]} - Array of splash images for impact animation */
   images_splash = [
     'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
@@ -39,9 +37,7 @@ class ThrowableObject extends MovableObject {
     'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png',
     'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
     'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
-
   ];
-
   /**
    * Creates a new ThrowableObject at specified position.
    * Initializes with rotation animation and physics properties.
@@ -55,7 +51,6 @@ class ThrowableObject extends MovableObject {
     this.throw(x, y);
     this.animate();
   };
-
   /**
    * Animates the bottle rotation during flight.
    * Moves the bottle horizontally and plays rotation animation at 80ms intervals.
@@ -65,9 +60,7 @@ class ThrowableObject extends MovableObject {
       this.x += 20;
       this.playAnimation(this.images_rotating_bottle);
     }, 80);
-
   };
-
   /**
    * Initializes the throwing motion with physics properties.
    * Sets position, dimensions, upward velocity and applies gravity.
@@ -84,7 +77,6 @@ class ThrowableObject extends MovableObject {
     this.applyGravity();
     this.animate();
   };
-
   /**
    * Handles bottle impact animation and cleanup.
    * Stops movement, plays splash animation, and removes bottle from world.
@@ -93,13 +85,34 @@ class ThrowableObject extends MovableObject {
   splash() {
     if (this.hasHit) return;
     this.hasHit = true;
+    this.initializeSplash();
+    this.startSplashAnimation();
+  };
+  /**
+   * Initializes the splash state by stopping bottle movement.
+   * Sets splash flags and stops both horizontal and vertical movement.
+   */
+  initializeSplash() {
     this.isSplashing = true;
     this.speedY = 0;
     this.speed = 0;
+  };
+  /**
+   * Starts the splash animation sequence and schedules cleanup.
+   * Plays splash animation and removes bottle from world after completion.
+   */
+  startSplashAnimation() {
     let splashAnimation = gameIntervals(() => {
       this.playAnimation(this.images_splash);
     }, 80);
-
+    this.scheduleSplashCleanup(splashAnimation);
+  };
+  /**
+   * Schedules the cleanup of splash animation and bottle removal.
+   * Clears animation interval and removes bottle from world array.
+   * @param {number} splashAnimation - The animation interval ID to clear
+   */
+  scheduleSplashCleanup(splashAnimation) {
     setTimeout(() => {
       clearInterval(splashAnimation);
       let index = world.throwableObject.indexOf(this);
@@ -108,5 +121,4 @@ class ThrowableObject extends MovableObject {
       }
     }, this.images_splash.length * 30);
   };
-
 };

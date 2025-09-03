@@ -13,7 +13,6 @@ class Sky extends MovableObject {
     width = 720;
     /** @type {number} - Height covers full screen height */
     height = 480;
-
     /**
      * Creates a new Sky instance.
      * Loads the sky background image and positions it to cover the screen.
@@ -21,5 +20,5 @@ class Sky extends MovableObject {
      */
     constructor() {
         super().loadImage('assets/images/5_background/layers/air.png');
-    }
-}
+    };
+};

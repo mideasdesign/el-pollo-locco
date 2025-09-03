@@ -55,16 +55,13 @@ class Chicks extends MovableObject {
      * Chicks move faster than regular chickens for increased challenge.
      */
     animate() {
-
         gameIntervals(() => {
             this.moveLeft();
         }, 1000 / 25);
-
-
         gameIntervals(() => {
             this.playAnimation(this.images_walking);
         }, 100);
-    }
+    };
 
     /**
      * Calculates the real collision frame based on chick position.
@@ -75,7 +72,7 @@ class Chicks extends MovableObject {
         this.rY = this.y + this.offset.top;
         this.rW = this.width + this.offset.left - this.offset.right;
         this.rH = this.height - this.offset.top - this.offset.bottom;
-    }
+    };
 
     /**
      * Moves the chick to the left.
@@ -83,5 +80,5 @@ class Chicks extends MovableObject {
      */
     moveLeft() {
         this.x -= this.speed;
-    }
+    };
 }

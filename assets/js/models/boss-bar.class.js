@@ -5,7 +5,6 @@
  * @extends StatusBar
  */
 class BossBar extends StatusBar {
-
   /**
    * Creates a new BossBar instance.
    * Initializes with orange health bar images and positions in top-right corner.
@@ -29,7 +28,7 @@ class BossBar extends StatusBar {
     this.width = 120;
     this.height = 40;
     this.setPercentage(100);
-  }
+  };
 
   /**
    * Updates the boss health bar to reflect current health percentage.
@@ -40,7 +39,7 @@ class BossBar extends StatusBar {
     this.percentage = percentage;
     let path = this.images[this.resolveImageIndex()];
     this.img = this.imageCache[path];
-  }
+  };
 
   /**
    * Resolves which image index to use based on current health percentage.
@@ -60,6 +59,6 @@ class BossBar extends StatusBar {
       return 1;
     } else {
       return 0;
-    }
-  }
-}
+    };
+  };
+};

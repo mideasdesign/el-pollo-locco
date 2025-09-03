@@ -9,7 +9,6 @@ class BackgroundObject extends MovableObject {
     width = 720;
     /** @type {number} - Height of the background element (full canvas height) */
     height = 480;
-
     /**
      * Creates a new BackgroundObject instance.
      * Positions the background element at the bottom of the canvas.
@@ -20,5 +19,5 @@ class BackgroundObject extends MovableObject {
         super().loadImage(imagePath);
         this.x = x;
         this.y = 480 - this.height;
-    }
-}
+    };
+};

@@ -1,5 +1,8 @@
-#btn-mute:focus {
-  outline: none;
+#btn-mute{
+  &:focus {
+      outline: none;
+  }
+  &:hover{cursor: pointer;};
 }
 @font-face {
   font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */

@@ -2,14 +2,12 @@
  * @fileoverview Game initialization and startup sequence management
  * Handles the transition from start screen to gameplay
  */
-
 /** @type {World} - Global reference to the game world instance */
 let world;
 /** @type {Keyboard} - Global keyboard input handler */
 let keyboard = new Keyboard();
 /** @type {HTMLCanvasElement} - Game canvas element */
-let canvas;
-
+let canvas
 /**
  * Initializes the game canvas reference.
  * Called when the page loads to prepare the canvas element.
@@ -17,32 +15,41 @@ let canvas;
 function init() {
     canvas = document.getElementById('canvas');
 }
-
 /**
  * Starts a new game with animated transition sequence.
- * Handles the fade-out of start screen, loading screen display,
- * and initialization of the game world.
+ * Handles the fade-out of start screen and initiates loading sequence.
  */
 function startGame() {
     const startScreen = document.getElementById('start-screen');
-
     startScreen.style.animation = 'fadeOut 1s forwards';
-
-
     setTimeout(() => {
-        startScreen.style.display = 'none';
-        document.getElementById('loading-screen').style.display = 'block';
-
-        setTimeout(() => {
-            initLevel();
-            world = new World(canvas, keyboard);
-            document.getElementById('loading-screen').style.display = 'none';
-            document.getElementById('canvas').style.display = 'block';
-        }, 1000);
-
+        hideStartScreenAndShowLoading(startScreen);
     }, 1000);
 }
 
+/**
+ * Hides the start screen and displays the loading screen.
+ * Initiates the game initialization after loading delay.
+ * @param {HTMLElement} startScreen - The start screen element to hide
+ */
+function hideStartScreenAndShowLoading(startScreen) {
+    startScreen.style.display = 'none';
+    document.getElementById('loading-screen').style.display = 'block';
+    setTimeout(() => {
+        initializeGameWorld();
+    }, 1000);
+}
+
+/**
+ * Initializes the game world and displays the game canvas.
+ * Creates the world instance and hides the loading screen.
+ */
+function initializeGameWorld() {
+    initLevel();
+    world = new World(canvas, keyboard);
+    document.getElementById('loading-screen').style.display = 'none';
+    document.getElementById('canvas').style.display = 'block';
+}
 /**
  * Handles keyboard key press events for game controls.
  * Sets keyboard state flags for movement and action keys.
@@ -50,14 +57,12 @@ function startGame() {
  * @param {KeyboardEvent} e - The keyboard event object
  */
 window.addEventListener('keydown', (e) => {
-
     if (e.keyCode == 37) keyboard.left = true;
     if (e.keyCode == 39) keyboard.right = true;
     if (e.keyCode == 84) keyboard.t = true;
     if (e.keyCode == 74) keyboard.j = true;
     if (e.keyCode == 77) keyboard.m = true;
 });
-
 /**
  * Handles keyboard key release events for game controls.
  * Resets keyboard state flags when keys are released.
@@ -74,13 +79,8 @@ window.addEventListener('keyup', (e) => {
         allSounds();
     }
 });
-
-
-
 /**
  * Placeholder function for touch button controls.
  * Currently empty - intended for mobile device touch input handling.
  */
-function touchBtn() {
-
-}
+function touchBtn() {};

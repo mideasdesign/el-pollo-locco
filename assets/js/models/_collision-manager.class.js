@@ -4,14 +4,12 @@
  * @author Markus Fischer
  * @version 1.0.0
  */
-
 /**
  * Collision Detection Manager
  * Provides static methods for handling various types of collisions in the game.
  * Separated from World class to maintain single responsibility principle.
  */
 class CollisionManager {
-
   /**
    * Checks for character jumping on enemies from above.
    * Handles enemy elimination when character lands on them while falling.
@@ -20,20 +18,52 @@ class CollisionManager {
   static checkCollisionsFromTop(world) {
     gameIntervals(() => {
       world.level.enemies.forEach((enemy, index) => {
-        world.character.getRealFrame();
-        enemy.getRealFrame();
-        if (world.character.isAboveGround() && world.character.speedY < 0 && world.character.isColliding(enemy) && !enemy.dead) {
-          enemy.deadChicken();
-          AudioHub.playOne(AudioHub.chickenSound);
-          setTimeout(() => {
-            const currentIndex = world.level.enemies.indexOf(enemy);
-            if (currentIndex > -1) {
-              world.level.enemies.splice(currentIndex, 1);
-            }
-          }, 1000); 
-        }
+        CollisionManager.processTopCollision(world, enemy);
       });
     }, 30);
+  }
+
+  /**
+   * Processes collision between character and enemy from above
+   * @param {World} world - The game world instance
+   * @param {MovableObject} enemy - The enemy to check collision with
+   */
+  static processTopCollision(world, enemy) {
+    world.character.getRealFrame();
+    enemy.getRealFrame();
+    
+    if (CollisionManager.isValidTopCollision(world.character, enemy)) {
+      CollisionManager.handleEnemyDefeat(world, enemy);
+    }
+  }
+
+  /**
+   * Checks if collision from top is valid for defeating enemy
+   * @param {Character} character - The player character
+   * @param {MovableObject} enemy - The enemy to check
+   * @returns {boolean} True if valid top collision
+   */
+  static isValidTopCollision(character, enemy) {
+    return character.isAboveGround() && 
+           character.speedY < 0 && 
+           character.isColliding(enemy) && 
+           !enemy.dead;
+  }
+
+  /**
+   * Handles enemy defeat with sound and removal
+   * @param {World} world - The game world instance
+   * @param {MovableObject} enemy - The defeated enemy
+   */
+  static handleEnemyDefeat(world, enemy) {
+    enemy.deadChicken();
+    AudioHub.playOne(AudioHub.chickenSound);
+    setTimeout(() => {
+      const currentIndex = world.level.enemies.indexOf(enemy);
+      if (currentIndex > -1) {
+        world.level.enemies.splice(currentIndex, 1);
+      }
+    }, 1000);
   }
 
   /**
@@ -154,6 +184,15 @@ class CollisionManager {
    * @param {World} world - Reference to the game world instance
    */
   static checkCollectibles(world) {
+    CollisionManager.checkCoinCollection(world);
+    CollisionManager.checkBottleCollection(world);
+  }
+
+  /**
+   * Handles coin collection interactions
+   * @param {World} world - Reference to the game world instance
+   */
+  static checkCoinCollection(world) {
     world.level.coins.forEach((coin, index) => {
       if (world.character.isColliding(coin)) {
         world.character.coins++;
@@ -162,7 +201,13 @@ class CollisionManager {
         AudioHub.playOne(AudioHub.coinSound);
       }
     });
+  }
 
+  /**
+   * Handles bottle collection interactions
+   * @param {World} world - Reference to the game world instance
+   */
+  static checkBottleCollection(world) {
     world.level.bottles.forEach((bottle, index) => {
       if (world.character.isColliding(bottle)) {
         world.character.bottles++;
@@ -180,13 +225,29 @@ class CollisionManager {
    */
   static checkThrowableObject(world) {
     if (world.keyboard.THROW && world.character.bottles > 0) {
-      let bottle = new ThrowableObject(world.character.x + 100, world.character.y + 100);
-      world.throwableObjects.push(bottle);
-      world.character.bottles--;
-      world.statusBarBottles.setPercentage(world.character.bottles);
-      world.character.registerThrowAction();
-      world.keyboard.THROW = false;
+      CollisionManager.createAndThrowBottle(world);
+      CollisionManager.updateThrowState(world);
     }
+  }
+
+  /**
+   * Creates and throws a new bottle object
+   * @param {World} world - Reference to the game world instance
+   */
+  static createAndThrowBottle(world) {
+    let bottle = new ThrowableObject(world.character.x + 100, world.character.y + 100);
+    world.throwableObjects.push(bottle);
+  }
+
+  /**
+   * Updates character state after throwing
+   * @param {World} world - Reference to the game world instance
+   */
+  static updateThrowState(world) {
+    world.character.bottles--;
+    world.statusBarBottles.setPercentage(world.character.bottles);
+    world.character.registerThrowAction();
+    world.keyboard.THROW = false;
   }
 
   /**

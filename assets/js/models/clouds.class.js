@@ -23,7 +23,7 @@ class Clouds extends MovableObject {
     this.x = x;
     this.y = 400 - this.height;
     this.animate();
-  }
+  };
 
   /**
    * Starts the cloud's slow drift animation.
@@ -33,5 +33,5 @@ class Clouds extends MovableObject {
     gameIntervals(() => {
       this.moveLeft();
     }, 1000 / 30);
-  }
+  };
 }

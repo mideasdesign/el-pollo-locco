@@ -18,6 +18,6 @@ class Keyboard {
     t = false;
     /** @type {boolean} - True when 'M' key is pressed (mute toggle) */
     m = false;
-    /** @type {boolean} - True when 'M' key is pressed (mute toggle) */
+    /** @type {boolean} - True when 'J' key is pressed (mute toggle) */
     j = false;
 } 

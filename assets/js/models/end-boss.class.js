@@ -10,7 +10,7 @@ class Endboss extends MovableObject {
   /** @type {number} - Height of the boss sprite (much larger than regular enemies) */
   height = 450;
   /** @type {number} - X position at the end of the level */
-  x = 3090;
+  x = 3190;
   /** @type {number} - Y position (elevated compared to ground enemies) */
   y = 30;
   /** 
@@ -28,7 +28,7 @@ class Endboss extends MovableObject {
   };
 
   /** @type {number} - Boss health points (much higher than regular enemies) */
-  healthBoss = 100;
+  healthBoss = 110;
   /** @type {boolean} - True when boss is currently attacking */
   isAttacking = false;
 
@@ -82,7 +82,7 @@ class Endboss extends MovableObject {
     this.getRealFrame();
     this.animate();
     this.startAttack();
-  }
+  };
 
   /**
    * Calculates time elapsed since last attack.
@@ -90,7 +90,7 @@ class Endboss extends MovableObject {
    */
   lastAttack() {
     return (new Date().getTime() - this.lastMove) / 1000;
-  }
+  };
 
   /**
    * Controls boss animation states based on health and status.
@@ -109,7 +109,7 @@ class Endboss extends MovableObject {
         this.playAnimation(this.images_boss_idle);
       }
     }, 300);
-  }
+  };
 
   /**
    * Initiates boss attack pattern with alternating movement and attack phases.
@@ -122,23 +122,57 @@ class Endboss extends MovableObject {
       if (this.isDead() || this.ishurt()) return;
       const now = Date.now();
       const time = now - attackStart;
-      if (!attackPhase) {
-        this.speed = 10;
-        this.playAnimation(this.images_boss_walking, 160);
-        this.moveLeft();
-        if (time >= 1000) {
-          attackPhase = true;
-          this.stopMoving();
-          attackStart = now;
-        }
-      } else {
-        this.playAnimation(this.images_boss_attack, 160);
-        if (time >= 2000) {
-          attackPhase = false;
-          attackStart = now;
-        }
-      }
+      const result = this.handleAttackPhase(attackPhase, time, now);
+      attackPhase = result.attackPhase;
+      attackStart = result.attackStart;
     }, 300);
+  }
+
+  /**
+   * Handles the current attack phase logic.
+   * Switches between movement and attack phases based on timing.
+   * @param {boolean} attackPhase - Current phase state
+   * @param {number} time - Time elapsed in current phase
+   * @param {number} now - Current timestamp
+   * @returns {Object} Updated phase state and timing
+   */
+  handleAttackPhase(attackPhase, time, now) {
+    if (!attackPhase) {
+      return this.handleMovementPhase(time, now);
+    } else {
+      return this.handleAttackingPhase(time, now);
+    }
+  }
+
+  /**
+   * Handles the movement phase where boss walks towards player.
+   * @param {number} time - Time elapsed in current phase
+   * @param {number} now - Current timestamp
+   * @returns {Object} Updated phase state and timing
+   */
+  handleMovementPhase(time, now) {
+    this.speed = 10;
+    this.playAnimation(this.images_boss_walking, 180);
+    this.moveLeft();
+    if (time >= 900) {
+      this.stopMoving();
+      return { attackPhase: true, attackStart: now };
+    }
+    return { attackPhase: false, attackStart: now - time };
+  }
+
+  /**
+   * Handles the attacking phase where boss performs attack animation.
+   * @param {number} time - Time elapsed in current phase
+   * @param {number} now - Current timestamp
+   * @returns {Object} Updated phase state and timing
+   */
+  handleAttackingPhase(time, now) {
+    this.playAnimation(this.images_boss_attack, 180);
+    if (time >= 1000) {
+      return { attackPhase: false, attackStart: now };
+    }
+    return { attackPhase: true, attackStart: now - time };
   }
 
   /**
