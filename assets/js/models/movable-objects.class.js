@@ -6,26 +6,37 @@
 class MovableObject extends DrawableObject {
   /** @type {number} - X position in the game world */
   x = 100;
+
   /** @type {number} - Y position in the game world */
   y = 100;
+
   /** @type {HTMLImageElement} - Current image being displayed */
   img;
+
   /** @type {number} - Width of the object */
   width = 100;
+
   /** @type {number} - Height of the object */
   height = 250;
+
   /** @type {Object.<string, HTMLImageElement>} - Cache of loaded images */
   imageCache = {};
+
   /** @type {number} - Current frame index for animations */
   currentImage = 0;
+
   /** @type {number} - Horizontal movement speed */
   speed = 0.23;
+
   /** @type {number} - Gravity acceleration value */
   acceleration = 2;
+
   /** @type {number} - X offset for positioning (unused) */
   offsetX = 0;
+
   /** @type {number} - Y offset for positioning (unused) */
   offsetY = 0;
+
   /** @type {number} - Timestamp of last hit for damage cooldown */
   lastHit = 0;
 

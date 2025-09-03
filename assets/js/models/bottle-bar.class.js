@@ -21,6 +21,7 @@ class BottlesBar extends StatusBar {
       'assets/images/7_statusbars/1_statusbar/3_statusbar_bottle/orange/80.png',
       'assets/images/7_statusbars/1_statusbar/3_statusbar_bottle/orange/100.png'
     ];
+    
     this.loadImages(this.images);
     this.img = this.imageCache[this.images[0]];
     this.x = 360;

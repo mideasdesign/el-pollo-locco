@@ -6,6 +6,7 @@
 class CollisionManager {
   /** @type {World} - Reference to the game world */
   world;
+
   /**
    * Creates a new CollisionManager instance.
    * @param {World} world - Game world instance
@@ -13,6 +14,7 @@ class CollisionManager {
   constructor(world) {
     this.world = world;
   };
+
   /**
    * Starts all collision detection intervals.
    * Sets up continuous checking for various types of collisions.
@@ -25,6 +27,7 @@ class CollisionManager {
     this.checkThrowableObject();
     this.checkBossAttack();
   };
+
   /**
    * Main collision loop that handles ongoing collision detection.
    */
@@ -39,6 +42,7 @@ class CollisionManager {
       this.checkBossAttack();
     }, 100);
   };
+
   /**
    * Checks for character jumping on enemies from above.
    * Handles enemy elimination when character lands on them while falling.
@@ -61,17 +65,19 @@ class CollisionManager {
       this.handleEnemyDefeat(enemy);
     }
   };
+
   /**
    * Checks if collision from top is valid for defeating enemy
    * @param {MovableObject} enemy - The enemy to check
    * @returns {boolean} True if valid top collision
    */
   isValidTopCollision(enemy) {
-    return this.world.character.isAboveGround() && 
-           this.world.character.speedY < 0 && 
-           this.world.character.isColliding(enemy) && 
-           !enemy.dead;
+    return this.world.character.isAboveGround() &&
+      this.world.character.speedY < 0 &&
+      this.world.character.isColliding(enemy) &&
+      !enemy.dead;
   };
+
   /**
    * Handles enemy defeat with sound and removal
    * @param {MovableObject} enemy - The defeated enemy
@@ -86,6 +92,7 @@ class CollisionManager {
       }
     }, 1000);
   };
+
   /**
    * Checks for collisions with small chickens from the top direction.
    * Allows character to defeat small chickens by jumping on them.
@@ -98,6 +105,7 @@ class CollisionManager {
       });
     }, 30);
   };
+
   /**
    * Processes collision between character and chick from above.
    * @param {MovableObject} chick - The chick to check collision with
@@ -110,6 +118,7 @@ class CollisionManager {
       this.handleChickDefeat(chick, index);
     }
   };
+
   /**
    * Handles chick defeat with sound and removal.
    * @param {MovableObject} chick - The defeated chick
@@ -120,6 +129,7 @@ class CollisionManager {
     AudioHub.playOne(AudioHub.chicksSound);
     this.world.level.chicks.splice(index, 1);
   };
+
   /**
    * Checks for standard collisions between Pepe and enemies.
    * Handles damage to character when hit by enemies with sound cooldown.
@@ -130,6 +140,7 @@ class CollisionManager {
       this.processPepeEnemyCollision(enemy);
     });
   };
+
   /**
    * Processes collision between Pepe and an enemy.
    * @param {MovableObject} enemy - The enemy to check collision with
@@ -141,6 +152,7 @@ class CollisionManager {
       this.handlePepeDamage();
     }
   };
+
   /**
    * Handles damage to Pepe with sound and health bar update.
    */
@@ -153,6 +165,7 @@ class CollisionManager {
     }
     this.world.statusBar.setPercentage(this.world.character.healthPepe);
   };
+
   /**
    * Checks for collisions between Pepe and small chickens.
    * Handles damage when character collides with small enemies.
@@ -162,6 +175,7 @@ class CollisionManager {
       this.processPepeChickCollision(chick);
     });
   };
+
   /**
    * Processes collision between Pepe and a chick.
    * @param {MovableObject} chick - The chick to check collision with
@@ -173,6 +187,7 @@ class CollisionManager {
       this.handlePepeChickDamage();
     }
   };
+
   /**
    * Handles damage to Pepe from chick collision.
    */
@@ -185,6 +200,7 @@ class CollisionManager {
     }
     this.world.statusBar.setPercentage(this.world.character.healthPepe);
   };
+
   /**
    * Checks for collisions between Pepe and the boss enemy.
    * Handles damage when character collides with the end boss.
@@ -203,6 +219,7 @@ class CollisionManager {
       this.world.statusBar.setPercentage(this.world.character.healthPepe);
     }
   };
+
   /**
    * Checks if boss attack should be triggered based on character position.
    * Only triggers once when character reaches the boss area to prevent
@@ -217,6 +234,7 @@ class CollisionManager {
       this.world.endboss.startAttack();
     }
   };
+
   /**
    * Handles throwing bottles with cooldown system.
    * Prevents machine-gun style throwing by enforcing 500ms delay between throws.
@@ -229,6 +247,7 @@ class CollisionManager {
       this.executeBottleThrow(currentTime);
     }
   };
+
   /**
    * Checks if a bottle can be thrown based on conditions.
    * @param {number} timeSinceLastThrow - Time since last throw
@@ -236,9 +255,10 @@ class CollisionManager {
    */
   canThrowBottle(timeSinceLastThrow) {
     return this.world.keyboard.t &&
-           this.world.bottlesBar.percentage > 0 &&
-           timeSinceLastThrow >= this.world.throwCooldown;
+      this.world.bottlesBar.percentage > 0 &&
+      timeSinceLastThrow >= this.world.throwCooldown;
   };
+
   /**
    * Executes the bottle throwing action.
    * @param {number} currentTime - Current timestamp
@@ -252,6 +272,7 @@ class CollisionManager {
     this.world.lastThrowTime = currentTime;
     this.world.character.registerThrowAction();
   };
+
   /**
    * Checks for collisions between bottles and boss enemies.
    * Handles boss damage and bottle splash effect on impact.
@@ -268,6 +289,7 @@ class CollisionManager {
       }
     });
   };
+
   /**
    * Checks for collectible item interactions (coins and bottles).
    * Handles item collection, status bar updates, and sound effects.
@@ -289,6 +311,7 @@ class CollisionManager {
       }
     });
   };
+
   /**
    * Handles coin collection with status update and sound.
    * @param {number} index - Index of the coin in the array
@@ -298,6 +321,7 @@ class CollisionManager {
     AudioHub.playOne(AudioHub.coinSound);
     this.world.level.coins.splice(index, 1);
   };
+
   /**
    * Checks for bottle collection and handles pickup effects.
    */
@@ -310,6 +334,7 @@ class CollisionManager {
       }
     });
   };
+
   /**
    * Handles bottle collection with status update and sound.
    * @param {number} index - Index of the bottle in the array

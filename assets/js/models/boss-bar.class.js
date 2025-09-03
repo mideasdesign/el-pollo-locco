@@ -21,6 +21,7 @@ class BossBar extends StatusBar {
       'assets/images/7_statusbars/2_statusbar_endboss/orange/orange80.png',
       'assets/images/7_statusbars/2_statusbar_endboss/orange/orange100.png'
     ];
+
     this.loadImages(this.images);
     this.img = this.imageCache[this.images[5]];
     this.x = 510;
@@ -29,6 +30,7 @@ class BossBar extends StatusBar {
     this.height = 40;
     this.setPercentage(100);
   };
+
   /**
    * Updates the boss health bar to reflect current health percentage.
    * Automatically selects the appropriate image based on health level.
@@ -39,6 +41,7 @@ class BossBar extends StatusBar {
     let path = this.images[this.resolveImageIndex()];
     this.img = this.imageCache[path];
   };
+
   /**
    * Resolves which image index to use based on current health percentage.
    * Returns appropriate array index for the health bar image.

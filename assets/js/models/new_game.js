@@ -4,10 +4,13 @@
  */
 /** @type {World} - Global reference to the game world instance */
 let world;
+
 /** @type {Keyboard} - Global keyboard input handler */
 let keyboard = new Keyboard();
+
 /** @type {HTMLCanvasElement} - Game canvas element */
 let canvas;
+
 /**
  * Initializes the game canvas reference.
  * Called when the page loads to prepare the canvas element.
@@ -15,6 +18,7 @@ let canvas;
 function init() {
     canvas = document.getElementById('canvas');
 };
+
 /**
  * Starts a new game with animated transition sequence.
  * Handles the fade-out of start screen and initiates loading sequence.
@@ -26,6 +30,7 @@ function startGame() {
         hideStartScreenAndShowLoading(startScreen);
     }, 1000);
 };
+
 /**
  * Hides the start screen and displays the loading screen.
  * Initiates the game initialization after loading delay.
@@ -38,6 +43,7 @@ function hideStartScreenAndShowLoading(startScreen) {
         initializeGameWorld();
     }, 1000);
 };
+
 /**
  * Initializes the game world and displays the game canvas.
  * Creates the world instance and hides the loading screen.
@@ -48,6 +54,7 @@ function initializeGameWorld() {
     document.getElementById('loading-screen').style.display = 'none';
     document.getElementById('canvas').style.display = 'block';
 };
+
 /**
  * Handles keyboard key press events for game controls.
  * Sets keyboard state flags for movement and action keys.
@@ -61,6 +68,7 @@ window.addEventListener('keydown', (e) => {
     if (e.keyCode == 38) keyboard.up = true;
     if (e.keyCode == 77) keyboard.m = true;
 });
+
 /**
  * Handles keyboard key release events for game controls.
  * Resets keyboard state flags when keys are released.
@@ -77,8 +85,9 @@ window.addEventListener('keyup', (e) => {
         allSounds();
     }
 });
+
 /**
  * Placeholder function for touch button controls.
  * Currently empty - intended for mobile device touch input handling.
  */
-function touchBtn() {};
+function touchBtn() { };

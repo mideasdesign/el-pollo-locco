@@ -7,8 +7,10 @@
 class Clouds extends MovableObject {
   /** @type {number} - Width of the cloud sprite (very wide for coverage) */
   width = 1580;
+
   /** @type {number} - Height of the cloud sprite */
   height = 450;
+
   /** @type {number} - Slow movement speed for realistic cloud drift */
   speed = 0.35;
 

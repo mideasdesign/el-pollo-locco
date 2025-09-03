@@ -6,16 +6,22 @@
 class Character extends MovableObject {
   /** @type {number} - Initial x position of the character */
   x = 160;
+
   /** @type {number} - Initial y position of the character */
   y = 80;
+
   /** @type {number} - Width of the character sprite */
   width = 130;
+
   /** @type {number} - Height of the character sprite */
   height = 250;
+
   /** @type {number} - Movement speed of the character */
   speed = 16;
+
   /** @type {number} - Vertical movement speed (for jumping/falling) */
   speedY = 0;
+
   /** 
    * @type {Object} - Collision box offset for more precise collision detection
    * @property {number} top - Top offset
@@ -29,16 +35,22 @@ class Character extends MovableObject {
     bottom: 15,
     left: 28,
   };
+
   /** @type {number} - Character's health points */
   healthPepe = 300;
+
   /** @type {boolean} - True when character is facing left */
   otherDirection = false;
+
   /** @type {number} - Timestamp of last movement for idle animation */
   lastMove = new Date().getTime();
+
   /** @type {number} - Timestamp of last hurt sound to prevent spam */
   lastHurtSound = 0;
+
   /** @type {number} - Timestamp of last throw action to prevent idle during throwing */
   lastThrow = 0;
+
   /** @type {string[]} - Array of image paths for idle animation */
   images_idle = [
     "assets/images/2_character_pepe/1_idle/idle/I-1.png",
@@ -52,6 +64,7 @@ class Character extends MovableObject {
     "assets/images/2_character_pepe/1_idle/idle/I-9.png",
     "assets/images/2_character_pepe/1_idle/idle/I-10.png",
   ];
+
   /** @type {string[]} - Array of image paths for long idle animation */
   images_long_idle = [
     "assets/images/2_character_pepe/1_idle/long_idle/I-11.png",
@@ -64,6 +77,7 @@ class Character extends MovableObject {
     "assets/images/2_character_pepe/1_idle/long_idle/I-19.png",
     "assets/images/2_character_pepe/1_idle/long_idle/I-20.png",
   ];
+
   /** @type {string[]} - Array of image paths for walking animation */
   images_walking = [
     "assets/images/2_character_pepe/2_walk/W-21.png",
@@ -85,6 +99,7 @@ class Character extends MovableObject {
     "assets/images/2_character_pepe/3_jump/J-38.png",
     "assets/images/2_character_pepe/3_jump/J-39.png",
   ];
+
   /** @type {string[]} - Array of image paths for hurt animation */
   images_hurt = ["assets/images/2_character_pepe/4_hurt/H-41.png", "assets/images/2_character_pepe/4_hurt/H-42.png", "assets/images/2_character_pepe/4_hurt/H-43.png"];
   /** @type {string[]} - Array of image paths for death animation */
@@ -97,8 +112,10 @@ class Character extends MovableObject {
     "assets/images/2_character_pepe/5_dead/D-56.png",
     "assets/images/2_character_pepe/5_dead/D-57.png",
   ];
+
   /** @type {World} - Reference to the game world instance */
   world;
+
   /**
    * Creates a new Character instance.
    * Loads all image assets and initializes animations and physics.
@@ -116,6 +133,7 @@ class Character extends MovableObject {
     this.applyGravity();
     this.animate();
   };
+
   /**
    * Calculates how long the character has been inactive.
    * Considers both movement and throwing actions as activity.
@@ -127,6 +145,7 @@ class Character extends MovableObject {
     const lastActivity = Math.max(this.lastMove, this.lastThrow);
     return (new Date().getTime() - lastActivity) / 1000;
   };
+
   /**
    * Registers a throw action to prevent idle animation during throwing.
    * Called by the world when character throws a bottle.
@@ -134,6 +153,7 @@ class Character extends MovableObject {
   registerThrowAction() {
     this.lastThrow = new Date().getTime();
   };
+
   /**
    * Calculates the real collision frame based on character position and direction.
    * Overrides the base method to properly handle character direction changes.
@@ -171,6 +191,7 @@ class Character extends MovableObject {
       this.handleCharacterAnimations();
     }, 120);
   };
+
   /**
    * Determines and plays appropriate character animations
    */
@@ -187,6 +208,7 @@ class Character extends MovableObject {
       this.playIdleAnimation(inactive);
     };
   };
+
   /**
    * Plays walking animation and updates last move time
    */
@@ -194,6 +216,7 @@ class Character extends MovableObject {
     this.lastMove = new Date().getTime();
     this.playAnimation(this.images_walking);
   };
+
   /**
    * Plays throwing animation and updates last move time
    */
@@ -201,6 +224,7 @@ class Character extends MovableObject {
     this.lastMove = new Date().getTime();
     this.playAnimation(this.images_idle, 160);
   };
+
   /**
    * Plays appropriate idle animation based on inactivity time
    * @param {number} inactive - Time since last activity
@@ -233,6 +257,7 @@ class Character extends MovableObject {
       this.world.cameraX = -this.x + 60;
     }, 1000 / 20);
   };
+
   /**
    * Manages character state animations (dead, hurt, jumping).
    * Handles special animations that override normal movement animations.
@@ -249,6 +274,7 @@ class Character extends MovableObject {
       }
     }, 200);
   };
+
   /**
    * Handles the character's death animation sequence.
    * Plays death animation, stops character sounds, plays game over sound,
@@ -260,6 +286,7 @@ class Character extends MovableObject {
     AudioHub.playOne(AudioHub.youlooseSound);
     gameLoose();
   };
+
   /**
    * Manages the jumping animation sequence.
    * Handles both ascending and landing phases of the jump.
@@ -277,6 +304,7 @@ class Character extends MovableObject {
       this.isAnimating = false;
     }
   };
+
   /**
    * Initiates a jump if the character is not already jumping.
    * Sets vertical speed and triggers jump animation.
@@ -289,6 +317,7 @@ class Character extends MovableObject {
       this.playAnimationOnce(this.images_jumping, 80);
     }
   };
+  
   /**
    * Starts the character's animation loops.
    * Used to initialize or restart character animations.

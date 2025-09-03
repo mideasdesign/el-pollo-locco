@@ -7,8 +7,10 @@
 class Bottles extends MovableObject {
   /** @type {number} - Width of the bottle sprite */
   width = 70;
+
   /** @type {number} - Height of the bottle sprite */
   height = 90;
+
   /** 
    * @type {Object} - Collision box offset for precise collection detection
    * @property {number} top - Top offset
@@ -22,6 +24,7 @@ class Bottles extends MovableObject {
     bottom: 10,
     left: 28
   };
+  
   /** @type {number} - Current bottle level/state (unused) */
   bottlesLevel = 0;
   /** @type {string[]} - Array of bottle image variations for visual diversity */

@@ -15,13 +15,14 @@ function isTouchDevice() {
         (window.DocumentTouch && document instanceof DocumentTouch)
     );
 };
+
 /**
  * Detects if the device is a tablet (iPad, Android Tablet, etc.)
  * @returns {boolean} True if it's a tablet device
  */
 function isTablet() {
     const userAgent = navigator.userAgent.toLowerCase();
-    if (/ipad/.test(userAgent) || 
+    if (/ipad/.test(userAgent) ||
         (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
         return true;
     }
@@ -36,6 +37,7 @@ function isTablet() {
     }
     return false;
 };
+
 /**
  * Detects primary input method based on device characteristics
  * @returns {string} 'touch', 'mouse', or 'hybrid'
@@ -55,6 +57,7 @@ function getPrimaryInputMethod() {
     }
     return 'touch';
 };
+
 /**
  * Activates/deactivates touch controls based on device detection
  */
@@ -74,6 +77,7 @@ function setupInputControls() {
             break;
     }
 };
+
 /**
  * Gets all UI elements needed for input configuration
  * @returns {Object} Object containing UI element references
@@ -85,6 +89,7 @@ function getUIElements() {
         mobileInstructions: document.querySelector('.mobile-keys')
     };
 };
+
 /**
  * Configures UI for touch-only devices
  * @param {Object} elements - UI element references
@@ -95,6 +100,7 @@ function configureTouchMode(elements) {
     if (elements.mobileInstructions) elements.mobileInstructions.style.display = 'flex';
     setupTouchControls();
 };
+
 /**
  * Configures UI for hybrid devices (touch + mouse)
  * @param {Object} elements - UI element references
@@ -104,7 +110,7 @@ function configureHybridMode(elements) {
     if (elements.desktopInstructions) elements.desktopInstructions.style.display = 'flex';
     if (elements.mobileInstructions) elements.mobileInstructions.style.display = 'flex';
     setupTouchControls();
-}
+};
 
 /**
  * Configures UI for mouse-only devices
@@ -115,6 +121,7 @@ function configureMouseMode(elements) {
     if (elements.desktopInstructions) elements.desktopInstructions.style.display = 'flex';
     if (elements.mobileInstructions) elements.mobileInstructions.style.display = 'none';
 };
+
 /**
  * Initializes touch event listeners for game controls
  */
@@ -130,7 +137,8 @@ function setupTouchControls() {
         if (!button) return;
         setupSingleTouchButton(button, key);
     });
-}
+};
+
 /**
  * Sets up touch and mouse event handlers for a single button
  * @param {HTMLElement} button - The button element to set up
@@ -164,7 +172,6 @@ function createEventHandlers(button, key) {
         button.style.opacity = '0.7';
         button.style.transform = 'scale(0.95)';
     };
-    
     button._touchEndHandler = (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -173,6 +180,7 @@ function createEventHandlers(button, key) {
         button.style.transform = 'scale(1)';
     };
 };
+
 /**
  * Attaches all event listeners to the button
  * @param {HTMLElement} button - The button element
@@ -184,12 +192,13 @@ function attachEventListeners(button) {
     button.addEventListener('mouseup', button._touchEndHandler);
     button.addEventListener('mouseleave', button._touchEndHandler);
 };
+
 /**
  * Monitors changes in screen orientation and size
  */
 function setupResponsiveControls() {
     let resizeTimeout;
-    
+
     function handleResize() {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
@@ -203,6 +212,7 @@ function setupResponsiveControls() {
         });
     }
 };
+
 /**
  * Node.js module export for testing and server-side usage.
  * Exports all touch detection functions for external use.

@@ -6,18 +6,25 @@
 class Level {
   /** @type {Enemy[]} - Array of main enemy objects (chickens) */
   enemies;
+
   /** @type {Cloud[]} - Array of cloud objects for atmosphere */
   clouds;
+
   /** @type {BackgroundObject[]} - Array of background layer objects */
   backgroundObjects;
+
   /** @type {Coin[]} - Array of collectible coin objects */
   coins;
+
   /** @type {Bottle[]} - Array of collectible bottle objects */
   bottles;
+
   /** @type {Chicks[]} - Array of small enemy objects (chicks) */
   chicks;
+
   /** @type {number} - X coordinate where the level ends (triggers boss or completion) */
   level_end_x = 3090;
+
   /**
    * Creates a new Level instance with all game entities.
    * @param {Enemy[]} enemies - Array of main enemy objects
@@ -35,4 +42,4 @@ class Level {
     this.coins = coins;
     this.bottles = bottles;
   };
-}
+};

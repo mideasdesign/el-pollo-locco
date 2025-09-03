@@ -6,8 +6,10 @@
 class Chicken extends MovableObject {
     /** @type {number} - Width of the chicken sprite */
     width = 40;
+    
     /** @type {number} - Height of the chicken sprite */
     height = 60;
+
     /** 
      * @type {Object} - Collision box offset for precise collision detection
      * @property {number} top - Top offset
@@ -54,7 +56,7 @@ class Chicken extends MovableObject {
         this.loadImages(this.images_dead);
         this.speed = 0.15 + Math.random() * 0.40;
         this.animate();
-    };
+    }
 
     /**
      * Starts the chicken's movement and animation loops.
@@ -84,9 +86,7 @@ class Chicken extends MovableObject {
         this.speed = 0;
         clearInterval(this.moveLeftInterval);
         clearInterval(this.wakingInterval);
-
         this.loadImage('assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png');
-
         if (this.imageCache['assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png']) {
             this.img = this.imageCache['assets/images/3_enemies_chicken/chicken_normal/2_dead/dead.png'];
         }

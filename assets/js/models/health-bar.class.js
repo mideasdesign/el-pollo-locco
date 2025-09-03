@@ -21,6 +21,7 @@ class HealthBar extends StatusBar {
       'assets/images/7_statusbars/1_statusbar/2_statusbar_health/orange/80.png',
       'assets/images/7_statusbars/1_statusbar/2_statusbar_health/orange/100.png'
     ];
+    
     this.loadImages(this.images);
     this.img = this.imageCache[this.images[5]];
     this.x = 20;

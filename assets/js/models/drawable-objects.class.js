@@ -6,26 +6,37 @@
 class DrawableObject {
     /** @type {number} - X position in the game world */
     x = 10;
+
     /** @type {number} - Y position in the game world */
     y = 10;
+
     /** @type {HTMLImageElement} - Current image being displayed */
     img;
+
     /** @type {number} - Width of the object */
     width = 100;
+
     /** @type {number} - Height of the object */
     height = 50;
+
     /** @type {Object.<string, HTMLImageElement>} - Cache of loaded images for performance */
     imageCache = {};
+
     /** @type {number} - Current frame index for animations */
     currentImage = 0;
+
     /** @type {Object} - Collision box offsets for precise collision detection */
     offset = {};
+
     /** @type {number} - Real collision box X position */
     rX;
+
     /** @type {number} - Real collision box Y position */
     rY;
+
     /** @type {number} - Real collision box width */
     rW;
+
     /** @type {number} - Real collision box height */
     rH;
 
@@ -58,7 +69,7 @@ class DrawableObject {
         try {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
         }
-        catch (e) {}
+        catch (e) { }
     }
 
     /**

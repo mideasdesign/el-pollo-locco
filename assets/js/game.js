@@ -2,16 +2,22 @@
 
 /** @type {World} - Global reference to the game world instance */
 let world;
+
 /** @type {Keyboard} - Global keyboard input handler */
 let keyboard = new Keyboard();
+
 /** @type {HTMLCanvasElement} - Game canvas element */
 let canvas;
+
 /** @type {AudioContext} - Web Audio API context (unused) */
 let audio;
+
 /** @type {number[]} - Array to track all game intervals for cleanup */
 let intervalIds = [];
+
 /** @type {Element} - Reference to document element for fullscreen */
 let fs = document.documentElement;
+
 /**
  * Creates a tracked interval that can be cleared when the game ends.
  * All intervals created with this function are automatically managed.
@@ -23,6 +29,7 @@ function gameIntervals(fn, time) {
     let id = setInterval(fn, time);
     intervalIds.push(id);
 };
+
 /**
  * Starts the game session with iOS audio support.
  * Initializes audio system, locks screen orientation, and begins gameplay.
@@ -37,6 +44,7 @@ async function startGame() {
         startGameplayFallback();
     }
 };
+
 /**
  * Initializes audio system and input controls.
  */
@@ -46,12 +54,14 @@ async function initializeAudioAndControls() {
     setupInputControls();
     setupResponsiveControls();
 };
+
 /**
  * Attempts to lock screen orientation to landscape.
  */
 async function lockScreenOrientation() {
-    await screen.orientation.lock('landscape').catch((err) => {});
+    await screen.orientation.lock('landscape').catch((err) => { });
 };
+
 /**
  * Starts the main gameplay sequence.
  */
@@ -68,6 +78,7 @@ function startGameplayFallback() {
     initializeGame();
     showGameUI();
 };
+
 /**
  * Initializes the game world and starts background music.
  * Creates the canvas context, level data, and world instance.
@@ -79,6 +90,7 @@ function initializeGame() {
     world = new World(canvas, keyboard);
     AudioHub.playOne(AudioHub.background);
 };
+
 /**
  * Shows the game UI elements (canvas, controls, fullscreen button).
  * Removes the 'hide' class from game interface elements.
@@ -88,6 +100,7 @@ function showGameUI() {
     showGameElements();
     hideMenuElements();
 };
+
 /**
  * Shows game interface elements
  */
@@ -97,6 +110,7 @@ function showGameElements() {
     document.getElementById('controls-box').classList.remove('hide');
     document.getElementById('restart-button').style.display = 'block';
 };
+
 /**
  * Hides menu and title elements
  */
@@ -105,6 +119,7 @@ function hideMenuElements() {
     document.getElementById('el-pollo-loco').style.display = 'none';
     document.getElementById('credits').style.display = 'none';
 };
+
 /**
  * Quits the game and returns to main menu.
  * Stops all sounds before reloading the page.
@@ -113,6 +128,7 @@ function quitGame() {
     AudioHub.stopAll();
     location.reload();
 };
+
 /**
  * Handles game over (loss) state.
  * Stops all audio except endgame sounds, plays game over sound, and shows overlay.
@@ -124,6 +140,7 @@ function gameLoose() {
     document.getElementById('game-result-text').textContent = 'Game over!';
     intervalIds.forEach(clearInterval);
 };
+
 /**
  * Handles game won state.
  * Stops all audio except endgame sounds, plays victory sound, and shows overlay.
@@ -135,6 +152,7 @@ function gameWon() {
     document.getElementById('game-result-text').textContent = 'You win!';
     intervalIds.forEach(clearInterval);
 };
+
 /**
  * Restarts the game after game over.
  * Cleans up previous game state and starts fresh.
@@ -146,6 +164,7 @@ function restartGame() {
     resetGameState();
     startGame();
 };
+
 /**
  * Stops all currently playing game audio.
  */
@@ -157,6 +176,7 @@ function stopAllGameAudio() {
         }
     });
 };
+
 /**
  * Clears the game canvas completely.
  */
@@ -165,6 +185,7 @@ function clearCanvas() {
     ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 };
+
 /**
  * Resets the game state for restart.
  * Hides overlay and clears world reference.
@@ -175,6 +196,7 @@ function resetGameState() {
     intervalIds.forEach(clearInterval);
     intervalIds = [];
 };
+
 /**
  * Enters fullscreen mode for the game container.
  * Triggers the openFullscreen function for the fullscreen element.
@@ -183,6 +205,7 @@ function fullscreen() {
     let fs = document.getElementById('fullscreen');
     openFullscreen(fs);
 };
+
 /**
  * Opens fullscreen mode for the game.
  * Supports all major browsers with vendor prefixes.
@@ -197,6 +220,7 @@ function openFullscreen() {
         fs.msRequestFullscreen();
     }
 };
+
 /**
  * Exits fullscreen mode.
  * Supports all major browsers with vendor prefixes.
@@ -211,6 +235,7 @@ function closeFullscreen() {
         document.msExitFullscreen();
     }
 };
+
 /**
  * Toggles the game's audio mute state.
  * Saves preference to localStorage and updates AudioHub settings.
@@ -224,6 +249,7 @@ function allSounds() {
         muteSounds();
     }
 };
+
 /**
  * Unmutes all game sounds and updates UI
  */
@@ -233,6 +259,7 @@ function unmuteSounds() {
     AudioHub.startAll();
     initializeMuteState();
 };
+
 /**
  * Mutes all game sounds and updates UI
  */
@@ -242,6 +269,7 @@ function muteSounds() {
     AudioHub.stopAll([], true);
     initializeMuteState();
 };
+
 /**
  * Initializes the mute state from localStorage and updates UI accordingly.
  * Sets the AudioHub mute state and button icon based on saved preferences.
@@ -253,6 +281,7 @@ function initializeMuteState() {
     AudioHub.isMuted = isMuted;
     updateMuteButtonIcon(btn, isMuted);
 };
+
 /**
  * Updates the mute button icon based on mute state.
  * @param {HTMLElement} btn - The mute button element
@@ -265,6 +294,7 @@ function updateMuteButtonIcon(btn, isMuted) {
         btn.innerHTML = `<img src="./assets/images/btn_mute_off.svg" alt="mute button">`;
     }
 };
+
 /**
  * Handles fullscreen state changes, including ESC key exits.
  * Updates the fullscreen button icons when fullscreen mode is entered or exited.
@@ -274,6 +304,7 @@ function handleFullscreenChange() {
     const isFullscreen = checkFullscreenState();
     updateFullscreenIcons(isFullscreen);
 };
+
 /**
  * Checks current fullscreen state across all browsers
  * @returns {boolean} True if currently in fullscreen mode
@@ -286,6 +317,7 @@ function checkFullscreenState() {
         document.msFullscreenElement
     );
 };
+
 /**
  * Updates fullscreen button icons based on current state
  * @param {boolean} isFullscreen - Current fullscreen state
@@ -299,11 +331,13 @@ function updateFullscreenIcons(isFullscreen) {
         document.getElementById('fs-close').classList.add('hide');
     }
 };
+
 document.addEventListener('DOMContentLoaded', initializeMuteState);
 document.addEventListener('fullscreenchange', handleFullscreenChange);
 document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
 document.addEventListener('mozfullscreenchange', handleFullscreenChange);
 document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
 /**
  * Handles start game button click with iOS audio initialization.
  * Unlocks audio system first, then starts the game.
@@ -316,6 +350,7 @@ async function handleStartGame() {
         startGame();
     };
 };
+
 /**
  * Sets up global iOS audio unlock listeners.
  * Ensures audio is unlocked on any user interaction.
@@ -328,6 +363,7 @@ function setupIOSAudioUnlock() {
     };
     attachAudioUnlockListeners(unlockAudio);
 };
+
 /**
  * Attaches audio unlock event listeners to various user interactions.
  * @param {Function} unlockAudio - The audio unlock function
@@ -339,7 +375,9 @@ function attachAudioUnlockListeners(unlockAudio) {
     document.addEventListener('click', unlockAudio, options);
     document.addEventListener('keyboard.m', unlockAudio, options);
 };
+
 document.addEventListener('DOMContentLoaded', setupIOSAudioUnlock);
+
 /**
  * Handles keyboard key press events for game controls.
  * Sets keyboard state flags for movement and action keys.
@@ -353,6 +391,7 @@ window.addEventListener('keydown', (e) => {
     if (e.keyCode == 84) keyboard.t = true;
     if (e.keyCode == 77) keyboard.m = true;
 });
+
 /**
  * Handles keyboard key release events for game controls.
  * Resets keyboard state flags when keys are released.
@@ -369,8 +408,9 @@ window.addEventListener('keyup', (e) => {
         allSounds();
     }
 });
+
 /**
  * Placeholder function for touch button controls.
  * Currently empty - intended for mobile device touch input handling.
  */
-function touchBtn() {};
+function touchBtn() { };

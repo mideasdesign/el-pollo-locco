@@ -7,8 +7,10 @@
 class Chicks extends MovableObject {
     /** @type {number} - Width of the chick sprite (smaller than regular chickens) */
     width = 40;
+
     /** @type {number} - Height of the chick sprite (smaller than regular chickens) */
     height = 50;
+
     /** 
      * @type {Object} - Collision box offset for precise collision detection
      * @property {number} top - Top offset

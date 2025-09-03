@@ -21,6 +21,7 @@ class CoinsBar extends StatusBar {
       'assets/images/7_statusbars/1_statusbar/1_statusbar_coin/orange/80.png',
       'assets/images/7_statusbars/1_statusbar/1_statusbar_coin/orange/100.png'
     ];
+    
     this.loadImages(this.images);
     this.img = this.imageCache[this.images[0]];
     this.x = 200;

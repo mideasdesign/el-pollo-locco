@@ -3,13 +3,16 @@
  * Handles canvas drawing, background layers, UI elements, and game objects.
  * Coordinates the visual presentation of the entire game.
  */
-class RenderingManager {del _collision
+class RenderingManager {
   /** @type {CanvasRenderingContext2D} - Canvas 2D rendering context */
   ctx;
+
   /** @type {HTMLCanvasElement} - The game canvas */
   canvas;
+
   /** @type {World} - Reference to the game world */
   world;
+
   /**
    * Creates a new RenderingManager instance.
    * @param {CanvasRenderingContext2D} ctx - Canvas rendering context
@@ -21,6 +24,7 @@ class RenderingManager {del _collision
     this.canvas = canvas;
     this.world = world;
   };
+
   /**
    * Main drawing method that renders the entire game world.
    * Clears canvas, applies camera translation, and draws all game objects.
@@ -33,6 +37,7 @@ class RenderingManager {del _collision
     this.drawGameObjects();
     this.scheduleNextFrame();
   };
+
   /**
    * Draws the background layers with parallax scrolling effect.
    * Applies camera translation for scrolling background elements.
@@ -43,6 +48,7 @@ class RenderingManager {del _collision
     this.addObjectsToMap(this.world.level.clouds);
     this.ctx.translate(-this.world.cameraX, 0);
   };
+
   /**
    * Draws the user interface elements (status bars).
    * Renders health, coins, bottles, and boss health bars.
@@ -54,6 +60,7 @@ class RenderingManager {del _collision
     this.addToMap(this.world.bottlesBar);
     this.addToMap(this.world.bossBar);
   };
+
   /**
    * Draws all interactive game objects with camera translation.
    * Renders character, enemies, collectibles, and throwable objects.
@@ -69,6 +76,7 @@ class RenderingManager {del _collision
     this.addObjectsToMap(this.world.level.enemies);
     this.ctx.translate(-this.world.cameraX, 0);
   };
+
   /**
    * Schedules the next animation frame for smooth rendering.
    * Uses requestAnimationFrame for optimal performance and smooth gameplay.
@@ -79,6 +87,7 @@ class RenderingManager {del _collision
       self.draw();
     });
   };
+
   /**
    * Adds an array of objects to the rendering map.
    * Iterates through object arrays and renders each individual object.
@@ -89,6 +98,7 @@ class RenderingManager {del _collision
       this.addToMap(o);
     });
   };
+
   /**
    * Adds a single movable object to the rendering context.
    * Handles direction changes, drawing, and debug frame rendering.

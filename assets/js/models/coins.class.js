@@ -7,8 +7,10 @@
 class Coins extends MovableObject {
   /** @type {number} - Width of the coin sprite */
   width = 70;
+
   /** @type {number} - Height of the coin sprite */
   height = 70;
+
   /** 
    * @type {Object} - Collision box offset for collection detection
    * @property {number} top - Top offset
@@ -22,6 +24,7 @@ class Coins extends MovableObject {
     bottom: 20,
     left: 20
   };
+
   /** @type {number} - Current coin level/state (unused) */
   coinsLevel = 0;
 

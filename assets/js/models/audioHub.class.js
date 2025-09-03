@@ -9,24 +9,34 @@ class AudioHub {
     static background = new Audio('./assets/sound/tex-mex-delight-mexican-mariachi.mp3');
     /** @type {Audio} - Coin collection sound effect */
     static coinSound = new Audio('./assets/sound/sound-effects-coin.mp3');
+
     /** @type {Audio} - Bottle collection/throwing sound effect */
     static bottleSound = new Audio('./assets/sound/bottles-clanging-82557.mp3');
+
     /** @type {Audio} - Chicken clucking sound effect */
     static chickenSound = new Audio('./assets/sound/668804__mbpl__chicken-clucking-2.wav');
+
     /** @type {Audio} - Small chick chirping sound effect */
     static chicksSound = new Audio('./assets/sound/chick-chirping2-332878.mp3');
+
     /** @type {Audio} - Player hurt sound effect */
     static pepeSound = new Audio('./assets/sound/804622__qubodup__young-man-hurt-voice.wav');
+
     /** @type {Audio} - Game over sound effect */
     static gameoverSound = new Audio('./assets/sound/439890__simonbay__lushlife_gameover.wav');
+
     /** @type {Audio} - Victory sound effect */
     static youwinSound = new Audio('./assets/sound/youwin.mp3');
+
     /** @type {Audio} - Defeat sound effect */
     static youlooseSound = new Audio('./assets/sound/youloose.mp3');
+
     /** @type {Audio} - Game completion fanfare */
     static gamewinSound = new Audio('./assets/sound/brass-fanfare-with-timpani-and-winchimes-reverberated-146260.mp3');
+
     /** @type {Audio} - Attack/action sound effect */
     static attackSound = new Audio('./assets/sound/chase-8-bit-73312.mp3');
+
     /** @type {Audio} - Boss hurt sound effect */
     static endbossHurtSound = new Audio('./assets/sound/endboss-hurt.mp3');
 
@@ -62,7 +72,7 @@ class AudioHub {
             const muteState = localStorage.getItem('mute');
             return muteState ? JSON.parse(muteState) === 'on' : false;
         } catch (error) {
-            return false; 
+            return false;
         }
     };
 
@@ -131,7 +141,6 @@ class AudioHub {
      */
     static async testAudioPlayback() {
         const testAudio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmMZBjWH1/LNeCwFJHPD8N2QQAoUXrXp66hVFApGnt/yv2UaB');
-
         try {
             await testAudio.play();
             testAudio.pause();
@@ -142,7 +151,9 @@ class AudioHub {
         } catch (error) {
             return false;
         }
-    }    /**
+    }
+
+    /**
      * Processes queued audio that was waiting for iOS unlock.
      */
     static processAudioQueue() {
@@ -161,12 +172,10 @@ class AudioHub {
      */
     static playOne(sound) {
         if (AudioHub.isMuted) return;
-
         if (!AudioHub.audioUnlocked) {
             AudioHub.queueAudioForLater(sound);
             return;
         }
-
         AudioHub.attemptAudioPlayback(sound);
     }
 
@@ -188,9 +197,7 @@ class AudioHub {
         try {
             AudioHub.configureAudioSettings(sound);
             AudioHub.executePlayback(sound);
-        } catch (error) {
-            // Silent error handling for audio playback issues
-        }
+        } catch (error) { }
     }
 
     /**
@@ -200,7 +207,6 @@ class AudioHub {
     static configureAudioSettings(sound) {
         sound.volume = 0.3;
         sound.currentTime = 0;
-
         if (sound === AudioHub.background) {
             sound.loop = true;
         }
@@ -214,7 +220,6 @@ class AudioHub {
         const playPromise = sound.play();
         if (playPromise !== undefined) {
             playPromise.then(() => {
-                // Playback succeeded
             }).catch(error => {
                 AudioHub.retryPlayback(sound);
             });
@@ -228,7 +233,6 @@ class AudioHub {
     static retryPlayback(sound) {
         setTimeout(() => {
             sound.play().catch(e => {
-                // Final retry failed, silent handling
             });
         }, 100);
     }
@@ -241,11 +245,9 @@ class AudioHub {
         AudioHub.isMuted = true;
         AudioHub.allSounds.forEach(sound => {
             if (!sound.paused) {
-
                 AudioHub.pausedSounds.set(sound, sound.currentTime);
                 sound.pause();
             } else if (sound === AudioHub.background && sound.currentTime > 0) {
-
                 AudioHub.pausedSounds.set(sound, sound.currentTime);
             }
         });
@@ -314,17 +316,12 @@ class AudioHub {
      */
     static stopAll(exceptions = []) {
         AudioHub.allSounds.forEach((sound) => {
-
             if (!exceptions.includes(sound)) {
                 sound.pause();
                 sound.currentTime = 0;
             }
         });
-
-
         AudioHub.pendingAudioQueue = [];
-
-
         AudioHub.pausedSounds.clear();
     }
 
