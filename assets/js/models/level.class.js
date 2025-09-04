@@ -1,6 +1,6 @@
 /**
  * Represents a game level containing all entities and objects.
- * Manages the complete structure of a level including enemies, 
+ * Manages the complete structure of a level including enemies,
  * background elements, collectibles, and level boundaries.
  */
 class Level {
@@ -28,7 +28,7 @@ class Level {
   /**
    * Creates a new Level instance with all game entities.
    * @param {Enemy[]} enemies - Array of main enemy objects
-   * @param {Chicks[]} chicks - Array of small enemy objects  
+   * @param {Chicks[]} chicks - Array of small enemy objects
    * @param {Cloud[]} clouds - Array of cloud objects
    * @param {BackgroundObject[]} backgroundObjects - Array of background elements
    * @param {Coin[]} coins - Array of collectible coins
@@ -41,5 +41,5 @@ class Level {
     this.backgroundObjects = backgroundObjects;
     this.coins = coins;
     this.bottles = bottles;
-  };
-};
+  }
+}

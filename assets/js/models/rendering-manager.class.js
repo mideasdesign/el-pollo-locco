@@ -23,7 +23,7 @@ class RenderingManager {
     this.ctx = ctx;
     this.canvas = canvas;
     this.world = world;
-  };
+  }
 
   /**
    * Main drawing method that renders the entire game world.
@@ -36,7 +36,7 @@ class RenderingManager {
     this.drawUI();
     this.drawGameObjects();
     this.scheduleNextFrame();
-  };
+  }
 
   /**
    * Draws the background layers with parallax scrolling effect.
@@ -47,7 +47,7 @@ class RenderingManager {
     this.addObjectsToMap(this.world.level.backgroundObjects);
     this.addObjectsToMap(this.world.level.clouds);
     this.ctx.translate(-this.world.cameraX, 0);
-  };
+  }
 
   /**
    * Draws the user interface elements (status bars).
@@ -59,7 +59,7 @@ class RenderingManager {
     this.addToMap(this.world.coinsBar);
     this.addToMap(this.world.bottlesBar);
     this.addToMap(this.world.bossBar);
-  };
+  }
 
   /**
    * Draws all interactive game objects with camera translation.
@@ -75,7 +75,7 @@ class RenderingManager {
     this.addObjectsToMap(this.world.level.chicks);
     this.addObjectsToMap(this.world.level.enemies);
     this.ctx.translate(-this.world.cameraX, 0);
-  };
+  }
 
   /**
    * Schedules the next animation frame for smooth rendering.
@@ -86,7 +86,7 @@ class RenderingManager {
     requestAnimationFrame(function () {
       self.draw();
     });
-  };
+  }
 
   /**
    * Adds an array of objects to the rendering map.
@@ -97,7 +97,7 @@ class RenderingManager {
     objects.forEach((o) => {
       this.addToMap(o);
     });
-  };
+  }
 
   /**
    * Adds a single movable object to the rendering context.
@@ -116,5 +116,5 @@ class RenderingManager {
       mo.x = mo.x * -1;
       this.ctx.restore();
     }
-  };
-};
+  }
+}

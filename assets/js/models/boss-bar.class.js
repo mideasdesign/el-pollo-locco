@@ -14,12 +14,12 @@ class BossBar extends StatusBar {
     super();
     /** @type {string[]} - Array of image paths for different health levels (0-100%) */
     this.images = [
-      'assets/images/7_statusbars/2_statusbar_endboss/orange/orange0.png',
-      'assets/images/7_statusbars/2_statusbar_endboss/orange/orange20.png',
-      'assets/images/7_statusbars/2_statusbar_endboss/orange/orange40.png',
-      'assets/images/7_statusbars/2_statusbar_endboss/orange/orange60.png',
-      'assets/images/7_statusbars/2_statusbar_endboss/orange/orange80.png',
-      'assets/images/7_statusbars/2_statusbar_endboss/orange/orange100.png'
+      "assets/images/7_statusbars/2_statusbar_endboss/orange/orange0.png",
+      "assets/images/7_statusbars/2_statusbar_endboss/orange/orange20.png",
+      "assets/images/7_statusbars/2_statusbar_endboss/orange/orange40.png",
+      "assets/images/7_statusbars/2_statusbar_endboss/orange/orange60.png",
+      "assets/images/7_statusbars/2_statusbar_endboss/orange/orange80.png",
+      "assets/images/7_statusbars/2_statusbar_endboss/orange/orange100.png",
     ];
 
     this.loadImages(this.images);
@@ -29,7 +29,7 @@ class BossBar extends StatusBar {
     this.width = 120;
     this.height = 40;
     this.setPercentage(100);
-  };
+  }
 
   /**
    * Updates the boss health bar to reflect current health percentage.
@@ -40,7 +40,7 @@ class BossBar extends StatusBar {
     this.percentage = percentage;
     let path = this.images[this.resolveImageIndex()];
     this.img = this.imageCache[path];
-  };
+  }
 
   /**
    * Resolves which image index to use based on current health percentage.
@@ -60,6 +60,6 @@ class BossBar extends StatusBar {
       return 1;
     } else {
       return 0;
-    };
-  };
-};
+    }
+  }
+}

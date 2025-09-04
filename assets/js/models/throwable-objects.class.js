@@ -11,10 +11,10 @@ class ThrowableObject extends MovableObject {
   /** @type {number} - Width of the throwable bottle sprite */
   width = 50;
 
-  /** 
+  /**
    * @type {Object} - Collision box offset for impact detection
    * @property {number} top - Top offset
-   * @property {number} right - Right offset  
+   * @property {number} right - Right offset
    * @property {number} bottom - Bottom offset
    * @property {number} left - Left offset
    */
@@ -27,20 +27,20 @@ class ThrowableObject extends MovableObject {
 
   /** @type {string[]} - Array of bottle rotation images for flight animation */
   images_rotating_bottle = [
-    'assets/images/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
-    'assets/images/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
-    'assets/images/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
-    'assets/images/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png'
+    "assets/images/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png",
+    "assets/images/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png",
+    "assets/images/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png",
+    "assets/images/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png",
   ];
 
   /** @type {string[]} - Array of splash images for impact animation */
   images_splash = [
-    'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png',
-    'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png',
-    'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png',
-    'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png',
-    'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
-    'assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png'
+    "assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/1_bottle_splash.png",
+    "assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/2_bottle_splash.png",
+    "assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/3_bottle_splash.png",
+    "assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/4_bottle_splash.png",
+    "assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png",
+    "assets/images/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png",
   ];
 
   /**
@@ -50,12 +50,14 @@ class ThrowableObject extends MovableObject {
    * @param {number} y - Starting Y position (usually character position)
    */
   constructor(x, y) {
-    super().loadImage('assets/images/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
+    super().loadImage(
+      "assets/images/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png"
+    );
     this.loadImages(this.images_rotating_bottle);
     this.loadImages(this.images_splash);
     this.throw(x, y);
     this.animate();
-  };
+  }
 
   /**
    * Animates the bottle rotation during flight.
@@ -66,7 +68,7 @@ class ThrowableObject extends MovableObject {
       this.x += 20;
       this.playAnimation(this.images_rotating_bottle);
     }, 80);
-  };
+  }
 
   /**
    * Initializes the throwing motion with physics properties.
@@ -83,7 +85,7 @@ class ThrowableObject extends MovableObject {
     this.getRealFrame();
     this.applyGravity();
     this.animate();
-  };
+  }
 
   /**
    * Handles bottle impact animation and cleanup.
@@ -95,7 +97,7 @@ class ThrowableObject extends MovableObject {
     this.hasHit = true;
     this.initializeSplash();
     this.startSplashAnimation();
-  };
+  }
 
   /**
    * Initializes the splash state by stopping bottle movement.
@@ -105,7 +107,7 @@ class ThrowableObject extends MovableObject {
     this.isSplashing = true;
     this.speedY = 0;
     this.speed = 0;
-  };
+  }
 
   /**
    * Starts the splash animation sequence and schedules cleanup.
@@ -116,7 +118,7 @@ class ThrowableObject extends MovableObject {
       this.playAnimation(this.images_splash);
     }, 80);
     this.scheduleSplashCleanup(splashAnimation);
-  };
+  }
 
   /**
    * Schedules the cleanup of splash animation and bottle removal.
@@ -131,5 +133,5 @@ class ThrowableObject extends MovableObject {
         world.throwableObject.splice(index, 1);
       }
     }, this.images_splash.length * 30);
-  };
-};
+  }
+}

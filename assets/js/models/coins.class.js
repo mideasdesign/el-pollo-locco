@@ -11,10 +11,10 @@ class Coins extends MovableObject {
   /** @type {number} - Height of the coin sprite */
   height = 70;
 
-  /** 
+  /**
    * @type {Object} - Collision box offset for collection detection
    * @property {number} top - Top offset
-   * @property {number} right - Right offset  
+   * @property {number} right - Right offset
    * @property {number} bottom - Bottom offset
    * @property {number} left - Left offset
    */
@@ -22,7 +22,7 @@ class Coins extends MovableObject {
     top: 20,
     right: 60,
     bottom: 20,
-    left: 20
+    left: 20,
   };
 
   /** @type {number} - Current coin level/state (unused) */
@@ -30,8 +30,8 @@ class Coins extends MovableObject {
 
   /** @type {string[]} - Array of coin image frames for spinning animation */
   images_coins = [
-    'assets/images/8_coin/coin_1.png',
-    'assets/images/8_coin/coin_2.png'
+    "assets/images/8_coin/coin_1.png",
+    "assets/images/8_coin/coin_2.png",
   ];
 
   /**
@@ -41,7 +41,7 @@ class Coins extends MovableObject {
    * @param {number} y - Y position of the coin
    */
   constructor(x, y) {
-    super().loadImage('assets/images/8_coin/coin_1.png');
+    super().loadImage("assets/images/8_coin/coin_1.png");
     this.x = x;
     this.y = y;
     this.width = 70;

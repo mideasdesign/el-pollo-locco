@@ -22,10 +22,10 @@ class Character extends MovableObject {
   /** @type {number} - Vertical movement speed (for jumping/falling) */
   speedY = 0;
 
-  /** 
+  /**
    * @type {Object} - Collision box offset for more precise collision detection
    * @property {number} top - Top offset
-   * @property {number} right - Right offset  
+   * @property {number} right - Right offset
    * @property {number} bottom - Bottom offset
    * @property {number} left - Left offset
    */
@@ -101,7 +101,11 @@ class Character extends MovableObject {
   ];
 
   /** @type {string[]} - Array of image paths for hurt animation */
-  images_hurt = ["assets/images/2_character_pepe/4_hurt/H-41.png", "assets/images/2_character_pepe/4_hurt/H-42.png", "assets/images/2_character_pepe/4_hurt/H-43.png"];
+  images_hurt = [
+    "assets/images/2_character_pepe/4_hurt/H-41.png",
+    "assets/images/2_character_pepe/4_hurt/H-42.png",
+    "assets/images/2_character_pepe/4_hurt/H-43.png",
+  ];
   /** @type {string[]} - Array of image paths for death animation */
   images_dead = [
     "assets/images/2_character_pepe/5_dead/D-51.png",
@@ -132,7 +136,7 @@ class Character extends MovableObject {
     this.getRealFrame();
     this.applyGravity();
     this.animate();
-  };
+  }
 
   /**
    * Calculates how long the character has been inactive.
@@ -144,7 +148,7 @@ class Character extends MovableObject {
     const timeSinceThrow = new Date().getTime() - this.lastThrow;
     const lastActivity = Math.max(this.lastMove, this.lastThrow);
     return (new Date().getTime() - lastActivity) / 1000;
-  };
+  }
 
   /**
    * Registers a throw action to prevent idle animation during throwing.
@@ -152,7 +156,7 @@ class Character extends MovableObject {
    */
   registerThrowAction() {
     this.lastThrow = new Date().getTime();
-  };
+  }
 
   /**
    * Calculates the real collision frame based on character position and direction.
@@ -169,8 +173,9 @@ class Character extends MovableObject {
       this.rY = this.y + this.offset.top;
       this.rW = this.width - this.offset.left - this.offset.right;
       this.rH = this.height - this.offset.top - this.offset.bottom;
-    };
-  };
+    }
+  }
+
   /**
    * Main animation controller that starts all animation loops.
    * Coordinates visual animations, movement, and state changes.
@@ -179,7 +184,8 @@ class Character extends MovableObject {
     this.animateVisuals();
     this.animateMovement();
     this.animateStates();
-  };
+  }
+
   /**
    * Handles visual sprite animations based on character state.
    * Manages idle, walking, and state-specific animations.
@@ -190,7 +196,7 @@ class Character extends MovableObject {
       if (this.isDead() || this.ishurt() || this.isJumping) return;
       this.handleCharacterAnimations();
     }, 120);
-  };
+  }
 
   /**
    * Determines and plays appropriate character animations
@@ -206,8 +212,8 @@ class Character extends MovableObject {
       this.playThrowingAnimation();
     } else {
       this.playIdleAnimation(inactive);
-    };
-  };
+    }
+  }
 
   /**
    * Plays walking animation and updates last move time
@@ -215,7 +221,7 @@ class Character extends MovableObject {
   playMovementAnimation() {
     this.lastMove = new Date().getTime();
     this.playAnimation(this.images_walking);
-  };
+  }
 
   /**
    * Plays throwing animation and updates last move time
@@ -223,7 +229,7 @@ class Character extends MovableObject {
   playThrowingAnimation() {
     this.lastMove = new Date().getTime();
     this.playAnimation(this.images_idle, 160);
-  };
+  }
 
   /**
    * Plays appropriate idle animation based on inactivity time
@@ -235,7 +241,8 @@ class Character extends MovableObject {
     } else {
       this.playAnimation(this.images_long_idle, 160);
     }
-  };
+  }
+
   /**
    * Handles character movement and camera positioning.
    * Processes keyboard input for left/right movement and jumping.
@@ -256,7 +263,7 @@ class Character extends MovableObject {
       }
       this.world.cameraX = -this.x + 60;
     }, 1000 / 20);
-  };
+  }
 
   /**
    * Manages character state animations (dead, hurt, jumping).
@@ -273,7 +280,7 @@ class Character extends MovableObject {
         this.handleJumpAnimation();
       }
     }, 200);
-  };
+  }
 
   /**
    * Handles the character's death animation sequence.
@@ -285,7 +292,7 @@ class Character extends MovableObject {
     AudioHub.stopOne(AudioHub.pepeSound);
     AudioHub.playOne(AudioHub.youlooseSound);
     gameLoose();
-  };
+  }
 
   /**
    * Manages the jumping animation sequence.
@@ -303,7 +310,7 @@ class Character extends MovableObject {
       this.isJumping = false;
       this.isAnimating = false;
     }
-  };
+  }
 
   /**
    * Initiates a jump if the character is not already jumping.
@@ -316,8 +323,8 @@ class Character extends MovableObject {
       this.isJumping = true;
       this.playAnimationOnce(this.images_jumping, 80);
     }
-  };
-  
+  }
+
   /**
    * Starts the character's animation loops.
    * Used to initialize or restart character animations.
@@ -326,4 +333,4 @@ class Character extends MovableObject {
   startAnimation() {
     this.animate();
   }
-};
+}

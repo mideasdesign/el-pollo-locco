@@ -64,7 +64,7 @@ class MovableObject extends DrawableObject {
       return true;
     } else {
       return this.y < 180;
-    };
+    }
   }
 
   /**
@@ -78,7 +78,7 @@ class MovableObject extends DrawableObject {
     let path = images[i];
     this.img = this.imageCache[path];
     this.currentImage++;
-  };
+  }
 
   /**
    * Flips the object horizontally for rendering in opposite direction.
@@ -90,7 +90,7 @@ class MovableObject extends DrawableObject {
     ctx.translate(this.width, 0);
     ctx.scale(-1, 1);
     this.x = this.x * -1;
-  };
+  }
 
   /**
    * Moves the object to the right.
@@ -99,7 +99,7 @@ class MovableObject extends DrawableObject {
   moveRight() {
     this.x += this.speed;
     this.otherDirection = false;
-  };
+  }
 
   /**
    * Moves the object to the left.
@@ -107,7 +107,7 @@ class MovableObject extends DrawableObject {
    */
   moveLeft() {
     this.x -= this.speed;
-  };
+  }
 
   /**
    * Makes the object jump by setting upward velocity.
@@ -115,7 +115,7 @@ class MovableObject extends DrawableObject {
    */
   jump() {
     this.speedY = 24;
-  };
+  }
 
   /**
    * Checks collision between this object and another movable object.
@@ -124,11 +124,13 @@ class MovableObject extends DrawableObject {
    * @returns {boolean} True if objects are colliding
    */
   isColliding(mo) {
-    return this.rX + this.rW > mo.rX &&
+    return (
+      this.rX + this.rW > mo.rX &&
       this.rY + this.rH > mo.rY &&
       this.rX < mo.rX + mo.rW &&
-      this.rY < mo.rY + mo.rH;
-  };
+      this.rY < mo.rY + mo.rH
+    );
+  }
 
   /**
    * Reduces Pepe's health when hit by an enemy.
@@ -142,7 +144,7 @@ class MovableObject extends DrawableObject {
     } else {
       this.lastHit = new Date().getTime();
     }
-  };
+  }
 
   /**
    * Reduces boss health when hit by a throwable object.
@@ -156,7 +158,7 @@ class MovableObject extends DrawableObject {
     } else {
       this.lastHit = new Date().getTime();
     }
-  };
+  }
 
   /**
    * Checks if the object is currently in hurt state.
@@ -167,7 +169,7 @@ class MovableObject extends DrawableObject {
     let timespassed = new Date().getTime() - this.lastHit;
     timespassed = timespassed / 1000;
     return timespassed < 0.8;
-  };
+  }
 
   /**
    * Checks if the object is dead (health reached 0).
@@ -175,6 +177,11 @@ class MovableObject extends DrawableObject {
    * @returns {boolean} True if any health value equals 0
    */
   isDead() {
-    return this.healthPepe == 0 || this.healthBoss == 0 || this.enemy == 0 || this.chick == 0;
-  };
+    return (
+      this.healthPepe == 0 ||
+      this.healthBoss == 0 ||
+      this.enemy == 0 ||
+      this.chick == 0
+    );
+  }
 }

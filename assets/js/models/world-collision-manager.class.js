@@ -13,7 +13,7 @@ class CollisionManager {
    */
   constructor(world) {
     this.world = world;
-  };
+  }
 
   /**
    * Starts all collision detection intervals.
@@ -26,7 +26,7 @@ class CollisionManager {
     this.checkCollisionsBoss();
     this.checkThrowableObject();
     this.checkBossAttack();
-  };
+  }
 
   /**
    * Main collision loop that handles ongoing collision detection.
@@ -41,7 +41,7 @@ class CollisionManager {
       this.checkCollisionsChicksPepe();
       this.checkBossAttack();
     }, 100);
-  };
+  }
 
   /**
    * Checks for character jumping on enemies from above.
@@ -53,7 +53,7 @@ class CollisionManager {
         this.processTopCollision(enemy);
       });
     }, 30);
-  };
+  }
   /**
    * Processes collision between character and enemy from above
    * @param {MovableObject} enemy - The enemy to check collision with
@@ -64,7 +64,7 @@ class CollisionManager {
     if (this.isValidTopCollision(enemy)) {
       this.handleEnemyDefeat(enemy);
     }
-  };
+  }
 
   /**
    * Checks if collision from top is valid for defeating enemy
@@ -72,11 +72,13 @@ class CollisionManager {
    * @returns {boolean} True if valid top collision
    */
   isValidTopCollision(enemy) {
-    return this.world.character.isAboveGround() &&
+    return (
+      this.world.character.isAboveGround() &&
       this.world.character.speedY < 0 &&
       this.world.character.isColliding(enemy) &&
-      !enemy.dead;
-  };
+      !enemy.dead
+    );
+  }
 
   /**
    * Handles enemy defeat with sound and removal
@@ -91,7 +93,7 @@ class CollisionManager {
         this.world.level.enemies.splice(currentIndex, 1);
       }
     }, 1000);
-  };
+  }
 
   /**
    * Checks for collisions with small chickens from the top direction.
@@ -104,7 +106,7 @@ class CollisionManager {
         this.processChickTopCollision(chick, index);
       });
     }, 30);
-  };
+  }
 
   /**
    * Processes collision between character and chick from above.
@@ -114,10 +116,14 @@ class CollisionManager {
   processChickTopCollision(chick, index) {
     this.world.character.getRealFrame();
     chick.getRealFrame();
-    if (this.world.character.isAboveGround() && this.world.character.speedY < 0 && this.world.character.isColliding(chick)) {
+    if (
+      this.world.character.isAboveGround() &&
+      this.world.character.speedY < 0 &&
+      this.world.character.isColliding(chick)
+    ) {
       this.handleChickDefeat(chick, index);
     }
-  };
+  }
 
   /**
    * Handles chick defeat with sound and removal.
@@ -128,7 +134,7 @@ class CollisionManager {
     chick.speed = 0;
     AudioHub.playOne(AudioHub.chicksSound);
     this.world.level.chicks.splice(index, 1);
-  };
+  }
 
   /**
    * Checks for standard collisions between Pepe and enemies.
@@ -139,7 +145,7 @@ class CollisionManager {
     this.world.level.enemies.forEach((enemy) => {
       this.processPepeEnemyCollision(enemy);
     });
-  };
+  }
 
   /**
    * Processes collision between Pepe and an enemy.
@@ -151,7 +157,7 @@ class CollisionManager {
     if (this.world.character.isColliding(enemy) && !enemy.dead) {
       this.handlePepeDamage();
     }
-  };
+  }
 
   /**
    * Handles damage to Pepe with sound and health bar update.
@@ -164,7 +170,7 @@ class CollisionManager {
       this.world.character.lastHurtSound = currentTime;
     }
     this.world.statusBar.setPercentage(this.world.character.healthPepe);
-  };
+  }
 
   /**
    * Checks for collisions between Pepe and small chickens.
@@ -174,7 +180,7 @@ class CollisionManager {
     this.world.level.chicks.forEach((chick) => {
       this.processPepeChickCollision(chick);
     });
-  };
+  }
 
   /**
    * Processes collision between Pepe and a chick.
@@ -186,7 +192,7 @@ class CollisionManager {
     if (this.world.character.isColliding(chick) && !chick.isDead()) {
       this.handlePepeChickDamage();
     }
-  };
+  }
 
   /**
    * Handles damage to Pepe from chick collision.
@@ -199,7 +205,7 @@ class CollisionManager {
       this.world.character.lastHurtSound = currentTime;
     }
     this.world.statusBar.setPercentage(this.world.character.healthPepe);
-  };
+  }
 
   /**
    * Checks for collisions between Pepe and the boss enemy.
@@ -218,7 +224,7 @@ class CollisionManager {
       }
       this.world.statusBar.setPercentage(this.world.character.healthPepe);
     }
-  };
+  }
 
   /**
    * Checks if boss attack should be triggered based on character position.
@@ -233,7 +239,7 @@ class CollisionManager {
       AudioHub.playOne(AudioHub.attackSound);
       this.world.endboss.startAttack();
     }
-  };
+  }
 
   /**
    * Handles throwing bottles with cooldown system.
@@ -246,7 +252,7 @@ class CollisionManager {
     if (this.canThrowBottle(timeSinceLastThrow)) {
       this.executeBottleThrow(currentTime);
     }
-  };
+  }
 
   /**
    * Checks if a bottle can be thrown based on conditions.
@@ -254,10 +260,12 @@ class CollisionManager {
    * @returns {boolean} True if bottle can be thrown
    */
   canThrowBottle(timeSinceLastThrow) {
-    return this.world.keyboard.t &&
+    return (
+      this.world.keyboard.t &&
       this.world.bottlesBar.percentage > 0 &&
-      timeSinceLastThrow >= this.world.throwCooldown;
-  };
+      timeSinceLastThrow >= this.world.throwCooldown
+    );
+  }
 
   /**
    * Executes the bottle throwing action.
@@ -271,7 +279,7 @@ class CollisionManager {
     this.world.bottlesBar.setPercentage(this.world.bottlesBar.percentage - 10);
     this.world.lastThrowTime = currentTime;
     this.world.character.registerThrowAction();
-  };
+  }
 
   /**
    * Checks for collisions between bottles and boss enemies.
@@ -288,7 +296,7 @@ class CollisionManager {
         bottle.splash();
       }
     });
-  };
+  }
 
   /**
    * Checks for collectible item interactions (coins and bottles).
@@ -298,7 +306,8 @@ class CollisionManager {
   checkCollectibles() {
     this.checkCoinCollection();
     this.checkBottleCollection();
-  };
+  }
+
   /**
    * Checks for coin collection and handles pickup effects.
    */
@@ -310,7 +319,7 @@ class CollisionManager {
         this.collectCoin(index);
       }
     });
-  };
+  }
 
   /**
    * Handles coin collection with status update and sound.
@@ -320,7 +329,7 @@ class CollisionManager {
     this.world.coinsBar.setPercentage(this.world.coinsBar.percentage + 10);
     AudioHub.playOne(AudioHub.coinSound);
     this.world.level.coins.splice(index, 1);
-  };
+  }
 
   /**
    * Checks for bottle collection and handles pickup effects.
@@ -333,7 +342,7 @@ class CollisionManager {
         this.collectBottle(index);
       }
     });
-  };
+  }
 
   /**
    * Handles bottle collection with status update and sound.
@@ -344,4 +353,4 @@ class CollisionManager {
     AudioHub.playOne(AudioHub.bottleSound);
     this.world.level.bottles.splice(index, 1);
   }
-};
+}

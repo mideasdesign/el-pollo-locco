@@ -63,7 +63,7 @@ class World {
     this.initializeCanvas(canvas, keyboard);
     this.initializeManagers();
     this.initializeGame();
-  };
+  }
 
   /**
    * Initializes canvas context and keyboard controls.
@@ -75,7 +75,7 @@ class World {
     this.ctx = canvas.getContext("2d");
     this.canvas = canvas;
     this.keyboard = keyboard;
-  };
+  }
 
   /**
    * Initializes the manager classes for rendering and collision detection.
@@ -83,7 +83,7 @@ class World {
   initializeManagers() {
     this.renderingManager = new RenderingManager(this.ctx, this.canvas, this);
     this.collisionManager = new CollisionManager(this);
-  };
+  }
 
   /**
    * Initializes the game world and starts main game loops.
@@ -94,7 +94,7 @@ class World {
     this.setWorld();
     this.collisionManager.startCollisionChecks();
     this.run();
-  };
+  }
 
   /**
    * Establishes bidirectional reference between world and character.
@@ -103,14 +103,14 @@ class World {
   setWorld() {
     this.character.world = this;
     this.character.startAnimation();
-  };
+  }
 
   /**
    * Main game loop that handles ongoing collision detection.
    */
   run() {
     this.collisionManager.runCollisionChecks();
-  };
+  }
 
   /**
    * Main drawing method - delegates to rendering manager.
@@ -118,4 +118,4 @@ class World {
   draw() {
     this.renderingManager.draw();
   }
-};
+}

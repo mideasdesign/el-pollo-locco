@@ -14,14 +14,14 @@ class BottlesBar extends StatusBar {
     super();
     /** @type {string[]} - Array of image paths for different bottle count levels */
     this.images = [
-      'assets/images/7_statusbars/1_statusbar/3_statusbar_bottle/orange/0.png',
-      'assets/images/7_statusbars/1_statusbar/3_statusbar_bottle/orange/20.png',
-      'assets/images/7_statusbars/1_statusbar/3_statusbar_bottle/orange/40.png',
-      'assets/images/7_statusbars/1_statusbar/3_statusbar_bottle/orange/60.png',
-      'assets/images/7_statusbars/1_statusbar/3_statusbar_bottle/orange/80.png',
-      'assets/images/7_statusbars/1_statusbar/3_statusbar_bottle/orange/100.png'
+      "assets/images/7_statusbars/1_statusbar/3_statusbar_bottle/orange/0.png",
+      "assets/images/7_statusbars/1_statusbar/3_statusbar_bottle/orange/20.png",
+      "assets/images/7_statusbars/1_statusbar/3_statusbar_bottle/orange/40.png",
+      "assets/images/7_statusbars/1_statusbar/3_statusbar_bottle/orange/60.png",
+      "assets/images/7_statusbars/1_statusbar/3_statusbar_bottle/orange/80.png",
+      "assets/images/7_statusbars/1_statusbar/3_statusbar_bottle/orange/100.png",
     ];
-    
+
     this.loadImages(this.images);
     this.img = this.imageCache[this.images[0]];
     this.x = 360;
@@ -29,5 +29,5 @@ class BottlesBar extends StatusBar {
     this.width = 120;
     this.height = 40;
     this.setPercentage(0);
-  };
-};
+  }
+}

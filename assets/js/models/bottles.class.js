@@ -11,10 +11,10 @@ class Bottles extends MovableObject {
   /** @type {number} - Height of the bottle sprite */
   height = 90;
 
-  /** 
+  /**
    * @type {Object} - Collision box offset for precise collection detection
    * @property {number} top - Top offset
-   * @property {number} right - Right offset  
+   * @property {number} right - Right offset
    * @property {number} bottom - Bottom offset
    * @property {number} left - Left offset
    */
@@ -22,15 +22,15 @@ class Bottles extends MovableObject {
     top: 17,
     right: 57,
     bottom: 10,
-    left: 28
+    left: 28,
   };
-  
+
   /** @type {number} - Current bottle level/state (unused) */
   bottlesLevel = 0;
   /** @type {string[]} - Array of bottle image variations for visual diversity */
   images_bottles = [
-    'assets/images/6_salsa_bottle/1_salsa_bottle_on_ground.png',
-    'assets/images/6_salsa_bottle/2_salsa_bottle_on_ground.png'
+    "assets/images/6_salsa_bottle/1_salsa_bottle_on_ground.png",
+    "assets/images/6_salsa_bottle/2_salsa_bottle_on_ground.png",
   ];
 
   /**
@@ -40,14 +40,16 @@ class Bottles extends MovableObject {
    * @param {number} y - Y position of the bottle
    */
   constructor(x, y) {
-    super().loadImage('assets/images/6_salsa_bottle/1_salsa_bottle_on_ground.png');
+    super().loadImage(
+      "assets/images/6_salsa_bottle/1_salsa_bottle_on_ground.png"
+    );
     this.x = x;
     this.y = y;
     this.width = 70;
     this.height = 90;
     this.getRealFrame();
     this.loadImages(this.images_bottles);
-  };
+  }
 
   /**
    * Calculates collision frame for bottles using original formula.
@@ -58,5 +60,5 @@ class Bottles extends MovableObject {
     this.rY = this.y + this.offset.top;
     this.rW = this.width + this.offset.left - this.offset.right;
     this.rH = this.height - this.offset.top - this.offset.bottom;
-  };
-};
+  }
+}
